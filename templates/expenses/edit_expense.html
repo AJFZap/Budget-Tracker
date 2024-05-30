@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Breadcrum -->
+
+<div class="container mt-4">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Expenses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Expense</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container mt-5">
+    <h2 class="mb-3">Expense Form</h2>
+    <form action="{% url 'edit-expenses' expenses.id %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="expenseName" class="form-label">Expense Name</label>
+            <input name="expenseName" type="text" class="form-control" id="expenseName" value="{{ expenses.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="expenseDate" class="form-label">Date</label>
+            <input name="datePicked" type="date" class="form-control" id="expenseDate" placeholder="dd-mm-yyyy" value="{{ expenses.date|date:'Y-m-d' }}">
+        </div>
+        <div class="mb-3">
+            <label for="expenseAmount" class="form-label"></label>
+            <input name="amount" type="number" class="form-control" id="expenseAmount" placeholder="Enter amount" value="{{ expenses.amount }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="expenseCategory" class="form-label">Category</label>
+            <select name="category" class="form-select" id="expenseCategory" required>
+                <option value="{{ expenses.category }}" selected>{{ expenses.category }}</option>
+                {% for category in categories %}
+                    <option name="category" value="{{category}}">{{category}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="expenseDescription" class="form-label">Description (Optional)</label>
+            {% if expenses.description != "No description provided." %}
+            <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder="Enter description">{{ expenses.description }}</textarea>
+            {% else %}
+            <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder="Enter description"></textarea>
+            {% endif %}
+        </div>
+        <input type="submit" class="btn btn-primary" value="Save Changes">
+    </form>
+</div>
+
+{% endblock %}

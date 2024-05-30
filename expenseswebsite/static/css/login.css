@@ -1,0 +1,7 @@
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label,
+.form-floating>.form-select~label {
+  opacity: 1;
+  transform: scale(.85) translateY(-2rem) translateX(.15rem);
+}
+

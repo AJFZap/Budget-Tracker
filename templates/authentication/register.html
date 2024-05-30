@@ -1,0 +1,67 @@
+{% extends 'base_auth.html' %}
+{% load bootstrap5 %}
+{% load static %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 mt-5">
+        <div class="card mt-5">
+            <div class="card-body py-3">
+                <div class="card-title py-3">
+                    <h4 class="text-center">Register Down Below, it's Free!</h4>
+                </div>
+
+                <form action="{% url 'register' %}" method="post" id= "registerForm" class="d-grid gap-1">
+
+                    {% csrf_token %}
+
+                    {% include 'partials/_messages.html' %}
+                    
+                    <!-- Email input -->
+                    <div data-mdb-input-init class="form-floating mb-4">
+                        <input type="email" id="emailField" name="email" class="form-control bg-dark text-success" value="{{fieldValues.email}}" placeholder="Email"/>
+                        <label class="form-label text-success bg-text-primary" for="usernameField">Email</label>
+                    </div>
+
+                    <div class="email-invalid invalid-feedback" style="display: none">
+                        
+                    </div>
+                    <!-- Username input -->
+                    <div data-mdb-input-init class="form-floating mb-4">
+                        <input type="text" id="usernameField" name="username" class="form-control bg-dark text-success" value="{{fieldValues.username}}" placeholder="username"/>
+                        <label class="form-label text-success bg-text-primary" for="usernameField">Username</label>
+                    </div>
+                    <div class="user-invalid invalid-feedback" style="display: none">
+                        
+                    </div>
+                    <!-- Password input -->
+                    <div data-mdb-input-init class="form-floating mb-4">
+                        <input type="password" id="passwordField" name="password" class="form-control bg-dark text-success" placeholder="password"/>
+                        <label class="form-label text-success" for="passwordField">Password</label>
+                    </div>
+
+                    <div data-mdb-input-init class="form-floating mb-4">
+                        <input type="password" id="confirmField" name="confirmPassword" class="form-control bg-dark text-success" placeholder="Confirm Password"/>
+                        <label class="form-label text-success" for="passwordField">Repeat Password</label>
+                    </div>
+                   
+                    <div class="d-grid gap-2">
+                        <small class="showPassToggle text-center">Show Password</small>
+                        <input type="submit" value="Register" class="btn btn-block btn-primary submit-btn">
+                    </div>
+                    <div class="text-center">
+                        <p>Already have an account?<a href="login">Login!</a></p>
+                      </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<script src="{% static 'js/register.js' %}"></script>
+
+{% endblock %}

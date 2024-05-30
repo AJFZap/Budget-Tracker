@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<style>
+.text-muted {
+    color: #aeb0b4 !important;
+    font-weight: 300;
+}
+</style>
+
+<div class="container">
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+        <br>
+        {% include 'partials/_messages.html' %}
+        
+        <h2 class="h3 mb-4 page-title">Preferences</h2>
+        {% if user.username %}
+            <p>Select your desired preferences, {{user.username}}!</p>
+        {% else %}
+            <p>Select your desired preferences!</p>
+        {% endif %}
+<div class="list-group mb-5 shadow">
+    <form action="{% url 'preferences' %}" method="post">
+        {% csrf_token %}
+        <div class="list-group-item">
+            <div class="row align-items-center">
+                <div class="col">
+                    <strong class="mb-2">Select your prefered currency!</strong>
+                    <p class="text-muted mb-2">Every value will be converted to the OFFICIAL currency change.</p>
+                    <select name="currency" class="form-select" aria-label="Default select example">
+                        {% if saved %}
+                        <option selected>{{saved.0}}</option>
+                        {% else %}
+                        <option selected>Select a currency</option> <!-- Default to the one the user has saved. If none then it should be USD or 'Select a currency' -->
+                        {% endif %}
+                        {% for currency in currencies %}
+                        <option name="currency" value="{{currency.name}} - {{currency.value}}">{{currency.name}} - {{currency.value}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    
+        <div class="list-group-item">
+            <div class="row align-items-center">
+                <div class="col">
+                    <strong class="mb-2">Language</strong>
+                    {% if saved %}
+                    <span class="badge badge-pill badge-success">Current: {{saved.1}}</span>  <!-- Change this to the user prefered one -->
+                    {% else %}
+                    <span class="badge badge-pill badge-success">Current: English</span>
+                    {% endif %}
+                    <p class="text-muted mb-2">Select your prefered language.</p>
+                    <select name="language" class="form-select" aria-label="Default select example">
+                        {% if saved %}
+                        <option selected>{{saved.1}}</option>
+                        {% else %}
+                        <option selected>Select a language</option>
+                        {% endif %}
+                        <option name="language" value="English">English</option>
+                        <option name="language" value="Español">Spanish</option>
+                        <option name="language" value="日本語">Japanese</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="list-group-item">
+            <div class="row align-items-center mb-3">
+                <div class="col">
+                    <strong class="mb-2">Save Changes</strong>
+                    <p class="text-muted mb-1">Remember to save so the changes can take place!</p>
+                    <div class="d-grid col-3">
+                        <input class="btn btn-success" type="submit" value="Save Changes">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% if user.username %}
+    <br>
+    <h2 class="h3 mb-4 page-title">Settings</h2>
+    <p>Account Settings</p>
+    <div class="list-group-item">
+        <div class="row align-items-center mb-3">
+            <div class="col">
+                <strong class="mb-2">Change password?</strong>
+                <p class="text-muted mb-1">We will send you an email with a link to change your password</p>
+                <div class="d-grid col-3">
+                    <button class="btn btn-info">Change password</button>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center mb-3">
+            <div class="col">
+                <strong class="mb-2">Delete account?</strong>
+                <p class="text-muted mb-1">This change is not reversible and you won't be able to get your data back.</p>
+                <div class="d-grid col-3">
+                    <button class="btn btn-danger" data-bs-target="#delete-modal" data-bs-toggle="modal" value="{{ user.pk }}">Delete account</button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="delete-modal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    Account Deletion
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <div class="modal-body text-muted">
+                                    Deleting your account removes your profile and all associated data. This change is irreversible.
+                                    Are you sure you want to proceed? (Check the box below to enable the Deletion button.)
+                                </div>
+                                <div class="form-check d-inline-block">
+                                    <input class="form-check-input" type="checkbox" id="confirmCheckbox">
+                                    <label class="form-check-label" for="confirmCheckbox">
+                                        I understand the consequences.
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger"  id="deleteAccountButton" disabled>Delete Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+    </div>
+</div>
+</div>
+
+<script>
+document.getElementById('confirmCheckbox').addEventListener('change', function() {
+    document.getElementById('deleteAccountButton').disabled = !this.checked;
+});
+</script>
+{% endblock %}

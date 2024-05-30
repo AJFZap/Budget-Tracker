@@ -1,0 +1,27 @@
+
+:root {
+    --primary-color: #0d6efd;
+    --primary-hover-color: #0a58ca;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #375a7f;
+        --primary-hover-color: #2c3e50;
+    }
+}
+
+.pagination .page-item .page-link {
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+}
+.pagination .page-item .page-link:hover {
+    color: #fff;
+    background-color: var(--primary-hover-color);
+    border-color: var(--primary-hover-color);
+}

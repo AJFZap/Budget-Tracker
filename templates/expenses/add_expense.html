@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<div class="container mt-4">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Expenses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Expense</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- Expenses form -->
+
+<div class="container mt-5">
+    <h2 class="mb-3">Expense Form</h2>
+    <form action="{% url 'add-expenses' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="expenseName" class="form-label">Expense Name</label>
+            <input name="expenseName" type="text" class="form-control" id="expenseName" placeholder="Enter expense name" required>
+        </div>
+        <div class="mb-3">
+            <label for="expenseDate" class="form-label">Date</label>
+            <input name="datePicked" type="date" class="form-control" id="expenseDate" placeholder="dd-mm-yyyy" value="">
+        </div>
+        <div class="mb-3">
+            <label for="expenseAmount" class="form-label">Amount</label>
+            <input name="amount" type="number" class="form-control" id="expenseAmount" placeholder="Enter amount" required>
+        </div>
+        <div class="mb-3">
+            <label for="expenseCategory" class="form-label">Category</label>
+            <select name="category" class="form-select" id="expenseCategory" required>
+                <option value="" selected>Select category</option>
+                {% for category in categories %}
+                    <option name="category" value="{{category}}">{{category}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="expenseDescription" class="form-label">Description (Optional)</label>
+            <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder="Enter description" value="No description provided"></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add Expense">
+    </form>
+</div>
+
+<script>document.getElementById('expenseDate').valueAsDate = new Date();</script>
+{% endblock %}
