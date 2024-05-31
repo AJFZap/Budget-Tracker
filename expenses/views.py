@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib import messages, auth
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from django.conf import settings
-from decouple import config
 from .models import Category, Expense
+import json
 import os
 
 # Create your views here.
@@ -119,3 +117,21 @@ def edit_expense(request, pk):
     else:
         messages.error(request, "Naugthy Naugthy. You don't have permissions to see that.")
         return redirect('expenses')
+    
+def search_expense(request, userInput):
+
+    if request.method == 'POST':
+        search_str = json.load(request.body).get('searchText')
+
+        expenses = Expense.objects.filter(
+            amount__starts_with=search_str, user=request.user) | Expense.objects.filter(
+                date__starts_with=search_str, user=request.user) | Expense.objects.filter(
+                    description__icontains=search_str, user=request.user) | Expense.objects.filter(
+                        name__icontains=search_str, user=request.user) | Expense.objects.filter(
+                            category__starts_with=search_str, user=request.user)
+        
+        data = expenses.values()
+        
+        return JsonResponse(list(data), safe=False)
+
+    return

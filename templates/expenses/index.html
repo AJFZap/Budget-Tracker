@@ -32,7 +32,14 @@
  
 <div class="container mt-4">
     {% if page_obj %}
-        <h1>Expenses List</h1>
+        <div class="row">
+            <div class="col-md-8 d-flex align-items-center">
+                <h1>Expenses List</h1>
+            </div>
+            <div class="col-md-4 d-flex align-items-center">
+                <input type="text" class="form-control" placeholder="Search for expenses">
+            </div>
+        </div>
         <br>
         <div class="container">
             <div class="row">
