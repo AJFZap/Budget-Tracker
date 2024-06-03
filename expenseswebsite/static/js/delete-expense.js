@@ -1,8 +1,7 @@
-CSRF_TOKEN = '{{ csrf_token }}'
 
 const MODAL = document.getElementById('delete-modal');
 const DELETEBUTTON = document.getElementById('deleteExpenseButton');
-
+ 
 // select all the buttons with the parent ID of deleteButtonContainer
 const buttons = document.querySelectorAll('#deleteButtonContainer > button');
 
@@ -15,6 +14,16 @@ buttons.forEach(function(button) {
   });
 });
 
+// When the search bar is the one that shows the items:
+$(document).ready(function() {
+    // When the modal is about to be shown
+    $('#delete-modal').on('show.bs.modal', function(event) {
+        if (SEARCHFIELD.value.trim() !== '') { // And the search bar is not empty
+            var button = $(event.relatedTarget); // We select the button that open the modal and assig it's value to the delete button inside the modal to be able to delete the expense.
+            DELETEBUTTON.value= button[0].value;
+                }});
+        });
+
  // Get cookie from django:
 function getCookie(name) {
   var cookieValue = null;
@@ -22,7 +31,7 @@ function getCookie(name) {
       var cookies = document.cookie.split(';');
       for (var i = 0; i < cookies.length; i++) {
           var cookie = jQuery.trim(cookies[i]);
-          // Does this cookie string begin with the name we want?
+          // If the cookie string begins with the name we want.
           if (cookie.substring(0, name.length + 1) === (name + '=')) {
               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
               break;
@@ -36,7 +45,7 @@ function getCookie(name) {
 $('#deleteExpenseButton').click(function () {
     var itemId = parseInt(DELETEBUTTON.value);
     $.ajax({
-        url: 'delete/' + itemId, // URL to your deletion view
+        url: 'delete/' + itemId, // URL to the deletion view
         type: 'POST',
         data: {
             'csrfmiddlewaretoken': getCookie('csrftoken'), // CSRF token for security

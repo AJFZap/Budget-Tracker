@@ -75,7 +75,7 @@ def delete_expense(request,pk):
     if request.method == 'POST':
         expense = Expense.objects.get(id=pk)
         expense.delete()
-        messages.success(request, "Expense deleted successfully")
+        messages.success(request, "Expense deleted successfully!")
         return JsonResponse({'success': True})
     
     return JsonResponse({'success': False})
@@ -118,20 +118,21 @@ def edit_expense(request, pk):
         messages.error(request, "Naugthy Naugthy. You don't have permissions to see that.")
         return redirect('expenses')
     
-def search_expense(request, userInput):
+def search_expense(request):
 
     if request.method == 'POST':
-        search_str = json.load(request.body).get('searchText')
+        data = json.loads(request.body.decode('utf-8'))
+        search_str = data.get('searchText', '')
 
         expenses = Expense.objects.filter(
-            amount__starts_with=search_str, user=request.user) | Expense.objects.filter(
-                date__starts_with=search_str, user=request.user) | Expense.objects.filter(
+            amount__startswith=search_str, user=request.user) | Expense.objects.filter(
+                date__startswith=search_str, user=request.user) | Expense.objects.filter(
                     description__icontains=search_str, user=request.user) | Expense.objects.filter(
                         name__icontains=search_str, user=request.user) | Expense.objects.filter(
-                            category__starts_with=search_str, user=request.user)
+                            category__startswith=search_str, user=request.user)
         
         data = expenses.values()
         
         return JsonResponse(list(data), safe=False)
-
-    return
+    
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
