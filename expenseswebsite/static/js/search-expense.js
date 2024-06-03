@@ -84,6 +84,5 @@ SEARCHFIELD.addEventListener('keyup', (e)=>{
     else {
         EXPENSESTABLE.style.display = "block"; // Show the data table with the expenses again.
         TABLEOUTPUT.style.display = "none"; // Hide the table output when the search bar is empty.
-        window.location.reload();
     }
 });

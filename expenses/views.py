@@ -129,7 +129,7 @@ def search_expense(request):
                 date__startswith=search_str, user=request.user) | Expense.objects.filter(
                     description__icontains=search_str, user=request.user) | Expense.objects.filter(
                         name__icontains=search_str, user=request.user) | Expense.objects.filter(
-                            category__startswith=search_str, user=request.user)
+                            category__istartswith=search_str, user=request.user)
         
         data = expenses.values()
         
