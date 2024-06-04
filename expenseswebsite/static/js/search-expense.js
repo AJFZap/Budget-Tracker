@@ -52,16 +52,17 @@ SEARCHFIELD.addEventListener('keyup', (e)=>{
                 TABLEOUTPUT.innerHTML ="<h1>NO MATCHES FOUND!</h1>";
             }
             else {
+                const prefCurrency = data[0].currency // Get the user prefered currency.
                 data.forEach(element => {
                     TABLEOUTPUT.innerHTML += `
                     <hr class="my-2">
                 <div class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        <strong>${ element.name }</strong><br>
                         <strong>${ element.category }</strong><br>
+                        <strong>${ element.name }</strong><br>
+                        <span class="text-muted">  ${ prefCurrency } ${ element.amount }</span><br>
                         <small>${ element.date }</small><br>
                         <span>${ element.description }</span><br>
-                        <span class="text-muted">$${ element.amount }</span>
                     </div>
                     <div class="row">
                         <div class="col-auto">

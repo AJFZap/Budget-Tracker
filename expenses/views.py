@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from preferences.models import UserPreferences
 from .models import Category, Expense
 import json
 import os
@@ -18,7 +19,9 @@ def index(request):
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
-        return render(request, 'expenses/index.html', {'page_obj': page_obj})
+        preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
+
+        return render(request, 'expenses/index.html', {'page_obj': page_obj, 'preferences': preferences.currency[:3]}) # Send the prefered currency from preferences also
 
     return render(request, 'expenses/index.html')
 
@@ -131,7 +134,10 @@ def search_expense(request):
                         name__icontains=search_str, user=request.user) | Expense.objects.filter(
                             category__istartswith=search_str, user=request.user)
         
-        data = expenses.values()
+        preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
+        
+        data = list(expenses.values())
+        data[0]['currency'] = preferences.currency[0:3]
         
         return JsonResponse(list(data), safe=False)
     
