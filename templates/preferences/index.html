@@ -29,6 +29,11 @@
             <div class="row align-items-center">
                 <div class="col">
                     <strong class="mb-2">Select your prefered currency!</strong>
+                    {% if saved %}
+                    <span class="badge badge-pill badge-success">Current: {{saved.0}}</span>  <!-- Change this to the user prefered one -->
+                    {% else %}
+                    <span class="badge badge-pill badge-success">Current: USD - United States Dollar</span>
+                    {% endif %}
                     <p class="text-muted mb-2">Every value will be converted to the OFFICIAL currency change.</p>
                     <select name="currency" class="form-select" aria-label="Default select example">
                         {% if saved %}
