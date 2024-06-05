@@ -54,7 +54,7 @@ SEARCHFIELD.addEventListener('keyup', (e)=>{
                 <div class="row justify-content-center">
                   <div class="col-md-6">
                     <div class="alert alert-warning text-center" role="alert">
-                      <strong>No results found!</strong> Your search did not match any expenses.
+                      <strong>No results found!</strong> Your search did not match any income.
                     </div>
                   </div>
                 </div>
