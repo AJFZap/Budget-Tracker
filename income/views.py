@@ -134,7 +134,8 @@ def search_income(request):
         preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
         
         data = list(income.values())
-        data[0]['currency'] = preferences.currency[0:3]
+        if data:
+            data[0]['currency'] = preferences.currency[0:3]
         
         return JsonResponse(list(data), safe=False)
     

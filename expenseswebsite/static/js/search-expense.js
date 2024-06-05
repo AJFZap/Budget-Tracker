@@ -49,7 +49,17 @@ SEARCHFIELD.addEventListener('keyup', (e)=>{
             TABLEOUTPUT.style.display = "block"; // Show the Output table with the search results.
 
             if (data.length === 0) { // When there are no results.
-                TABLEOUTPUT.innerHTML ="<h1>NO MATCHES FOUND!</h1>";
+                TABLEOUTPUT.innerHTML =`
+                <div class="container mt-5">
+                <div class="row justify-content-center">
+                  <div class="col-md-6">
+                    <div class="alert alert-warning text-center" role="alert">
+                      <strong>No results found!</strong> Your search did not match any expenses.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              `;
             }
             else {
                 const prefCurrency = data[0].currency // Get the user prefered currency.
