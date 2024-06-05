@@ -103,8 +103,8 @@ def edit_income(request, pk):
             if request.user.is_authenticated:
 
                 editedIncome = Income.objects.get(id=pk)
-                    
-                editedIncone.name = request.POST['incomeName']
+                
+                editedIncome.name = request.POST['incomeName']
                 editedIncome.date = request.POST['datePicked']
                 editedIncome.description = descriptionValue
                 editedIncome.amount = request.POST['amount']
