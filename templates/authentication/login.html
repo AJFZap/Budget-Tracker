@@ -6,19 +6,16 @@
 
 <link href="{% static 'css/login.css' %}" rel="stylesheet">
 
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-3 mt-5">
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="col-md-3">
         <div class="card mt-5">
             <div class="card-body py-3">
                 <div class="card-title py-3">
                     <h4 class="text-center">Log into your account!</h4>
                 </div>
 
-                <form action="{% url 'login' %}" method="post" id= "loginForm">
-
+                <form action="{% url 'login' %}" method="post" id="loginForm">
                     {% csrf_token %}
-
                     {% include 'partials/_messages.html' %}
 
                     <!-- Username input -->
@@ -26,13 +23,13 @@
                       <input type="text" id="usernameField" name="username" class="form-control bg-dark text-success" value="{{fieldValues.username}}" placeholder="username"/>
                       <label class="form-label text-success bg-text-primary" for="usernameField">Username</label>
                     </div>
-                  
+
                     <!-- Password input -->
                     <div data-mdb-input-init class="form-floating mb-4">
                         <input type="password" id="passwordField" name="password" class="form-control bg-dark text-success" placeholder="password"/>
                         <label class="form-label text-success" for="passwordField">Password</label>
                     </div>
-                  
+
                     <!-- Submit button -->
                     <div data-mdb-input-init class="form-outline mb-4 d-flex justify-content-center">
                         <input type="submit" value="Login" class="btn btn-block btn-primary submit-btn w-100">
@@ -41,12 +38,13 @@
                     <!-- Register buttons -->
                     <div class="col d-flex justify-content-center">
                         <!-- Simple link -->
-                        <a href="#!">Forgot password?</a>
+                        <a href="{% url 'reset_password' %}">Forgot password?</a>
                     </div>
+                    <hr class="my-2">
                     <div class="text-center">
-                      <p>Not a member?<a href="register">Register!</a></p>
+                      <p>Not a member?<br><a href="register">Register!</a></p>
                     </div>
-                  </form>
+                </form>
             </div>
         </div>
     </div>
