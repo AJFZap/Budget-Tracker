@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Breadcrum -->
+
+<div class="container mt-4">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Expenses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Expenses Summary</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container mt-5">
+    <canvas id="myChart" width="400" height="100"></canvas>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script href="https://cdnjs.com/libraries/Chart.js"></script>
+<script src="{% static 'js/expense-chart.js' %}"></script>
+
+{% endblock %}

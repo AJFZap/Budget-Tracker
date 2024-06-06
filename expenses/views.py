@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from preferences.models import UserPreferences
 from .models import Category, Expense
+import datetime
 import json
 import os
 
@@ -143,3 +144,24 @@ def search_expense(request):
         return JsonResponse(list(data), safe=False)
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+def get_category(expense):
+    return expense.category
+
+def expenses_summary(request):
+    
+    if request.method == 'GET':
+        # today = datetime.date.today()
+        # lastMonth = today.datetime.timedelta(days = 30)
+        # last6months = today.datetime.timedelta(days = 30*6)
+        # lastyear = today.datetime.timedelta(days = 30*12)
+
+        # expenses = Expense.objects.filter(date_gte=last6months, date_lte=today)
+
+        # finalRepresentation = {}
+
+        # categoryList = list(set(map(get_category, expenses)))
+
+        return render(request, 'expenses/expenses_summary.html')
+    
+    return render(request, 'expenses/expenses_summary.html')
