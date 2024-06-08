@@ -9,7 +9,7 @@
 <div class="container mt-4">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Home</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'dashboard' %}">Home</a></li>
         <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Expenses</a></li>
         <li class="breadcrumb-item active" aria-current="page">Expenses Summary</li>
         </ol>
@@ -53,6 +53,7 @@
         </div>
     </div>
 </div>
+<!-- For now we use this only if the user is authenticated -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script href="https://cdnjs.com/libraries/Chart.js"></script>
 <script src="{% static 'js/expense-chart.js' %}"></script>
