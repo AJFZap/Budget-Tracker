@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<link href="{% static 'css/charts.summary.css' %}" rel="stylesheet">
+<link href="{% static 'css/charts-summary.css' %}" rel="stylesheet">
 
 <!-- Breadcrum -->
 
@@ -53,10 +53,9 @@
         </div>
     </div>
 </div>
-{% endif %}
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script href="https://cdnjs.com/libraries/Chart.js"></script>
 <script src="{% static 'js/expense-chart.js' %}"></script>
+{% endif %}
 
 {% endblock %}
