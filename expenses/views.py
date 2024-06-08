@@ -148,20 +148,43 @@ def search_expense(request):
 def get_category(expense):
     return expense.category
 
-def expenses_summary(request):
+def get_category_amount(category, expenses):
+    amount = 0
+    byCategory = expenses.filter(category=category)
+
+    for item in byCategory:
+        amount += item.amount
+
+    return amount
+
+def expenses_data(request):
     
     if request.method == 'GET':
-        # today = datetime.date.today()
+        today = datetime.date.today()
         # lastMonth = today.datetime.timedelta(days = 30)
         # last6months = today.datetime.timedelta(days = 30*6)
         # lastyear = today.datetime.timedelta(days = 30*12)
+        if request.user.is_authenticated:
+            expenses = Expense.objects.filter(user=request.user)
 
-        # expenses = Expense.objects.filter(date_gte=last6months, date_lte=today)
+            if expenses:
 
-        # finalRepresentation = {}
+                finalRepresentation = {}
 
-        # categoryList = list(set(map(get_category, expenses)))
+                categoryList = list(set(map(get_category, expenses)))
 
+                for x in expenses:
+                    for y in categoryList:
+                        finalRepresentation[y] = get_category_amount(y, expenses)
+
+                return JsonResponse({'expense_data': finalRepresentation}, safe=False)
+            else:
+                return JsonResponse({'error': 'No expenses to show.'}, status=404)
+        
+        return JsonResponse({'error': 'No expenses to show.'}, status=404)
+
+def expenses_summary(request):
+    if request.method == 'GET':
         return render(request, 'expenses/expenses_summary.html')
     
     return render(request, 'expenses/expenses_summary.html')
