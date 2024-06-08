@@ -17,16 +17,8 @@
 </div>
 
 {% if not user.username %}
-<div class="d-flex justify-content-center">
-    <div class="card border-info">
-        <div class="card-body py-2">
-            <div class="card-title py-1">
-                <h5 class="text-center">Not logged in</h5>
-                <p class="text-muted">Remember to <a class="text-info" href="{% url 'register' %}">Register</a> or <a class="text-info" href="{% url 'login' %}">Login</a> to save your information and be able to track your expenses and investments!</p>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- User not authenticated card. -->
+{% include 'partials/_nouser.html' %}
 
 <div class="container mt-5">
     <div class="row justify-content-center">
