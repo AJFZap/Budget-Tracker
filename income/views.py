@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from preferences.models import UserPreferences
 from .models import Source, Income
+import datetime
 import json
 import os
 
@@ -140,3 +141,47 @@ def search_income(request):
         return JsonResponse(list(data), safe=False)
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+def get_source(income):
+    return income.source
+
+def get_source_amount(source, income):
+    amount = 0
+    bySource = income.filter(source=source)
+
+    for item in bySource:
+        amount += item.amount
+
+    return amount
+
+def income_data(request):
+    
+    if request.method == 'GET':
+        today = datetime.date.today()
+        # lastMonth = today.datetime.timedelta(days = 30)
+        # last6months = today.datetime.timedelta(days = 30*6)
+        # lastyear = today.datetime.timedelta(days = 30*12)
+        if request.user.is_authenticated:
+            income = Income.objects.filter(user=request.user)
+
+            if income:
+
+                finalRepresentation = {}
+
+                sourceList = list(set(map(get_source, income)))
+
+                for x in income:
+                    for y in sourceList:
+                        finalRepresentation[y] = get_source_amount(y, income)
+
+                return JsonResponse({'income_data': finalRepresentation}, safe=False)
+            else:
+                return JsonResponse({'error': 'No income to show.'}, status=404)
+        
+        return JsonResponse({'error': 'No income to show.'}, status=404)
+
+def income_summary(request):
+    if request.method == 'GET':
+        return render(request, 'income/income_summary.html')
+    
+    return render(request, 'income/income_summary.html')
