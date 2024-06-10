@@ -15,6 +15,23 @@ const SHOWTOGGLE = document.querySelector(".showPassToggle")
 // Register Button
 const REGISTERBTN = document.querySelector(".submit-btn")
 
+// Get cookie from django:
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // If the cookie string begins with the name we want.
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }
+
 EMAILFIELD.addEventListener('keyup', (e) => {
     const EMAILVAL = e.target.value;
     // console.log(EMAILVAL);
@@ -23,7 +40,14 @@ EMAILFIELD.addEventListener('keyup', (e) => {
     INVALIDEMAIL.style.display= 'none';
 
     if (EMAILVAL.length > 0){
-        fetch('/authentication/validate-email', {body:JSON.stringify({email: EMAILVAL}), method:'POST',}).then((res) => res.json()).then((data) => {
+        fetch('/authentication/validate-email', {
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'), // CSRF token for security.
+            },
+            body:JSON.stringify({email: EMAILVAL}),
+            }).then((res) => res.json()).then((data) => {
             if (data.email_Error){
                 REGISTERBTN.disabled = true;
                 EMAILFIELD.classList.add('is-invalid');
@@ -46,7 +70,14 @@ USERNAMEFIELD.addEventListener('keyup', (e) => {
     INVALIDUSER.style.display= 'none';
 
     if (USERNAMEVAL.length > 0){
-        fetch('/authentication/validate-username', {body:JSON.stringify({username: USERNAMEVAL}), method:'POST',}).then((res) => res.json()).then((data) => {
+        fetch('/authentication/validate-username', {
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'), // CSRF token for security.
+            },
+            body:JSON.stringify({username: USERNAMEVAL}),
+            }).then((res) => res.json()).then((data) => {
             if (data.username_Error){
                 REGISTERBTN.disabled = true;
                 USERNAMEFIELD.classList.add('is-invalid');

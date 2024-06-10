@@ -43,7 +43,7 @@ SEARCHFIELD.addEventListener('keyup', (e)=>{
                 'X-CSRFToken': getCookie('csrftoken'), // CSRF token for security.
             },
             body:JSON.stringify({searchText: SEARCHVALUE}),
-        }).then((res) => res.json()).then((data) => {
+            }).then((res) => res.json()).then((data) => {
 
             EXPENSESTABLE.style.display = "none"; // Hide the data table with the expenses.
             TABLEOUTPUT.style.display = "block"; // Show the Output table with the search results.
