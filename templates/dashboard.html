@@ -2,11 +2,17 @@
 {% load static %}
 {% block content %}
 
-{% if not user.username %}
-<br>
-{% include 'partials/_nouser.html' %}
-{% include 'partials/_messages.html' %}
+
 <div class="container mt-5">
+    {% if not user.username %}
+    <br>
+    <!-- No authentication -->
+    {% include 'partials/_nouser.html' %}
+
+    <!-- Message to display -->
+    {% include 'partials/_messages.html' %}
+
+
     <!-- Header -->
     <div class="row mb-4">
         <div class="col-12">
@@ -68,15 +74,15 @@
             </div>
         </div>
     </div>
-</div>
 {% else %}
-<div class="container mt-5">
     <!-- Header -->
     <div class="row mb-4">
         <div class="col-12">
             <h1 class="text-center">Dashboard</h1>
         </div>
     </div>
+    <!-- Message to display -->
+    {% include 'partials/_messages.html' %}
 
     <!-- Cards -->
     <div class="row text-center">
