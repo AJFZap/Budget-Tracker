@@ -50,9 +50,9 @@ def index(request):
             'latest_entries': latest_entries,
         }
 
-        return render(request, 'dashboard.html', {'balances': context, 'preferences': preferences.currency[:3]})
+        return render(request, 'dashboard/dashboard.html', {'balances': context, 'preferences': preferences.currency[:3]})
 
-    return render(request, 'dashboard.html')
+    return render(request, 'dashboard/dashboard.html')
 
 def get_expenses_amount(expense):
     amount = 0
