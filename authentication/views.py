@@ -125,7 +125,7 @@ class LoginView(View):
                 if user.is_active:
                     auth.login(request, user)
                     messages.success(request, f'Welcome Back, {user.username}!')
-                    return redirect('expenses')
+                    return redirect('dashboard')
                 elif not user.is_active:
                     messages.error(request, f'Activate your account to login, {user.username}!, Check your email and your spam inbox.')
                     return render(request, 'authentication/login.html')
@@ -156,7 +156,6 @@ class EmailValidationView(View):
             return JsonResponse({'email_Error': 'Email already registered on the database.'}, status=409)
         
         return JsonResponse({'email_valid': True})
-
 
 class UsernameValidationView(View):
     """
