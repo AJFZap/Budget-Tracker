@@ -42,8 +42,6 @@ def index(request):
         # Get the 5 most recent combined entries
         latest_entries = latest_entries[:5]
 
-        print(latest_entries)
-
         # Prepare context.
         context = {
             'Balance': balance,

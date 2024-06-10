@@ -14,6 +14,14 @@ class Expense(models.Model):
 
     def __str__(self) -> str:
         return self.category
+
+    @property
+    def entry_type(self):
+        return "Expense"
+
+    @property
+    def category_or_source(self):
+        return self.category
     
     class Meta:
         ordering = ['-pk']

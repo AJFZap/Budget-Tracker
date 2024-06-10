@@ -8,20 +8,39 @@ $(document).ready(function(){
     let incomeValue = parseFloat(INCOME.innerHTML)
 
     if (balanceValue > 0.00) {
-        console.log("HIGHER");
         BALANCE.classList.add('text-success');
     }
     else if (balanceValue < 0.00) {
-        console.log("LOWER");
         BALANCE.classList.add('text-danger');
     }
     if (expenseValue > 0.00) {
-        console.log("LOWER");
         EXPENSE.classList.add('text-danger');
     }
 
     if (incomeValue > 0.00) {
-        console.log("HIGHER");
         INCOME.classList.add('text-success');
     }
-})
+
+    if (document.getElementById('myChart') !== null){
+        
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+              labels: ['Earnings', 'Expenses'],
+              datasets: [{
+                label: 'Amount',
+                data: [incomeValue, expenseValue],
+                borderWidth: 1,
+                backgroundColor: ["green", "red"],
+              }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+          });
+            
+        }
+    })

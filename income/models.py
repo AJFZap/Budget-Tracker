@@ -14,6 +14,14 @@ class Income(models.Model):
 
     def __str__(self) -> str:
         return self.category
+
+    @property
+    def entry_type(self):
+        return "Income"
+
+    @property
+    def category_or_source(self):
+        return self.source
     
     class Meta:
         ordering = ['-pk']

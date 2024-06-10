@@ -112,7 +112,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Recent Transactions</h5>
+                    <h5 class="card-title">Recent Activity</h5>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -124,14 +124,14 @@
                                     <th>Type</th>
                                 </tr>
                             </thead>
-                            {% for entry in context.latest_entries %}
+                            {% for entry in balances.latest_entries %}
                             <tbody id="transactionTable">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Description</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
+                                    <td>{{ entry.name}}</td>
+                                    <td>{{ entry.date }}</td>
+                                    <td>{{ entry.description }}</td>
+                                    {% if entry.entry_type == 'Expense' %}<td class="text-danger">{{ entry.amount }}</td>{% else %}<td class="text-success">{{ entry.amount }}</td>{% endif %}
+                                    <td>{% if entry.entry_type == 'Expense' %}Expense{% else %}Income{% endif %}</td>
                                 </tr>
                             </tbody>
                             {% endfor %}
@@ -141,6 +141,14 @@
             </div>
         </div>
     </div>
+    {% if balances.latest_entries %}
+    <!-- Graph -->
+    <div class="d-flex justify-content-center">
+        <div class="chart-container" style="position: relative; width: 80vw; height: 60vh;">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endif %}
 
