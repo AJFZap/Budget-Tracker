@@ -17,7 +17,7 @@ const REGISTERBTN = document.querySelector(".submit-btn")
 
 EMAILFIELD.addEventListener('keyup', (e) => {
     const EMAILVAL = e.target.value;
-    console.log(EMAILVAL);
+    // console.log(EMAILVAL);
 
     EMAILFIELD.classList.remove('is-invalid');
     INVALIDEMAIL.style.display= 'none';
@@ -33,14 +33,14 @@ EMAILFIELD.addEventListener('keyup', (e) => {
             else {
                 REGISTERBTN.disabled = false;
             }
-            console.log("data", data);
+            // console.log("data", data);
         });
     }
 });
 
 USERNAMEFIELD.addEventListener('keyup', (e) => {
     const USERNAMEVAL = e.target.value;
-    console.log(USERNAMEVAL);
+    // console.log(USERNAMEVAL);
 
     USERNAMEFIELD.classList.remove('is-invalid');
     INVALIDUSER.style.display= 'none';
@@ -56,13 +56,13 @@ USERNAMEFIELD.addEventListener('keyup', (e) => {
             else {
                 REGISTERBTN.disabled = false;
             }
-            console.log("data", data);
+            // console.log("data", data);
         });
     }
 });
 
 function ToggleVisualization(){
-    console.log(SHOWTOGGLE.type);
+    // console.log(SHOWTOGGLE.type);
     if(SHOWTOGGLE.innerHTML == "Show Password"){
         SHOWTOGGLE.innerHTML = "Hide Password";
         PASSWORDFIELD.setAttribute("type", "text");

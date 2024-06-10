@@ -5,8 +5,8 @@ $(document).ready(function(){
     fetch('income_data').then(res => res.json()).then(total => {
   
       if(total){
-        console.log("data", total);
-        console.log(total.income_data);
+        // console.log("data", total);
+        // console.log(total.income_data);
   
         const [CATEGORIES, AMOUNT] = [Object.keys(total.income_data), Object.values(total.income_data)]
   
