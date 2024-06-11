@@ -19,6 +19,10 @@ from django.contrib.sites.shortcuts import get_current_site
 
 class RegistrationView(View):
     def get(self, request):
+        # If the user is authenticated we send him to the home page.
+        if request.user.is_authenticated:
+            return redirect('dashboard')
+
         return render(request, 'authentication/register.html')
     
     def post(self, request):
@@ -107,6 +111,10 @@ class VerificationView(View):
 
 class LoginView(View):
     def get(self, request):
+        # If the user is authenticated we send him to the home page.
+        if request.user.is_authenticated:
+            return redirect('dashboard')
+            
         return render(request, 'authentication/login.html')
 
     def post(self, request):
