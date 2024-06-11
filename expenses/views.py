@@ -186,6 +186,12 @@ def expenses_data(request):
 
 def expenses_summary(request):
     if request.method == 'GET':
-        return render(request, 'expenses/expenses_summary.html')
+        expenses = Expense.objects.filter(user=request.user)
+        
+        if expenses:
+            return render(request, 'expenses/expenses_summary.html', {'expenses': True})
+        
+        else:
+            return render(request, 'expenses/expenses_summary.html')
     
     return render(request, 'expenses/expenses_summary.html')

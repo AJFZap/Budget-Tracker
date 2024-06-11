@@ -31,32 +31,46 @@
     </div>
 </div>
 {% else %}
-<div id="GraphContainer" class="container mt-5">
-    <div class="row">
-        <div class="col-md-8 d-flex align-items-center">
-            <h1>Expenses Summary</h1>
+    {% if expenses %}
+    <div id="GraphContainer" class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 d-flex align-items-center">
+                <h1>Expenses Summary</h1>
+            </div>
+            <div class="col-md-4 d-flex align-items-center">
+                <select id="graphStyle" class="form-select" aria-label="Default select example">
+                    <option selected value="doughnut">Doughnut Chart</option>
+                    <option value="pie">Pie Chart</option>
+                    <option value="line">Line Chart</option>
+                    <option value="bar">Bar Chart</option>
+                </select>
+            </div>
         </div>
-        <div class="col-md-4 d-flex align-items-center">
-            <select id="graphStyle" class="form-select" aria-label="Default select example">
-                <option selected value="doughnut">Doughnut Chart</option>
-                <option value="pie">Pie Chart</option>
-                <option value="line">Line Chart</option>
-                <option value="bar">Bar Chart</option>
-            </select>
+        <br>
+        <!-- Graph -->
+        <div class="d-flex justify-content-center">
+            <div class="chart-container" style="position: relative; width: 80vw; height: 60vh;">
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
     </div>
-    <br>
-    <!-- Graph -->
-    <div class="d-flex justify-content-center">
-        <div class="chart-container" style="position: relative; width: 80vw; height: 60vh;">
-            <canvas id="myChart"></canvas>
+    <!-- For now we use this only if the user is authenticated -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script href="https://cdnjs.com/libraries/Chart.js"></script>
+    <script src="{% static 'js/expense-chart.js' %}"></script>
+
+    {% else %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="text-center md-5">
+                    <h3><strong>No summary to show!</strong></h3><br><h4 class="text-muted">You have no expenses yet.</h4><br>
+                    <a href="{% url 'expenses' %}" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill">Create some Expenses</a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<!-- For now we use this only if the user is authenticated -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script href="https://cdnjs.com/libraries/Chart.js"></script>
-<script src="{% static 'js/expense-chart.js' %}"></script>
+    {% endif %}
 {% endif %}
 
 {% endblock %}
