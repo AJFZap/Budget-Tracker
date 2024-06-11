@@ -74,3 +74,16 @@ def Preferences(request):
 
             messages.success(request, "Changes have been saved succesfully!")
             return render(request, 'preferences/index.html', {'currencies': currencies, 'saved': savedPreferences})
+
+def delete_user(request, pk):
+    """
+    Given an ID it deletes the user.
+    """
+    if request.method == 'POST':
+        user = User.objects.get(id=pk)
+        name = user.username
+        user.delete()
+        messages.success(request, f"{name} account has been deleted successfully!")
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False})

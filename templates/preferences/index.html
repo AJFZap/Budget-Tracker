@@ -87,7 +87,7 @@
     </form>
     {% if user.username %}
     <br>
-    <h2 class="h3 mb-4 page-title">Settings</h2>
+    <h2 id="SettingsExist" class="h3 mb-4 page-title">Settings</h2>
     <p>Account Settings</p>
     <div class="list-group-item">
         <div class="row align-items-center mb-3">
@@ -104,7 +104,7 @@
                 <strong class="mb-2">Delete account?</strong>
                 <p class="text-muted mb-1">This change is not reversible and you won't be able to get your data back.</p>
                 <div class="d-grid col-3">
-                    <button class="btn btn-danger" data-bs-target="#delete-modal" data-bs-toggle="modal" value="{{ user.pk }}">Delete account</button>
+                    <button id="deleteButton" class="btn btn-danger" data-bs-target="#delete-modal" data-bs-toggle="modal" value="{{ user.pk }}">Delete account</button>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="delete-modal" tabindex="-1" aria-hidden="true">
