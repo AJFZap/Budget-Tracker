@@ -95,7 +95,7 @@
                 <strong class="mb-2">Change password?</strong>
                 <p class="text-muted mb-1">We will send you an email with a link to change your password</p>
                 <div class="d-grid col-3">
-                    <button class="btn btn-info">Change password</button>
+                    <a class="btn btn-info" href="{% url 'reset_password' %}">Change password</a>
                 </div>
             </div>
         </div>
@@ -144,9 +144,6 @@
 </div>
 </div>
 
-<script>
-document.getElementById('confirmCheckbox').addEventListener('change', function() {
-    document.getElementById('deleteAccountButton').disabled = !this.checked;
-});
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/settings.js' %}"></script>
 {% endblock %}
