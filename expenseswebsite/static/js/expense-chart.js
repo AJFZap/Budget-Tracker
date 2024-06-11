@@ -40,7 +40,19 @@ $(document).ready(function(){
                 </div>
               `;
     }
-  });
+  }).catch((error) => {
+    // console.error('Error:', error);
+    GRAPHCONTAINER.innerHTML =`
+                <div class="row justify-content-center">
+                  <div class="col-md-6">
+                    <div class="text-center">
+                      <h3><strong>No summary to show!</strong></h3><br><h4 class="text-muted">You have no income yet.</h4><br>
+                      <a href="{% url 'income' %}" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill">Create some Income</a>
+                    </div>
+                  </div>
+                </div>
+              `;
+});
   
   $('#graphStyle').change(function() {
     const selectedType = $(this).val();

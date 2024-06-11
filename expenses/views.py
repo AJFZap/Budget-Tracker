@@ -21,8 +21,9 @@ def index(request):
         page_obj = paginator.get_page(page_number)
 
         preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
+        preferences = preferences.currency[:3]
 
-        return render(request, 'expenses/index.html', {'page_obj': page_obj, 'preferences': preferences.currency[:3]}) # Send the prefered currency from preferences also
+        return render(request, 'expenses/index.html', {'page_obj': page_obj, 'preferences': preferences}) # Send the prefered currency from preferences also
 
     return render(request, 'expenses/index.html')
 
@@ -139,9 +140,9 @@ def search_expense(request):
         
         data = list(expenses.values())
         if data:
-            data[0]['currency'] = preferences.currency[0:3]
+            data[0]['currency'] = preferences.currency[:3]
         
-        return JsonResponse(list(data), safe=False)
+        return JsonResponse(data, safe=False)
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 

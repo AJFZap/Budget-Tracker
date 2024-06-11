@@ -17,8 +17,14 @@ import os
 # @login_required(login_url='/authentication/login')
 def index(request):
     if request.user.is_authenticated:
-        # Get the prefered currency from the user.
-        preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
+        # Get the prefered currency from the user and if it's new and doesn't have any we create the database with the defaults.
+        if UserPreferences.objects.filter(user=request.user).exists():
+            preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
+            preferences = preferences.currency[:3]
+        else:
+            UserPreferences.objects.create(user=request.user)
+            preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
+            preferences = preferences.currency[:3]
 
         # Get the expenses and income from the user.
         expenses = Expense.objects.filter(user=request.user)
@@ -29,8 +35,8 @@ def index(request):
         balance = float(incomeAmount) - expenseAmount
 
         # Fetch the latest 5 entries from each model
-        latest_expenses = Expense.objects.all().order_by('-date')[:5]
-        latest_incomes = Income.objects.all().order_by('-date')[:5]
+        latest_expenses = Expense.objects.filter(user=request.user).order_by('-date')[:5]
+        latest_incomes = Income.objects.filter(user=request.user).order_by('-date')[:5]
 
         # Combine and sort by date
         latest_entries = sorted(
@@ -50,7 +56,7 @@ def index(request):
             'latest_entries': latest_entries,
         }
 
-        return render(request, 'dashboard/dashboard.html', {'balances': context, 'preferences': preferences.currency[:3]})
+        return render(request, 'dashboard/dashboard.html', {'balances': context, 'preferences': preferences})
 
     return render(request, 'dashboard/dashboard.html')
 

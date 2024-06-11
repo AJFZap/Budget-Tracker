@@ -17,10 +17,6 @@ def Preferences(request):
     Returns the preferences/index with a dictionary called currencies that holds
     a good amount of currencies from all over the world.
     """ 
-
-    # TODO REMEMBER TO CHANGE TO DEFAULTS WHEN NOTHING IS SELECTED FOR BOTH CASES. When an user is created then created a UserPreferences
-    # that assigns the defaults and that's easier.
-
     currencies = []
     file_path = os.path.join(settings.BASE_DIR, 'currencies.json')
 
@@ -31,32 +27,28 @@ def Preferences(request):
 
     # WHEN A USER IS AUTHENTICATED.
     if request.user.is_authenticated:
-        userHasPreferences = UserPreferences.objects.filter(user=request.user).exists()
 
-        if userHasPreferences:
-            user_preferences = UserPreferences.objects.get(user=request.user)
-            savedCurrency = user_preferences.currency
-            savedLanguage = user_preferences.language
-            savedPreferences = [savedCurrency, savedLanguage]
+        user_preferences = UserPreferences.objects.get(user=request.user)
+        savedCurrency = user_preferences.currency
+        savedLanguage = user_preferences.language
+        savedPreferences = [savedCurrency, savedLanguage]
 
         if request.method == 'GET':
 
-            if userHasPreferences:
-                return render(request, 'preferences/index.html', {'currencies': currencies, 'saved': savedPreferences})
-            else:
-                return render(request, 'preferences/index.html', {'currencies': currencies})
+            return render(request, 'preferences/index.html', {'currencies': currencies, 'saved': savedPreferences})
 
         elif request.method == 'POST':
             currency = request.POST['currency']
             language = request.POST['language']
 
-            if userHasPreferences:
-                user_preferences.currency, user_preferences.language = currency, language
-                user_preferences.save()
-            else:
-                UserPreferences.objects.create(user=request.user, currency=currency, language=language)
-            
-            savedPreferences = [user_preferences.currency, user_preferences.language]
+            user_preferences.currency, user_preferences.language = currency, language
+            user_preferences.save()
+
+            # We take them again so on the page reload we can see the changes in place.
+            user_preferences = UserPreferences.objects.get(user=request.user)
+            savedCurrency = user_preferences.currency
+            savedLanguage = user_preferences.language
+            savedPreferences = [savedCurrency, savedLanguage]
 
             messages.success(request, "Changes have been saved succesfully!")
             return render(request, 'preferences/index.html', {'currencies': currencies, 'saved': savedPreferences})

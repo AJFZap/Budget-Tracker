@@ -18,8 +18,9 @@ def income(request):
         page_obj = paginator.get_page(page_number)
 
         preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
+        preferences = preferences.currency[:3]
 
-        return render(request, 'income/index.html', {'page_obj': page_obj, 'preferences': preferences.currency[:3]}) # Send the prefered currency from preferences also
+        return render(request, 'income/index.html', {'page_obj': page_obj, 'preferences': preferences}) # Send the prefered currency from preferences also
 
     return render(request, 'income/index.html')
 
@@ -136,7 +137,7 @@ def search_income(request):
         
         data = list(income.values())
         if data:
-            data[0]['currency'] = preferences.currency[0:3]
+            data[0]['currency'] = preferences.currency[:3]
         
         return JsonResponse(list(data), safe=False)
     
@@ -157,7 +158,7 @@ def get_source_amount(source, income):
 def income_data(request):
     
     if request.method == 'GET':
-        today = datetime.date.today()
+        # today = datetime.date.today()
         # lastMonth = today.datetime.timedelta(days = 30)
         # last6months = today.datetime.timedelta(days = 30*6)
         # lastyear = today.datetime.timedelta(days = 30*12)
@@ -165,7 +166,6 @@ def income_data(request):
             income = Income.objects.filter(user=request.user)
 
             if income:
-
                 finalRepresentation = {}
 
                 sourceList = list(set(map(get_source, income)))
@@ -176,9 +176,9 @@ def income_data(request):
 
                 return JsonResponse({'income_data': finalRepresentation}, safe=False)
             else:
-                return JsonResponse({'error': 'No income to show.'}, status=404)
+                return JsonResponse({'error': None}, status=404)
         
-        return JsonResponse({'error': 'No income to show.'}, status=404)
+        return JsonResponse({'error': None}, status=404)
 
 def income_summary(request):
     if request.method == 'GET':
