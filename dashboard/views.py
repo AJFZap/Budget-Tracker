@@ -20,11 +20,12 @@ def index(request):
         # Get the prefered currency from the user and if it's new and doesn't have any we create the database with the defaults.
         if UserPreferences.objects.filter(user=request.user).exists():
             preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
-            preferences = preferences.currency[:3]
+            
         else:
             UserPreferences.objects.create(user=request.user)
             preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
-            preferences = preferences.currency[:3]
+
+        preferences = preferences.currency[:3]
 
         # Get the expenses and income from the user.
         expenses = Expense.objects.filter(user=request.user)
