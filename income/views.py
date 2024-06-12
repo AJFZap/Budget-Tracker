@@ -182,10 +182,14 @@ def income_data(request):
 
 def income_summary(request):
     if request.method == 'GET':
-        income = Income.objects.filter(user=request.user)
+        if request.user.is_authenticated:
+            income = Income.objects.filter(user=request.user)
 
-        if income:
-            return render(request, 'income/income_summary.html', {'income': True})
+            if income:
+                return render(request, 'income/income_summary.html', {'income': True})
+            else:
+                return render(request, 'income/income_summary.html')
+        
         else:
             return render(request, 'income/income_summary.html')
             
