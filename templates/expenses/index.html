@@ -136,7 +136,7 @@ data-edit-url-base="{% url 'edit-expenses' 0 %}">
     {% else%}
     <div class="container my-1">
         <div class="p-5 text-center rounded-3">
-          <h1 class="text-body-emphasis"><h5 class="text-center">No Expenses yet</h5></h1>
+          <h3 class="text-center"><strong>No Expenses yet</strong></h3>
           <p class="col-lg-8 mx-auto fs-5 text-muted">
             Click on the button below to create a new expense!
           </p>
@@ -146,9 +146,6 @@ data-edit-url-base="{% url 'edit-expenses' 0 %}">
             </a>
           </div>
         </div>
-    </div>
-    <div class="list-group-item flex align-items-center">
-        <p class="text-muted"></p>
     </div>
 </div>
 {% endif %}
