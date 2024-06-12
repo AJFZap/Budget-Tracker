@@ -6,7 +6,7 @@
 
 <link href="{% static 'css/login.css' %}" rel="stylesheet">
 
-<div class="d-flex justify-content-center align-items-center vh-100">
+<div class="d-flex justify-content-center align-items-center flex-grow-1">
     <div class="col-md-3">
         <div class="card mt-5">
             <div class="card-body py-3">
@@ -49,13 +49,13 @@
                             <label class="form-label text-success bg-text-primary" for="passwordField">Repeat Password</label>
                         </div>
                     
-                        <div class="d-grid gap-2">
+                        <div class="d-grid gap-2 items-align-center">
                             <small class="showPassToggle text-center">Show Password</small>
                             <input type="submit" value="Register" class="btn btn-block btn-primary submit-btn">
                         </div>
                         <hr class="my-2">
                         <div class="text-center">
-                            <p>Already have an account?<br><a href="login">Login!</a></p>
+                            <p>Already have an account?<br><a href="{% url 'login' %}">Login!</a></p>
                         </div>
                     </form>
                 </div>
