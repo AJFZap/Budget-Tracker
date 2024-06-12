@@ -15,19 +15,19 @@
         </h6>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{% url 'dashboard' %}">
+            <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" aria-current="page" href="{% url 'dashboard' %}">
               <svg class="bi"><use xlink:href="#house-fill"/></svg>
               Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="{% url 'income' %}">
+            <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'income' or request.resolver_match.url_name == 'edit-income' or request.resolver_match.url_name == 'add-income' %}active{% endif %}" href="{% url 'income' %}">
               <svg class="bi"><use xlink:href="#file-earmark"/></svg>
               Income
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="{% url 'expenses' %}">
+            <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'expenses' or request.resolver_match.url_name == 'edit-expenses' or request.resolver_match.url_name == 'add-expenses'%}active{% endif %}" href="{% url 'expenses' %}">
               <svg class="bi"><use xlink:href="#cart"/></svg>
               Expenses
             </a>
@@ -40,13 +40,13 @@
         </h6>
         <ul class="nav flex-column mb-auto">
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="{% url 'expenses_summary' %}">
+            <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'expenses_summary' %}active{% endif %}" href="{% url 'expenses_summary' %}">
               <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
               Expenses Summary
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="{% url 'income_summary' %}">
+            <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'income_summary' %}active{% endif %}" href="{% url 'income_summary' %}">
               <svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
               Income Summary
             </a>
@@ -60,7 +60,7 @@
         </h6>
         <ul class="nav flex-column mb-auto">
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="{% url 'preferences' %}">
+            <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'preferences' %}active{% endif %}" href="{% url 'preferences' %}">
               <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
               Preferences & Settings
             </a>
