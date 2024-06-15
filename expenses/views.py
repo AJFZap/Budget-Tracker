@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.http import JsonResponse, HttpResponse
+from django.db.models import Sum
 from preferences.models import UserPreferences
 from .models import Category, Expense
-import datetime
-import json
-import os
+from weasyprint import HTML
+import datetime, json, os, csv, xlwt, tempfile
 
 # Create your views here.
 
@@ -199,3 +200,78 @@ def expenses_summary(request):
             return render(request, 'expenses/expenses_summary.html')
     
     return render(request, 'expenses/expenses_summary.html')
+
+def export_data(request):
+    if request.user.is_authenticated:
+        expenses = Expense.objects.filter(user=request.user)
+        fileType = request.POST.get('filetype')
+
+        match fileType:
+            case 'csv':
+                response = HttpResponse(content_type='text/csv')
+                response['Content-Disposition'] = f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.csv'
+
+                writer = csv.writer(response)
+                writer.writerow(['Name', 'Category', 'Amount', 'Description', 'Date'])
+
+                for expense in expenses:
+                    writer.writerow([expense.name, expense.category, expense.amount, expense.description, expense.date])
+
+                return response
+            
+            case 'excel':
+                response = HttpResponse(content_type='text/ms-excel')
+                response['Content-Disposition'] = f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx'
+
+                wb = xlwt.Workbook(encoding='utf-8')
+                ws = wb.add_sheet('Expenses')
+
+                row_num = 0
+
+                font_style = xlwt.XFStyle()
+                font_style.font.bold = True
+
+                columns = ['Name', 'Category', 'Amount', 'Description', 'Date']
+
+                for col_num in range(len(columns)):
+                    ws.write(row_num, col_num, columns[col_num], font_style)
+
+                font_style = xlwt.XFStyle()
+
+                rows = expenses.values_list('name', 'category', 'amount', 'description', 'date')
+                # print(rows)
+
+                for row in rows:
+                    row_num += 1
+
+                    for col_num in range(len(row)):
+                        # print(f'Row_num: {row_num}, Col_Num: {col_num}, Content: {row[col_num]}')
+                        ws.write(row_num, col_num, str(row[col_num]), font_style)
+                
+                wb.save(response)
+
+                return response
+
+            
+            case 'pdf':
+                response = HttpResponse(content_type='text/pdf')
+                response['Content-Disposition'] = f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.pdf'
+                response['Content-Transfer-Encoding'] = 'binary'
+
+                html_string = render_to_string('expenses/pdf-output.html', {'expenses': expenses, 'total': expenses.aggregate(Sum('amount'))['amount__sum']})
+                html = HTML(string=html_string)
+
+                result = html.write_pdf()
+
+                with tempfile.NamedTemporaryFile(delete=True) as product:
+                    product.write(result)
+                    product.flush()
+
+                    product= open(product.name, 'rb')
+                    response.write(product.read())
+
+                return response
+
+        return HttpResponse("Export format not supported")
+        
+    return HttpResponse("Export format not supported")

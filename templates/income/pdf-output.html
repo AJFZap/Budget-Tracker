@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF</title>
+
+    <style>
+        @page {
+            size: "A4";
+            margin: 2.5cm 1.5cm 3.5cm 1.5cm;
+
+            @top-center{
+            content: "Budget Tracker";
+            }
+            @bottom-right {
+            content: "Page " counter(page) " of " counter(pages);
+            }
+            @bottom-center {
+            content: "ZappApps";
+            }
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .table tr {
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="text-center">Income List</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Source</th>
+                <th>Date</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for income in incomes %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{income.name}}</td>
+                <td>{{income.source}}</td>
+                <td>{{income.date}}</td>
+                <td>{{income.amount}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4" style="text-align: right;"><strong>Total</strong></td>
+                <td>{{total}}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

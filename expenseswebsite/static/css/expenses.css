@@ -17,6 +17,7 @@
     }
 }
 
+/* Pagination style */
 .pagination .page-item .page-link {
     color: #fff;
     background-color: var(--primary-color);
@@ -43,4 +44,9 @@
     color: var(--input-text-color);
     border-color: var(--input-border-color);
     box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Custom styles for centering checkboxes and labels */
+.modal-body .form-check-inline {
+    margin: 0 10px;
 }
