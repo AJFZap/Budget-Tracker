@@ -7,8 +7,10 @@ from django.http import JsonResponse, HttpResponse
 from django.db.models import Sum
 from preferences.models import UserPreferences
 from .models import Source, Income
+from .forms import UploadFileForm
 from weasyprint import HTML
 import datetime, json, os, csv, xlwt, tempfile
+import pandas as pd
 
 def income(request):
     if request.user.is_authenticated:
@@ -270,3 +272,56 @@ def export_data(request):
         return HttpResponse("Export format not supported")
         
     return HttpResponse("Export format not supported")
+
+def import_data(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            file = request.FILES.get('file')
+            delete_previous = request.POST.get('delete_previous') == 'true'
+            # print(delete_previous)
+
+            if not file:
+                return JsonResponse({'error': 'No file provided'}, status=400)
+
+            file_type = file.name.split('.')[-1].lower()
+
+            try:
+                if file_type == 'csv':
+                    df = pd.read_csv(file)
+                elif file_type in ['xls', 'xlsx']:
+                    df = pd.read_excel(file)
+                else:
+                    messages.error(request, 'Unsupported file format')
+                    return JsonResponse({'error': f'Unsupported file format'})
+                
+                # Check that the file has all the needed columns.
+                required_columns = ['Name', 'Source', 'Amount', 'Date', 'Description']
+                if not all(column in df.columns for column in required_columns):
+                    messages.error(request, 'Wrong amount of columns or names.')
+                    return JsonResponse({'error': 'Wrong amount of columns or names.'}, status=400)
+                
+                # Clear existing records if the user requested it.
+                if delete_previous == True:
+                    Income.objects.filter(user=request.user).delete()
+
+                # print(df)
+
+                for index, row in df.iterrows():
+                    # print(row)
+                    Income.objects.create(
+                        user=request.user,
+                        name=row['Name'],
+                        source=row['Source'],
+                        amount=row['Amount'],
+                        description=row['Description'],
+                        date=row['Date'],
+                    )
+
+                messages.success(request, 'Income imported successfully')
+                return JsonResponse({'success': True})
+
+            except Exception as e:
+                messages.error(request, f'Error processing file: {e}')
+                return JsonResponse({'error': f'Error pocessing file: {e}'}, status=400)
+    else:
+        form = UploadFileForm()

@@ -64,10 +64,10 @@ class RegistrationView(View):
             messages.error(request, "This Email is already associated with an existing account")
             return render(request, 'authentication/register.html', context)
 
-        messages.success(request, 'Registered Successfully')
-        messages.error(request, 'Error While Registering')
-        messages.info(request, 'Information Tag')
-        messages.warning(request, 'Just a Warning')
+        # messages.success(request, 'Registered Successfully')
+        # messages.error(request, 'Error While Registering')
+        # messages.info(request, 'Information Tag')
+        # messages.warning(request, 'Just a Warning')
 
         return render(request, 'authentication/register.html')
     
