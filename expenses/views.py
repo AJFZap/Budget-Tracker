@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
+# from django.core.cache import cache
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Sum
@@ -132,6 +133,13 @@ def search_expense(request):
         data = json.loads(request.body.decode('utf-8'))
         search_str = data.get('searchText', '')
 
+        # In case we use redis cache.
+        # cache_key = f'search_expense_{request.user.id}_{search_str}'
+        # cached_result = cache.get(cache_key)
+
+        # if cached_result is not None:
+        #     return JsonResponse(cached_result, safe=False)
+
         expenses = Expense.objects.filter(
             amount__startswith=search_str, user=request.user) | Expense.objects.filter(
                 date__startswith=search_str, user=request.user) | Expense.objects.filter(
@@ -145,6 +153,7 @@ def search_expense(request):
         if data:
             data[0]['currency'] = preferences.currency[:3]
         
+        # cache.set(cache_key, data, timeout=300)  # Cache the result for 5 minutes (300 seconds)
         return JsonResponse(data, safe=False)
     
     return JsonResponse({'error': 'Invalid request method'}, status=400)
