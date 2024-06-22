@@ -42,19 +42,19 @@
         </h6>
         <ul class="nav flex-column mb-auto">
           <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'expenses_summary' %}active{% endif %}" href="{% url 'expenses_summary' %}">
-              <svg width="16" height="16" fill="currentColor" class="bi">
-                <use xlink:href="#summary"/>
-              </svg>
-              Expenses Summary
-            </a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'income_summary' %}active{% endif %}" href="{% url 'income_summary' %}">
               <svg width="16" height="16" fill="currentColor" class="bi">
                 <use xlink:href="#summary"/>
               </svg>
               Income Summary
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2 {% if request.resolver_match.url_name == 'expenses_summary' %}active{% endif %}" href="{% url 'expenses_summary' %}">
+              <svg width="16" height="16" fill="currentColor" class="bi">
+                <use xlink:href="#summary"/>
+              </svg>
+              Expenses Summary
             </a>
           </li>
         </ul>
