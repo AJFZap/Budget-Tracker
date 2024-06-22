@@ -25,7 +25,7 @@ data-edit-url-base="{% url 'edit-income' 0 %}">
 {% include 'partials/_nouser.html' %}
 {% endif %}
  
-<div class="container mt-4">
+<div id="mainContainer" class="container mt-4">
     <!-- Message to display -->
     {% include 'partials/_messages.html' %}
     {% if page_obj %}
@@ -77,43 +77,59 @@ data-edit-url-base="{% url 'edit-income' 0 %}">
             </div>
         {% endfor %}
 
-        <!-- Pagination Controls -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page=1" aria-label="First">
-                            <span aria-hidden="true">&laquo;&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                {% endif %}
-                {% for num in page_obj.paginator.page_range %}
-                    {% if page_obj.number == num %}
-                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+            <!-- Pagination Controls -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
                     {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
-                            <span aria-hidden="true">&raquo;&raquo;</span>
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-        </nav>
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% else %}
+    <div id="NoIncomeContainer" class="container my-1">
+        <div class="p-5 text-center rounded-3">
+          <h3 class="text-center"><strong>No Income yet</strong></h3>
+          <p class="col-lg-8 mx-auto fs-5 text-muted">
+            Click on the button below to create a new income!
+          </p>
+          <div class="d-inline-flex gap-2 mb-5">
+            <a class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'add-income' %}">
+              Add income
+            </a>
+          </div>
+        </div>
     </div>
+</div>
+{% endif %}
     <!-- DELETE DB MODAL -->
     <div class="modal fade" id="delete-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -159,7 +175,7 @@ data-edit-url-base="{% url 'edit-income' 0 %}">
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="filetype" id="excelfile" value="excel">
+                            <input class="form-check-input" type="checkbox" name="filetype" id="excelfile" value="xlsx">
                             <label class="form-check-label" for="excelfile">
                             EXCEL
                             </label>
@@ -189,6 +205,7 @@ data-edit-url-base="{% url 'edit-income' 0 %}">
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                {% if user.username %}
                 <div class="modal-body text-center">
                     <div class="modal-body text-muted">
                         <p>Note that only <strong>csv</strong> and <strong>xls/xlsx</strong> files are supported for import as of now.</p>
@@ -208,27 +225,28 @@ data-edit-url-base="{% url 'edit-income' 0 %}">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="importIncomeButton">Import</button>
                 </div>
+                {% else %}
+                <div class="modal-body text-center">
+                    <div class="modal-body text-muted">
+                        Sorry but only authenticated users can import data! Be sure to export your data in a <strong>csv</strong> or <strong>xls/xlsx</strong> file and
+                        <a class="text-info" href="{% url 'register' %}">Register!</a> or <a class="text-info" href="{% url 'login' %}">Login!</a> into an existing account to use this feature!
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
-    {% else%}
-    <div class="container my-1">
-        <div class="p-5 text-center rounded-3">
-          <h3 class="text-center"><strong>No Income yet</strong></h3>
-          <p class="col-lg-8 mx-auto fs-5 text-muted">
-            Click on the button below to create a new income!
-          </p>
-          <div class="d-inline-flex gap-2 mb-5">
-            <a class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill"href="{% url 'add-income' %}">
-              Add Income
-            </a>
-          </div>
-        </div>
-    </div>
-</div>
-{% endif %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% if not user.username %}
+<script src="{% static 'js/non-auth/income.js' %}"></script>
+<script src="{% static 'js/non-auth/search-income.js' %}"></script>
+<script src="{% static 'js/non-auth/export-income.js' %}"></script>
+{% else %}
 <script src="{% static 'js/delete-income.js' %}"></script>
 <script src="{% static 'js/search-income.js' %}"></script>
 <script src="{% static 'js/importexport-income.js' %}"></script>
+{% endif %}
 {% endblock %}

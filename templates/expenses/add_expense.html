@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 <!-- Breadcrumb -->
 <div class="container mt-4">
@@ -12,11 +12,16 @@
     </nav>
 </div>
 
+<!-- User not authenticated card. -->
+{% if not user.username %}
+{% include 'partials/_nouser.html' %}
+{% endif %}
+
 <!-- Expenses form -->
 
 <div class="container mt-5">
     <h2 class="mb-3">Expense Form</h2>
-    <form action="{% url 'add-expenses' %}" method="POST">
+    <form id="expenseForm" action="{% url 'add-expenses' %}" method="POST">
         {% csrf_token %}
         <div class="mb-3">
             <label for="expenseName" class="form-label">Expense Name</label>
@@ -48,4 +53,8 @@
 </div>
 
 <script>document.getElementById('expenseDate').valueAsDate = new Date();</script>
+{% if not user.username %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/non-auth/add-expense.js' %}"></script>
+{% endif %}
 {% endblock %}

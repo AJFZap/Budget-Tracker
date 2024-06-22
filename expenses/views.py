@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 # from django.core.cache import cache
@@ -15,7 +14,6 @@ import pandas as pd
 
 # Create your views here.
 
-# @login_required(login_url='/authentication/login')
 def index(request):
     if request.user.is_authenticated:
         expenses = Expense.objects.filter(user=request.user)
@@ -41,16 +39,15 @@ def add_expense(request):
         return render(request, 'expenses/add_expense.html', {'categories': categories})
     
     elif request.method == 'POST':
-        
-        # If no description is provided we just do a default.
-        descriptionValue = "No description provided."
-
-        # In case the user uses spaces in the description we still don't count them as a description.
-        if request.POST['description'].strip():
-            descriptionValue = request.POST['description']
 
         # WHEN A USER IS AUTHENTICATED.
         if request.user.is_authenticated:
+            # If no description is provided we just do a default.
+            descriptionValue = "No description provided."
+
+            # In case the user uses spaces in the description we still don't count them as a description.
+            if request.POST['description'].strip():
+                descriptionValue = request.POST['description']
 
             newExpensesList = Expense.objects.create(
                 user = request.user,
@@ -65,15 +62,8 @@ def add_expense(request):
             messages.success(request, "Expense Added to your list!")
             return redirect('expenses')
         
-        # WHEN IT IS A GUEST WE DON'T SAVE A SINGLE THING.
+        # When the user is not authenticated.
         else:
-            expenses = {'name': request.POST['expenseName'],
-                'date': request.POST['datePicked'],
-                'description': descriptionValue,
-                'amount': request.POST['amount'],
-                'category': request.POST['category'],
-            }
-
             messages.success(request, "Expense Added to your list!")
             return redirect('expenses')
 
@@ -92,41 +82,51 @@ def delete_expense(request,pk):
 def edit_expense(request, pk):
     # Grabs each on of the categories in the Category model.
     categories = Category.objects.all()
-    expense = Expense.objects.get(id=pk)
+    
+    if request.user.is_authenticated:
+        expense = Expense.objects.get(id=pk)
 
-    if request.user == expense.user:
-        if request.method == 'GET':
+        if request.user == expense.user:
+            if request.method == 'GET':
 
-            return render(request, 'expenses/edit_expense.html', {'categories': categories, 'expenses': expense})
-        
-        elif request.method == 'POST':
+                return render(request, 'expenses/edit_expense.html', {'categories': categories, 'expenses': expense})
             
-            # If no description is provided we just do a default.
-            descriptionValue = "No description provided."
-
-            # In case the user uses spaces in the description we still don't count them as a description.
-            if request.POST['description'].strip():
-                descriptionValue = request.POST['description']
-
-            # WHEN A USER IS AUTHENTICATED.
-            if request.user.is_authenticated:
-
-                editedExpense = Expense.objects.get(id=pk)
-                    
-                editedExpense.name = request.POST['expenseName']
-                editedExpense.date = request.POST['datePicked']
-                editedExpense.description = descriptionValue
-                editedExpense.amount = request.POST['amount']
-                editedExpense.category = request.POST['category']
-
-                editedExpense.save()
+            elif request.method == 'POST':
                 
+                # If no description is provided we just do a default.
+                descriptionValue = "No description provided."
+
+                # In case the user uses spaces in the description we still don't count them as a description.
+                if request.POST['description'].strip():
+                    descriptionValue = request.POST['description']
+
+                # WHEN A USER IS AUTHENTICATED.
+                if request.user.is_authenticated:
+
+                    editedExpense = Expense.objects.get(id=pk)
+                        
+                    editedExpense.name = request.POST['expenseName']
+                    editedExpense.date = request.POST['datePicked']
+                    editedExpense.description = descriptionValue
+                    editedExpense.amount = request.POST['amount']
+                    editedExpense.category = request.POST['category']
+
+                    editedExpense.save()
+                    
+                messages.success(request, "Expense edited successfully!")
+                return redirect('expenses')
+        else:
+            messages.error(request, "Naugthy Naugthy. You don't have permissions to see that.")
+            return redirect('expenses')
+
+    else:
+        ## DO SOMETHING WHEN THE USER IS NOT AUTHENTICATED
+        if request.method == 'GET':
+            return render(request, 'expenses/edit_expense.html', {'categories': categories, 'expenses': pk})
+        else:
             messages.success(request, "Expense edited successfully!")
             return redirect('expenses')
-    else:
-        messages.error(request, "Naugthy Naugthy. You don't have permissions to see that.")
-        return redirect('expenses')
-    
+ 
 def search_expense(request):
 
     if request.method == 'POST':
@@ -155,7 +155,7 @@ def search_expense(request):
         
         # cache.set(cache_key, data, timeout=300)  # Cache the result for 5 minutes (300 seconds)
         return JsonResponse(data, safe=False)
-    
+        
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 def get_category(expense):
@@ -194,6 +194,10 @@ def expenses_data(request):
             else:
                 return JsonResponse({'error': 'No expenses to show.'}, status=404)
         
+        else:
+            ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED
+            return JsonResponse({'error': 'No expenses to show.'}, status=404)
+        
         return JsonResponse({'error': 'No expenses to show.'}, status=404)
 
 def expenses_summary(request):
@@ -208,11 +212,12 @@ def expenses_summary(request):
                 return render(request, 'expenses/expenses_summary.html')
         
         else:
+            ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED
             return render(request, 'expenses/expenses_summary.html')
     
     return render(request, 'expenses/expenses_summary.html')
 
-def export_data(request):
+def export_data(request, non_user_data = None):
     if request.user.is_authenticated:
         expenses = Expense.objects.filter(user=request.user)
         fileType = request.POST.get('filetype')
@@ -230,7 +235,7 @@ def export_data(request):
 
                 return response
             
-            case 'excel':
+            case 'xlsx':
                 response = HttpResponse(content_type='text/ms-excel')
                 response['Content-Disposition'] = f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx'
 
@@ -284,7 +289,85 @@ def export_data(request):
                 return response
 
         return HttpResponse("Export format not supported")
-        
+    
+    else:
+        ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED
+        data = json.loads(request.body)
+        expenses = data.get('expenses', [])
+        fileType = data.get('format')
+
+        match fileType:
+            case 'csv':
+                response = HttpResponse(content_type='text/csv')
+                response['Content-Disposition'] = f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.csv'
+
+                writer = csv.writer(response)
+                writer.writerow(['Name', 'Category', 'Amount', 'Description', 'Date'])
+
+                for expense in expenses:
+                    writer.writerow([expense['name'], expense['category'], expense['amount'], expense['description'], expense['date']])
+
+                return response
+            
+            case 'xlsx':
+                response = HttpResponse(content_type='text/ms-excel')
+                response['Content-Disposition'] = f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx'
+
+                wb = xlwt.Workbook(encoding='utf-8')
+                ws = wb.add_sheet('Expenses')
+
+                # Bold font style.
+                font_style = xlwt.XFStyle()
+                font_style.font.bold = True
+
+                # Write headers
+                row_num = 0
+                columns = ['Name', 'Category', 'Amount', 'Description', 'Date']
+                
+                for col_num in range(len(columns)):
+                    ws.write(row_num, col_num, columns[col_num], font_style)
+
+                # Write data rows
+                for expense in expenses:
+                    row_num += 1
+                    ws.write(row_num, 0, expense['name'])
+                    ws.write(row_num, 1, expense['category'])
+                    ws.write(row_num, 2, expense['amount'])
+                    ws.write(row_num, 3, expense['description'])
+                    ws.write(row_num, 4, expense['date'])
+                
+                wb.save(response)
+                return response
+
+            
+            case 'pdf':
+                response = HttpResponse(content_type='text/pdf')
+                response['Content-Disposition'] = f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.pdf'
+                response['Content-Transfer-Encoding'] = 'binary'
+
+                expenses = data.get('expenses')
+
+                totalAmount = 0.00
+                
+                for expense in expenses:
+                    totalAmount += float(expense['amount'])
+
+                html_string = render_to_string('expenses/pdf-output.html', {'expenses': expenses, 'total': totalAmount})
+                html = HTML(string=html_string)
+
+                result = html.write_pdf()
+
+                with tempfile.NamedTemporaryFile(delete=True) as product:
+                    product.write(result)
+                    product.flush()
+
+                    product= open(product.name, 'rb')
+                    response.write(product.read())
+
+                return response
+
+        return HttpResponse("Export format not supported")
+
     return HttpResponse("Export format not supported")
 
 def import_data(request):
@@ -337,5 +420,8 @@ def import_data(request):
             except Exception as e:
                 messages.error(request, f'Error processing file: {e}')
                 return JsonResponse({'error': f'Error pocessing file: {e}'}, status=400)
+        
+        else:
+            form = UploadFileForm()
     else:
         form = UploadFileForm()

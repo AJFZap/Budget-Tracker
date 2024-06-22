@@ -62,15 +62,8 @@ def add_income(request):
             messages.success(request, "Income Added to your list!")
             return redirect('income')
         
-        # WHEN IT IS A GUEST WE DON'T SAVE A SINGLE THING.
+        # When the user is not authenticated.
         else:
-            income = {'name': request.POST['incomeName'],
-                'date': request.POST['datePicked'],
-                'description': descriptionValue,
-                'amount': request.POST['amount'],
-                'source': request.POST['source'],
-            }
-
             messages.success(request, "Income Added to your list!")
             return redirect('income')
 
@@ -89,40 +82,49 @@ def delete_income(request,pk):
 def edit_income(request, pk):
     # Grabs each on of the sources in the Source model.
     sources = Source.objects.all()
-    income = Income.objects.get(id=pk)
+    
+    if request.user.is_authenticated:
+        income = Income.objects.get(id=pk)
 
-    if request.user == income.user:
-        if request.method == 'GET':
+        if request.user == income.user:
+            if request.method == 'GET':
 
-            return render(request, 'income/edit_income.html', {'sources': sources, 'income': income})
-        
-        elif request.method == 'POST':
+                return render(request, 'income/edit_income.html', {'sources': sources, 'income': income})
             
-            # If no description is provided we just do a default.
-            descriptionValue = "No description provided."
-
-            # In case the user uses spaces in the description we still don't count them as a description.
-            if request.POST['description'].strip():
-                descriptionValue = request.POST['description']
-
-            # WHEN A USER IS AUTHENTICATED.
-            if request.user.is_authenticated:
-
-                editedIncome = Income.objects.get(id=pk)
+            elif request.method == 'POST':
                 
-                editedIncome.name = request.POST['incomeName']
-                editedIncome.date = request.POST['datePicked']
-                editedIncome.description = descriptionValue
-                editedIncome.amount = request.POST['amount']
-                editedIncome.source = request.POST['source']
+                # If no description is provided we just do a default.
+                descriptionValue = "No description provided."
 
-                editedIncome.save()
-                
-            messages.success(request, "Income edited successfully!")
+                # In case the user uses spaces in the description we still don't count them as a description.
+                if request.POST['description'].strip():
+                    descriptionValue = request.POST['description']
+
+                # WHEN A USER IS AUTHENTICATED.
+                if request.user.is_authenticated:
+
+                    editedIncome = Income.objects.get(id=pk)
+                    
+                    editedIncome.name = request.POST['incomeName']
+                    editedIncome.date = request.POST['datePicked']
+                    editedIncome.description = descriptionValue
+                    editedIncome.amount = request.POST['amount']
+                    editedIncome.source = request.POST['source']
+
+                    editedIncome.save()
+                    
+                messages.success(request, "Income edited successfully!")
+                return redirect('income')
+        else:
+            messages.error(request, "Naugthy Naugthy. You don't have permissions to see that.")
             return redirect('income')
     else:
-        messages.error(request, "Naugthy Naugthy. You don't have permissions to see that.")
-        return redirect('income')
+        ## DO SOMETHING WHEN THE USER IS NOT AUTHENTICATED
+        if request.method == 'GET':
+            return render(request, 'income/edit_income.html', {'sources': sources, 'incomes': pk})
+        else:
+            messages.success(request, "income edited successfully!")
+            return redirect('income')
     
 def search_income(request):
 
@@ -131,7 +133,7 @@ def search_income(request):
         search_str = data.get('searchText', '')
 
         # In case we use redis cache.
-        # cache_key = f'search_expense_{request.user.id}_{search_str}'
+        # cache_key = f'search_income_{request.user.id}_{search_str}'
         # cached_result = cache.get(cache_key)
 
         # if cached_result is not None:
@@ -188,9 +190,13 @@ def income_data(request):
 
                 return JsonResponse({'income_data': finalRepresentation}, safe=False)
             else:
-                return JsonResponse({'error': None}, status=404)
+                return JsonResponse({'error': 'No income to show.'}, status=404)
         
-        return JsonResponse({'error': None}, status=404)
+        else:
+            ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED
+            return JsonResponse({'error': 'No income to show.'}, status=404)
+
+        return JsonResponse({'error': 'No income to show.'}, status=404)
 
 def income_summary(request):
     if request.method == 'GET':
@@ -203,6 +209,7 @@ def income_summary(request):
                 return render(request, 'income/income_summary.html')
         
         else:
+            ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED
             return render(request, 'income/income_summary.html')
             
     return render(request, 'income/income_summary.html')
@@ -279,6 +286,84 @@ def export_data(request):
                 return response
 
         return HttpResponse("Export format not supported")
+
+    else:
+        data = json.loads(request.body)
+        incomes = data.get('incomes', [])
+        fileType = data.get('format')
+
+        match fileType:
+            case 'csv':
+                response = HttpResponse(content_type='text/csv')
+                response['Content-Disposition'] = f'attachment; filename = Income-{str(datetime.datetime.now().date())}.csv'
+
+                writer = csv.writer(response)
+                writer.writerow(['Name', 'Source', 'Amount', 'Description', 'Date'])
+
+                for income in incomes:
+                    writer.writerow([income['name'], income['source'], income['amount'], income['description'], income['date']])
+
+                return response
+            
+            case 'xlsx':
+                response = HttpResponse(content_type='text/ms-excel')
+                response['Content-Disposition'] = f'attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx'
+
+                wb = xlwt.Workbook(encoding='utf-8')
+                ws = wb.add_sheet('Income')
+
+                row_num = 0
+
+                font_style = xlwt.XFStyle()
+                font_style.font.bold = True
+
+                columns = ['Name', 'Source', 'Amount', 'Description', 'Date']
+
+                for col_num in range(len(columns)):
+                    ws.write(row_num, col_num, columns[col_num], font_style)
+
+                font_style = xlwt.XFStyle()
+
+                # Write data rows
+                for income in incomes:
+                    row_num += 1
+                    ws.write(row_num, 0, income['name'])
+                    ws.write(row_num, 1, income['source'])
+                    ws.write(row_num, 2, income['amount'])
+                    ws.write(row_num, 3, income['description'])
+                    ws.write(row_num, 4, income['date'])
+                
+                wb.save(response)
+                return response
+
+            
+            case 'pdf':
+                response = HttpResponse(content_type='text/pdf')
+                response['Content-Disposition'] = f'attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf'
+                response['Content-Transfer-Encoding'] = 'binary'
+
+                incomes = data.get('incomes')
+
+                totalAmount = 0.00
+                
+                for income in incomes:
+                    totalAmount += float(income['amount'])
+
+                html_string = render_to_string('income/pdf-output.html', {'incomes': incomes, 'total': totalAmount})
+                html = HTML(string=html_string)
+
+                result = html.write_pdf()
+
+                with tempfile.NamedTemporaryFile(delete=True) as product:
+                    product.write(result)
+                    product.flush()
+
+                    product= open(product.name, 'rb')
+                    response.write(product.read())
+
+                return response
+
+        return HttpResponse("Export format not supported")
         
     return HttpResponse("Export format not supported")
 
@@ -332,5 +417,10 @@ def import_data(request):
             except Exception as e:
                 messages.error(request, f'Error processing file: {e}')
                 return JsonResponse({'error': f'Error pocessing file: {e}'}, status=400)
+        
+        else:
+            ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED.
+            return JsonResponse({'error': f'Error pocessing file: {e}'}, status=400)
+            
     else:
         form = UploadFileForm()
