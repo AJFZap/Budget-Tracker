@@ -71,9 +71,17 @@
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{entry.name}}</td>
+                {% if user.username %}
                 {% if entry.entry_type == 'Expense' %}<td>{{ entry.category }}</td>{% else %}<td>{{ entry.source }}</td>{% endif %}
+                {% else %}
+                <td>{{ entry.source }}</td>
+                {% endif %}
                 <td>{{entry.date}}</td>
+                {% if user.username %}
                 <td>{{entry.entry_type}}</td>
+                {% else %}
+                <td>{{entry.db_type}}</td>
+                {% endif %}
                 <td>{{entry.amount}}</td>
             </tr>
             {% endfor %}

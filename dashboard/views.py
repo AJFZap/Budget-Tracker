@@ -183,6 +183,89 @@ def export_data(request):
                 return response
 
         return HttpResponse("Export format not supported")
+    
+    else:
+        data = json.loads(request.body)
+        entries = data.get('allEntries', [])
+        fileType = data.get('format')
+        print(entries)
+
+        match fileType:
+            case 'csv':
+                response = HttpResponse(content_type='text/csv')
+                response['Content-Disposition'] = f'attachment; filename = BudgetTracker-{str(datetime.datetime.now().date())}.csv'
+
+                writer = csv.writer(response)
+                writer.writerow(['Name', 'Source/Category', 'Date', 'Description', 'Type', 'Amount'])
+
+                for entry in entries:
+                    writer.writerow([entry['name'], entry['source'], entry['date'], entry['description'], entry['db_type'], entry['amount']])
+
+                return response
+            
+            case 'xlsx':
+                print('XLSX')
+                response = HttpResponse(content_type='text/ms-excel')
+                response['Content-Disposition'] = f'attachment; filename = BudgetTracker-{str(datetime.datetime.now().date())}.xlsx'
+
+                wb = xlwt.Workbook(encoding='utf-8')
+                ws = wb.add_sheet('BudgetTracker')
+
+                row_num = 0
+
+                font_style = xlwt.XFStyle()
+                font_style.font.bold = True
+
+                columns = ['Name', 'Source/Category', 'Date', 'Description', 'Type', 'Amount']
+
+                for col_num in range(len(columns)):
+                    ws.write(row_num, col_num, columns[col_num], font_style)
+
+                font_style = xlwt.XFStyle()
+
+                # Write data rows
+                for entry in entries:
+                    row_num += 1
+                    ws.write(row_num, 0, entry['name'])
+                    ws.write(row_num, 1, entry['source'])
+                    ws.write(row_num, 2, entry['date'])
+                    ws.write(row_num, 3, entry['description'])
+                    ws.write(row_num, 4, entry['db_type'])
+                    ws.write(row_num, 5, entry['amount'])
+                
+                wb.save(response)
+                return response
+
+            
+            case 'pdf':
+                response = HttpResponse(content_type='text/pdf')
+                response['Content-Disposition'] = f'attachment; filename = BudgetTracker-{str(datetime.datetime.now().date())}.pdf'
+                response['Content-Transfer-Encoding'] = 'binary'
+
+                entries = data.get('allEntries')
+
+                totalAmount = 0.00
+                
+                for entry in entries:
+                    if entry['db_type'] == 'Expense':
+                        totalAmount -= float(entry['amount'])
+                    else:
+                        totalAmount += float(entry['amount'])
+                
+
+                html_string = render_to_string('dashboard/pdf-output.html', {'entries': entries, 'total': totalAmount})
+                html = HTML(string=html_string)
+
+                result = html.write_pdf()
+
+                with tempfile.NamedTemporaryFile(delete=True) as product:
+                    product.write(result)
+                    product.flush()
+
+                    product= open(product.name, 'rb')
+                    response.write(product.read())
+
+                return response
         
     return HttpResponse("Export format not supported")
 

@@ -4,10 +4,9 @@
 
 <div class="container mt-5">
     {% if not user.username %}
-    <br>
     <!-- No authentication -->
     {% include 'partials/_nouser.html' %}
-
+    {% endif %}
     <!-- Message to display -->
     {% include 'partials/_messages.html' %}
 
@@ -19,6 +18,7 @@
         </div>
     </div>
 
+    {% if not user.username %}
     <!-- Cards -->
     <div class="row text-center">
         <div class="col-md-4 mb-4">
@@ -73,15 +73,26 @@
             </div>
         </div>
     </div>
-{% else %}
-    <!-- Header -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <h1 class="text-center">Dashboard</h1>
+    <!-- When there is data to show: -->
+    <!-- Export and Import buttons -->
+    <div id="exportImportContainer" class="container mt-1" style="display: none;">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center mt-1">
+                <div class="col-md-5 d-flex justify-content-between mt-1">
+                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openExportModal" data-bs-target="#data-modal" data-bs-toggle="modal">Export Data</a>
+                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">Import Data</a>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- Message to display -->
-    {% include 'partials/_messages.html' %}
+    <!-- Graph -->
+    <div id="graphContainer" class="d-flex justify-content-center" style="display: none;">
+        <div class="chart-container" style="position: relative; width: 80vw; height: 60vh;">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    {% else %}
 
     <!-- Cards -->
     <div class="row text-center">
@@ -167,86 +178,103 @@
         </div>
     </div>
     {% endif %}
-    <!-- Export MODAL -->
-    <div class="modal fade" id="data-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        Export Data
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <div class="modal-body text-muted">
-                        Select the file format that you prefer:
-                    </div>
-                    <form id="exportForm" method="post" action="{% url 'export_everything' %}">
-                        {% csrf_token %}
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="filetype" id="csvfile" value="csv">
-                            <label class="form-check-label" for="csvfile">
-                            CSV
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="filetype" id="excelfile" value="excel">
-                            <label class="form-check-label" for="excelfile">
-                            EXCEL
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="filetype" id="pdffile" value="pdf">
-                            <label class="form-check-label" for="pdffile">
-                            PDF
-                            </label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="exportButton" disabled>Export</button>
-                </div>
+</div>
+{% endif %}
+<!-- Export MODAL -->
+<div class="modal fade" id="data-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Export Data
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </div>
-    <!-- IMPORT MODAL -->
-    <div class="modal fade" id="import-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        Import Data
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal-body text-center">
+                <div class="modal-body text-muted">
+                    Select the file format that you prefer:
                 </div>
-                <div class="modal-body text-center">
-                    <div class="modal-body text-muted">
-                        <p>Note that only <strong>csv</strong> and <strong>xls/xlsx</strong> files are supported for import as of now.</p>
-                        Do you want to delete the previous data and just keep the imported one? (Check the box below if that is the case)
-                    </div>
-                    <div class="form-check d-inline-block">
-                        <input class="form-check-input" type="checkbox" id="confirmCheckbox">
-                        <label class="form-check-label" for="confirmCheckbox">
-                            Yes, I do wish to delete the previous data and just keep the imported one.
+                <form id="exportForm" method="post" action="{% url 'export_everything' %}">
+                    {% csrf_token %}
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="filetype" id="csvfile" value="csv">
+                        <label class="form-check-label" for="csvfile">
+                        CSV
                         </label>
                     </div>
-                    <div class="form-group mt-2">
-                        <input type="file" id="fileInput" class="form-control">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="filetype" id="excelfile" value="xlsx">
+                        <label class="form-check-label" for="excelfile">
+                        EXCEL
+                        </label>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="importIncomeButton">Import</button>
-                </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="filetype" id="pdffile" value="pdf">
+                        <label class="form-check-label" for="pdffile">
+                        PDF
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="exportButton" disabled>Export</button>
             </div>
         </div>
     </div>
 </div>
-{% endif %}
+<!-- IMPORT MODAL -->
+<div class="modal fade" id="import-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Import Data
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {% if user.username %}
+            <div class="modal-body text-center">
+                <div class="modal-body text-muted">
+                    <p>Note that only <strong>csv</strong> and <strong>xls/xlsx</strong> files are supported for import as of now.</p>
+                    Do you want to delete the previous data and just keep the imported one? (Check the box below if that is the case)
+                </div>
+                <div class="form-check d-inline-block">
+                    <input class="form-check-input" type="checkbox" id="confirmCheckbox">
+                    <label class="form-check-label" for="confirmCheckbox">
+                        Yes, I do wish to delete the previous data and just keep the imported one.
+                    </label>
+                </div>
+                <div class="form-group mt-2">
+                    <input type="file" id="fileInput" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="importIncomeButton">Import</button>
+            </div>
+            {% else %}
+            <div class="modal-body text-center">
+                <div class="modal-body text-muted">
+                    Sorry but only authenticated users can import data! Be sure to export your data in a <strong>csv</strong> or <strong>xls/xlsx</strong> file and
+                    <a class="text-info" href="{% url 'register' %}">Register!</a> or <a class="text-info" href="{% url 'login' %}">Login!</a> into an existing account to use this feature!
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% if user.username %}
 <script src="{% static 'js/dashboard.js' %}"></script>
 <script src="{% static 'js/importexport-dashboard.js' %}"></script>
+{% else %}
+<script src="{% static 'js/non-auth/dashboard.js' %}"></script>
+<script src="{% static 'js/non-auth/export-dashboard.js' %}"></script>
+{% endif %}
 
 {% endblock %}
