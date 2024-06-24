@@ -125,6 +125,11 @@ data-edit-url-base="{% url 'edit-expenses' 0 %}">
             <a class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" href="{% url 'add-expenses' %}">
               Add Expense
             </a>
+            {% if user.username %}
+            <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">
+              Import Data
+            </a>
+            {% endif %}
           </div>
         </div>
     </div>
