@@ -5,6 +5,8 @@ $(document).ready(function(){
     const TRANSACTION_TABLE = document.getElementById("transactionTable");
     const EXPORTIMPORT = document.getElementById("exportImportContainer");
     const GRAPH = document.getElementById("graphContainer");
+    const NODATA = document.getElementById("noDataCard");
+    const TABLEDATA = document.getElementById("TableData");
 
     // Retrieve expenses and income from localStorage
     const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
@@ -71,6 +73,8 @@ $(document).ready(function(){
 
     // In case we got data to show
     if (expenses.length > 0 || incomes.length > 0 ) {
+        NODATA.style.display = "none";
+        TABLEDATA.style.display = "block";
         EXPORTIMPORT.style.display = "block";
         GRAPH.style.display = "block";
 

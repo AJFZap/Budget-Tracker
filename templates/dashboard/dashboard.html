@@ -47,8 +47,26 @@
         </div>
     </div>
 
+    <!-- When there is no data to show. -->
+    <div id="noDataCard" class="container mt-5" style="display: block;">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-8">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <h3 class="mb-3"><strong>No data to show!</strong></h3>
+                        <h4 class="text-muted mb-4">You have no transactions yet.</h4>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <a href="{% url 'expenses' %}" class="btn btn-primary btn-lg px-4 rounded-pill me-md-2">Create some Expenses</a>
+                            <a href="{% url 'income' %}" class="btn btn-primary btn-lg px-4 rounded-pill">Create some Income</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Table -->
-    <div class="row">
+    <div id="TableData" class="row" style="display: none;">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -125,6 +143,7 @@
         </div>
     </div>
 
+    {% if balances.latest_entries %}
     <!-- Table -->
     <div class="row">
         <div class="col-12">
@@ -159,7 +178,6 @@
             </div>
         </div>
     </div>
-    {% if balances.latest_entries %}
     <!-- Export and Import buttons -->
     <div class="container mt-1">
         <div class="row">
@@ -175,6 +193,24 @@
     <div class="d-flex justify-content-center">
         <div class="chart-container" style="position: relative; width: 80vw; height: 60vh;">
             <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    {% else %}
+    <!-- When there is no data to show. -->
+    <div id="noDataCard" class="container mt-5" style="display: block;">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-8">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center p-5">
+                        <h3 class="mb-3"><strong>No data to show!</strong></h3>
+                        <h4 class="text-muted mb-4">You have no transactions yet.</h4>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <a href="{% url 'expenses' %}" class="btn btn-primary btn-lg px-4 rounded-pill me-md-2">Create some Expenses</a>
+                            <a href="{% url 'income' %}" class="btn btn-primary btn-lg px-4 rounded-pill">Create some Income</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     {% endif %}
