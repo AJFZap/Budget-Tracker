@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Sort by date (descending)
     allEntries.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    console.log(allEntries);
+    // console.log(allEntries);
 
     // Export Modal and Export implementation
     const checkboxes = document.querySelectorAll('input[name="filetype"]');
