@@ -197,16 +197,19 @@
     </div>
     {% else %}
     <!-- When there is no data to show. -->
-    <div id="noDataCard" class="container mt-5" style="display: block;">
+    <div id="noDataCard" class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6 mb-8">
                 <div class="card shadow-sm">
                     <div class="card-body text-center p-5">
                         <h3 class="mb-3"><strong>No data to show!</strong></h3>
                         <h4 class="text-muted mb-4">You have no transactions yet.</h4>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-4">
                             <a href="{% url 'expenses' %}" class="btn btn-primary btn-lg px-4 rounded-pill me-md-2">Create some Expenses</a>
                             <a href="{% url 'income' %}" class="btn btn-primary btn-lg px-4 rounded-pill">Create some Income</a>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <a class="btn btn-primary btn-lg px-4 rounded-pill" data-bs-target="#import-modal" data-bs-toggle="modal">Import Data</a>
                         </div>
                     </div>
                 </div>

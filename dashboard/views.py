@@ -325,7 +325,7 @@ def import_data(request):
                             date=row['Date'],
                         )
 
-                messages.success(request, 'Expenses imported successfully')
+                messages.success(request, 'Data imported successfully')
                 return JsonResponse({'success': True})
 
             except Exception as e:
