@@ -88,12 +88,12 @@ SEARCHFIELD.addEventListener('keyup', (e)=>{
 
         }).catch((error) => {
             console.error('Error:', error);
-            EXPENSESTABLE.style.display = "none"; // Hide the data table with the expenses.
+            INCOMETABLE.style.display = "none"; // Hide the data table with the incomes.
             TABLEOUTPUT.style.display = "block"; // Show the Output table with the search results.
         });
     }
     else {
-        EXPENSESTABLE.style.display = "block"; // Show the data table with the expenses again.
+        INCOMETABLE.style.display = "block"; // Show the data table with the incomes again.
         TABLEOUTPUT.style.display = "none"; // Hide the table output when the search bar is empty.
     }
 });
