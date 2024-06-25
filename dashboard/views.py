@@ -54,8 +54,8 @@ def index(request):
 
         # Prepare context.
         context = {
-            'Balance': balance,
-            'Expenses': expenseAmount,
+            'Balance': format(balance, ".2f"),
+            'Expenses': format(expenseAmount, ".2f"),
             'Income': incomeAmount,
             'latest_entries': latest_entries,
         }
