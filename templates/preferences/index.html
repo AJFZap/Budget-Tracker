@@ -18,7 +18,7 @@
             <p>Select your desired preferences!</p>
         {% endif %}
 <div class="list-group mb-5 shadow">
-    <form action="{% url 'preferences' %}" method="post">
+    <form id="preferencesForm" action="{% url 'preferences' %}" method="post">
         {% csrf_token %}
         <div class="list-group-item">
             <div class="row align-items-center">
@@ -27,14 +27,13 @@
                     {% if saved %}
                     <span class="badge badge-pill badge-success">Current: {{saved.0}}</span>  <!-- Change this to the user prefered one -->
                     {% else %}
-                    <span class="badge badge-pill badge-success">Current: USD - United States Dollar</span>
+                    <span id="currentCurrency" class="badge badge-pill badge-success">Current: USD - United States Dollar</span>
                     {% endif %}
-                    <p class="text-muted mb-2">Every value will be converted to the OFFICIAL currency change.</p>
-                    <select name="currency" class="form-select" aria-label="Default select example">
+                    <select id="currencySelect" name="currency" class="form-select" aria-label="Default select example">
                         {% if saved %}
                         <option selected>{{saved.0}}</option>
                         {% else %}
-                        <option selected>Select a currency</option> <!-- Default to the one the user has saved. If none then it should be USD or 'Select a currency' -->
+                        <option selected>USD - United States Dollar</option> <!-- Default to the one the user has saved. If none then it should be USD or 'Select a currency' -->
                         {% endif %}
                         {% for currency in currencies %}
                         <option name="currency" value="{{currency.name}} - {{currency.value}}">{{currency.name}} - {{currency.value}}</option>
@@ -51,14 +50,14 @@
                     {% if saved %}
                     <span class="badge badge-pill badge-success">Current: {{saved.1}}</span>  <!-- Change this to the user prefered one -->
                     {% else %}
-                    <span class="badge badge-pill badge-success">Current: English</span>
+                    <span id="currentLanguage" class="badge badge-pill badge-success">Current: English</span>
                     {% endif %}
                     <p class="text-muted mb-2">Select your prefered language.</p>
-                    <select name="language" class="form-select" aria-label="Default select example">
+                    <select id="languageSelect" name="language" class="form-select" aria-label="Default select example">
                         {% if saved %}
                         <option selected>{{saved.1}}</option>
                         {% else %}
-                        <option selected>Select a language</option>
+                        <option selected>English</option>
                         {% endif %}
                         <option name="language" value="English">English</option>
                         <option name="language" value="Español">Spanish</option>
@@ -139,5 +138,9 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% if user.username %}
 <script src="{% static 'js/settings.js' %}"></script>
+{% else %}
+<script src="{% static 'js/non-auth/preferences.js' %}"></script>
+{% endif %}
 {% endblock %}

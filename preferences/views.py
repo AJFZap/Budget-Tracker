@@ -56,24 +56,13 @@ def Preferences(request):
     # WHEN IT IS A GUEST WE DON'T SAVE A SINGLE THING.
     else:
         if request.method == 'GET':
-            currencies = []
-            file_path = os.path.join(settings.BASE_DIR, 'currencies.json')
-
-            with open(file_path, 'r') as json_file:
-                data = json.load(json_file)
-                for i,j in data.items():
-                    currencies.append({'name':i, 'value':j})
 
             return render(request, 'preferences/index.html', {'currencies': currencies})
         
         elif request.method == 'POST':
-            currency = request.POST['currency']
-            language = request.POST['language']
-
-            savedPreferences = [currency, language]
 
             messages.success(request, "Changes have been saved succesfully!")
-            return render(request, 'preferences/index.html', {'currencies': currencies, 'saved': savedPreferences})
+            return render(request, 'preferences/index.html', {'currencies': currencies})
 
 def delete_user(request, pk):
     """

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault(); // Prevent form submission
 
         // Get form data
-        const expenseName = document.getElementById('expenseName').value; // It's not reading their values.
+        const expenseName = document.getElementById('expenseName').value;
         const datePicked = document.getElementById('expenseDate').value;
         const description = document.getElementById('expenseDescription').value || "No description provided.";
         const amount = document.getElementById('expenseAmount').value;
