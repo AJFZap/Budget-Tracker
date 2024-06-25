@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Retrieve expenses from localStorage
     const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+    // Retrieve preferences from localStorage
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+    const prefCurrency = preferences.currency.substring(0, 4);
 
     // const items = { ...localStorage };
     // console.log('Data:',items);
@@ -101,14 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (reversedExpenses.length > 0) {
                 reversedExpenses.forEach(expense => {
-                    
                     content += `
                         <hr class="my-2">
                         <div class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
                                 <strong>${expense.category}</strong><br>
                                 <strong>${expense.name}</strong><br>
-                                <span class="text-muted">${expense.amount}</span><br>
+                                <span class="text-muted">${prefCurrency} ${expense.amount}</span><br>
                                 <small>${expense.date}</small><br>
                                 <span>${expense.description}</span><br>
                             </div>

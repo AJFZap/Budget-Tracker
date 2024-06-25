@@ -2,6 +2,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Retrieve incomes from localStorage
     const incomes = JSON.parse(localStorage.getItem('incomes')) || [];
+
+    // Retrieve preferences from localStorage
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+    const prefCurrency = preferences.currency.substring(0, 4);
     
     const SEARCHFIELD = document.getElementById('searchField');
     const INCOMESTABLE = document.getElementById('incomeTable');
@@ -25,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
         } else {
-            const prefCurrency = incomes[0].currency || ""; // Default to an empty string if no currency
             incomes.forEach(income => {
                 TABLEOUTPUT.innerHTML += `
                     <hr class="my-2">

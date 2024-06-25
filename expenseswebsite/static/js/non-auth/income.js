@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Retrieve incomes from localStorage
     const incomes = JSON.parse(localStorage.getItem('incomes')) || [];
 
+    // Retrieve preferences from localStorage
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+    const prefCurrency = preferences.currency.substring(0, 4);
+
     // const items = { ...localStorage };
     // console.log('Data:',items);
 
@@ -108,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div>
                                 <strong>${income.source}</strong><br>
                                 <strong>${income.name}</strong><br>
-                                <span class="text-muted">${income.amount}</span><br>
+                                <span class="text-muted">${prefCurrency} ${income.amount}</span><br>
                                 <small>${income.date}</small><br>
                                 <span>${income.description}</span><br>
                             </div>
