@@ -7,10 +7,16 @@ $(document).ready(function(){
     const GRAPH = document.getElementById("graphContainer");
     const NODATA = document.getElementById("noDataCard");
     const TABLEDATA = document.getElementById("TableData");
+    const PREFCURRENCY = document.querySelectorAll('p.displayCurrency');
 
     // Retrieve expenses and income from localStorage
     const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
     const incomes = JSON.parse(localStorage.getItem('incomes')) || [];
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+
+    PREFCURRENCY.forEach(element => {
+        element.innerHTML = preferences.currency.substring(0, 4); // Shows the preferred currency.
+    });
 
     let expenseValue = 0.00;
     let incomeValue = 0.00;
@@ -62,7 +68,7 @@ $(document).ready(function(){
         const amountClass = entry.db_type === 'Expense' ? 'text-danger' : 'text-success'; // If it's an expense it shows red if not it shows in green.
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${index + 1}</td>
+            <td>${entry.name}</td>
             <td>${entry.date}</td>
             <td>${entry.description}</td>
             <td class=${amountClass}>${entry.amount}</td>
