@@ -157,11 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function handleDelete() {
             const expenseId = parseInt(this.getAttribute('data-id'));
-            console.log(`Deleting expense with id: ${expenseId}`);
+            // console.log(`Deleting expense with id: ${expenseId}`);
             
             // Find the expense by ID and remove it
             const expenseIndex = expenses.findIndex(expense => expense.id === expenseId);
-            console.log(expenseIndex)
+            // console.log(expenseIndex)
 
             if (expenseIndex !== -1) {
                 expenses.splice(expenseIndex, 1);

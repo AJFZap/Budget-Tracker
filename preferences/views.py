@@ -5,10 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages, auth
 from django.urls import reverse
 from django.conf import settings
-from decouple import config
 from .models import UserPreferences
-import os
-import json
+import os, json
 
 # Create your views here.
 
@@ -18,7 +16,7 @@ def Preferences(request):
     a good amount of currencies from all over the world.
     """ 
     currencies = []
-    file_path = os.path.join(settings.BASE_DIR, 'currencies.json')
+    file_path = os.path.join(settings.BASE_DIR, 'currencies.json') # Get the Json file with all the currencies.
 
     with open(file_path, 'r') as json_file:
         data = json.load(json_file)

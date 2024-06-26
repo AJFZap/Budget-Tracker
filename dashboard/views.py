@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse
-from django.db.models import Sum
 from preferences.models import UserPreferences
 from expenses.models import Category, Expense
 from income.models import Source, Income
@@ -17,7 +15,6 @@ import pandas as pd
 
 # Create your views here.
 
-# @login_required(login_url='/authentication/login')
 def index(request):
     if request.user.is_authenticated:
         # Get the prefered currency from the user and if it's new and doesn't have any we create the database with the defaults.
@@ -155,7 +152,7 @@ def export_data(request):
                     row_num += 1
 
                     for col_num in range(len(row)):
-                        print(f'Row_num: {row_num}, Col_Num: {col_num}, Content: {row[col_num]}')
+                        # print(f'Row_num: {row_num}, Col_Num: {col_num}, Content: {row[col_num]}')
                         ws.write(row_num, col_num, str(row[col_num]), font_style)
                 
                 wb.save(response)
@@ -188,7 +185,7 @@ def export_data(request):
         data = json.loads(request.body)
         entries = data.get('allEntries', [])
         fileType = data.get('format')
-        print(entries)
+        # print(entries)
 
         match fileType:
             case 'csv':
@@ -204,7 +201,6 @@ def export_data(request):
                 return response
             
             case 'xlsx':
-                print('XLSX')
                 response = HttpResponse(content_type='text/ms-excel')
                 response['Content-Disposition'] = f'attachment; filename = BudgetTracker-{str(datetime.datetime.now().date())}.xlsx'
 

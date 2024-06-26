@@ -7,8 +7,8 @@ $(document).ready(function(){
     const currentCurrency = document.getElementById('currentCurrency');
     const currentLanguage = document.getElementById('currentLanguage');
     
-    const items = { ...localStorage };
-    console.log('Data:',items);
+    // const items = { ...localStorage };
+    // console.log('Data:',items);
 
     // Get the existing preferences from localStorage or create them if they don't exist.
     let preferences = JSON.parse(localStorage.getItem('preferences')) || {'currency': 'USD - United States Dollar', 'language': 'English'};

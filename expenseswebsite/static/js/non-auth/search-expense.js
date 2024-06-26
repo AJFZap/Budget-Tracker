@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle the case where the delete button is clicked
     function searchDelete() {
         const expenseId = parseInt(this.getAttribute('data-id'));
-        console.log(`Deleting expense with id: ${expenseId}`);
+        // console.log(`Deleting expense with id: ${expenseId}`);
         
         // Find the expense by ID and remove it
         const expenseIndex = expenses.findIndex(expense => expense.id === expenseId);

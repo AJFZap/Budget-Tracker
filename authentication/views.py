@@ -6,12 +6,11 @@ from django.contrib import messages, auth
 from django.core.mail import send_mail
 from django.urls import reverse
 from validate_email import validate_email
-from django.conf import settings
 from decouple import config
 from .utils import tokenGenerator
 import json
 
-from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
+from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 
