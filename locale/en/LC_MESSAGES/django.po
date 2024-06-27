@@ -1,0 +1,1028 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR ariel.jf.zappia@gmail.com, 2024.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-27 15:42-0300\n"
+"PO-Revision-Date: 2024-06-27 18:42+0000\n"
+"Last-Translator:   <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
+
+#: authentication/views.py:43
+msgid "Password can't be shorter than six characters!"
+msgstr "Password can't be shorter than six characters!"
+
+#: authentication/views.py:57
+msgid ""
+"Account successfully created! A verification link has been sent to your "
+"email."
+msgstr ""
+"Account successfully created! A verification link has been sent to your "
+"email."
+
+#: authentication/views.py:61
+msgid "Username already in use, pick another one."
+msgstr "Username already in use, pick another one."
+
+#: authentication/views.py:64
+msgid "This Email is already associated with an existing account"
+msgstr "This Email is already associated with an existing account"
+
+#: authentication/views.py:82
+msgid "Account Activation"
+msgstr "Account Activation"
+
+#: authentication/views.py:83
+#, python-brace-format
+msgid ""
+"Hello {user.username}! \n"
+" Please click on the link below to activate your account!\n"
+" {activate_url}"
+msgstr ""
+"Hello {user.username}!\n"
+"Please click on the link below to activate your account!\n"
+"{activate_url}"
+
+#: authentication/views.py:99
+msgid "Account already active"
+msgstr "Account already active"
+
+#: authentication/views.py:105
+msgid "Account activated successfully"
+msgstr "Account activated successfully"
+
+#: authentication/views.py:125
+msgid "Please fill out the fields."
+msgstr "Please fill out the fields."
+
+#: authentication/views.py:135
+#, python-brace-format
+msgid "Welcome Back, {user.username}!"
+msgstr "Welcome Back, {user.username}!"
+
+#: authentication/views.py:138
+#, python-brace-format
+msgid ""
+"Activate your account to login, {user.username}!, Check your email and your "
+"spam inbox."
+msgstr ""
+"Activate your account to login, {user.username}!, Check your email and your "
+"spam inbox."
+
+#: authentication/views.py:141
+msgid "Wrong Password"
+msgstr "Wrong Password"
+
+#: authentication/views.py:145
+msgid "No account with that username exists"
+msgstr "No account with that username exists"
+
+#: authentication/views.py:150
+msgid "You've logged out!"
+msgstr "You've logged out!"
+
+#: authentication/views.py:162
+msgid "Need to introduce a valid email."
+msgstr "Need to introduce a valid email."
+
+#: authentication/views.py:164
+msgid "Email already registered on the database."
+msgstr "Email already registered on the database."
+
+#: authentication/views.py:177
+msgid "Username should only contain alphanumerical characters."
+msgstr "Username should only contain alphanumerical characters."
+
+#: authentication/views.py:179
+msgid "Username already exists."
+msgstr "Username already exists."
+
+#: dashboard/views.py:183 dashboard/views.py:267 expenses/views.py:292
+#: income/views.py:288 income/views.py:366 income/views.py:368
+msgid "Export format not supported"
+msgstr "Export format not supported"
+
+#: dashboard/views.py:278 expenses/views.py:382 income/views.py:378
+msgid "No file provided"
+msgstr "No file provided"
+
+#: dashboard/views.py:288 dashboard/views.py:289 expenses/views.py:392
+#: expenses/views.py:393 income/views.py:388 income/views.py:389
+msgid "Unsupported file format"
+msgstr "Unsupported file format"
+
+#: dashboard/views.py:294 dashboard/views.py:295 expenses/views.py:398
+#: expenses/views.py:399 income/views.py:394 income/views.py:395
+msgid "Wrong amount of columns or names."
+msgstr "Wrong amount of columns or names."
+
+#: dashboard/views.py:325
+msgid "Data imported successfully"
+msgstr "Data imported successfully"
+
+#: dashboard/views.py:329 dashboard/views.py:330 expenses/views.py:422
+#: expenses/views.py:423 income/views.py:418 income/views.py:419
+#: income/views.py:423
+#, python-brace-format
+msgid "Error processing file: {e}"
+msgstr "Error processing file: {e}"
+
+#: expenses/views.py:63
+msgid "Expense Added to your list!"
+msgstr "Expense Added to your list!"
+
+#: expenses/views.py:78
+msgid "Expense deleted successfully!"
+msgstr "Expense deleted successfully!"
+
+#: expenses/views.py:98 income/views.py:43 income/views.py:97
+msgid "No description provided."
+msgstr "No description provided."
+
+#: expenses/views.py:117 expenses/views.py:128
+msgid "Expense edited successfully!"
+msgstr "Expense edited successfully!"
+
+#: expenses/views.py:120 income/views.py:119
+msgid "Naughty Naughty. You don't have permissions to see that."
+msgstr "Naughty Naughty. You don't have permissions to see that."
+
+#: expenses/views.py:160 income/views.py:158
+msgid "Invalid request method"
+msgstr "Invalid request method"
+
+#: expenses/views.py:196 expenses/views.py:200 expenses/views.py:202
+msgid "No expenses to show."
+msgstr "No expenses to show."
+
+#: expenses/views.py:229 expenses/views.py:303
+msgid ""
+"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.csv"
+msgstr ""
+"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.csv"
+
+#: expenses/views.py:241 expenses/views.py:315
+msgid ""
+"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx"
+msgstr ""
+"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx"
+
+#: expenses/views.py:275 expenses/views.py:346
+msgid ""
+"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.pdf"
+msgstr ""
+"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.pdf"
+
+#: expenses/views.py:418
+msgid "Expenses imported successfully"
+msgstr "Expenses imported successfully"
+
+#: expenseswebsite/settings.py:138 templates/preferences/index.html:61
+#: templates/preferences/index.html:63
+msgid "English"
+msgstr "English"
+
+#: expenseswebsite/settings.py:139 templates/preferences/index.html:64
+msgid "Spanish"
+msgstr "Spanish"
+
+#: expenseswebsite/settings.py:140 templates/preferences/index.html:65
+msgid "Japanese"
+msgstr "Japanese"
+
+#: income/views.py:62 income/views.py:67
+msgid "Income Added to your list!"
+msgstr "Income Added to your list!"
+
+#: income/views.py:77
+msgid "Income deleted successfully!"
+msgstr "Income deleted successfully!"
+
+#: income/views.py:116 income/views.py:126
+msgid "Income edited successfully!"
+msgstr "Income edited successfully!"
+
+#: income/views.py:193 income/views.py:197 income/views.py:199
+msgid "No income to show."
+msgstr "No income to show."
+
+#: income/views.py:225 income/views.py:298
+msgid ""
+"attachment; filename = Income-{str(datetime.datetime.now().date())}.csv"
+msgstr ""
+"attachment; filename = Income-{str(datetime.datetime.now().date())}.csv"
+
+#: income/views.py:271 income/views.py:342
+msgid ""
+"attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf"
+msgstr ""
+"attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf"
+
+#: income/views.py:310
+msgid ""
+"attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx"
+msgstr ""
+"attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx"
+
+#: income/views.py:414
+msgid "Income imported successfully"
+msgstr "Income imported successfully"
+
+#: preferences/views.py:52 preferences/views.py:63
+msgid "Changes have been saved successfully!"
+msgstr "Changes have been saved successfully!"
+
+#: preferences/views.py:74
+#, python-brace-format
+msgid "{name} account has been deleted successfully!"
+msgstr "{name} account has been deleted successfully!"
+
+#: templates/authentication/login.html:15
+msgid "Log into your account!"
+msgstr "Log into your account!"
+
+#: templates/authentication/login.html:24
+#: templates/authentication/register.html:36
+msgid "username"
+msgstr "username"
+
+#: templates/authentication/login.html:25
+#: templates/authentication/register.html:37
+msgid "Username"
+msgstr "Username"
+
+#: templates/authentication/login.html:30
+#: templates/authentication/register.html:44
+msgid "password"
+msgstr "password"
+
+#: templates/authentication/login.html:31
+msgid "Password"
+msgstr "Password"
+
+#: templates/authentication/login.html:36 templates/partials/_nouser.html:7
+#: templates/partials/_sidebar.html:88
+msgid "Login"
+msgstr "Login"
+
+#: templates/authentication/login.html:42
+msgid "Forgot password?"
+msgstr "Forgot password?"
+
+#: templates/authentication/login.html:46
+msgid "Not a member?"
+msgstr "Not a member?"
+
+#: templates/authentication/login.html:46
+#: templates/dashboard/dashboard.html:303 templates/expenses/index.html:238
+#: templates/income/index.html:238
+msgid "Register!"
+msgstr "Register!"
+
+#: templates/authentication/password_reset.html:16
+msgid "Password Reset"
+msgstr "Password Reset"
+
+#: templates/authentication/password_reset.html:18
+msgid ""
+"Enter the email that is associated with your account. And we'll send an "
+"email to reset your password!"
+msgstr ""
+"Enter the email that is associated with your account. And we'll send an "
+"email to reset your password!"
+
+#: templates/authentication/password_reset_complete.html:14
+msgid "Password reset complete"
+msgstr "Password reset complete"
+
+#: templates/authentication/password_reset_complete.html:18
+msgid "Your new password has been set. You may go ahead and log in now!"
+msgstr "Your new password has been set. You may go ahead and log in now!"
+
+#: templates/authentication/password_reset_complete.html:22
+msgid "LOGIN NOW!"
+msgstr "LOGIN NOW!"
+
+#: templates/authentication/password_reset_confirm.html:18
+msgid "Enter your new password!"
+msgstr "Enter your new password!"
+
+#: templates/authentication/password_reset_confirm.html:20
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+
+#: templates/authentication/password_reset_confirm.html:24
+msgid "Your password can’t be too similar to your other personal information."
+msgstr ""
+"Your password can’t be too similar to your other personal information."
+
+#: templates/authentication/password_reset_confirm.html:24
+msgid "Your password must contain at least 8 characters."
+msgstr "Your password must contain at least 8 characters."
+
+#: templates/authentication/password_reset_confirm.html:24
+msgid "Your password can’t be a commonly used password."
+msgstr "Your password can’t be a commonly used password."
+
+#: templates/authentication/password_reset_confirm.html:24
+msgid "Your password can’t be entirely numeric."
+msgstr "Your password can’t be entirely numeric."
+
+#: templates/authentication/password_reset_confirm.html:29
+msgid "Your new password here!"
+msgstr "Your new password here!"
+
+#: templates/authentication/password_reset_confirm.html:30
+msgid "Enter new password:"
+msgstr "Enter new password:"
+
+#: templates/authentication/password_reset_confirm.html:33
+msgid "Repeat your new password!"
+msgstr "Repeat your new password!"
+
+#: templates/authentication/password_reset_confirm.html:34
+msgid "Confirm Password:"
+msgstr "Confirm Password:"
+
+#: templates/authentication/password_reset_confirm.html:38
+msgid "Update Password"
+msgstr "Update Password"
+
+#: templates/authentication/password_reset_confirm.html:50
+msgid "Link Expired!"
+msgstr "Link Expired!"
+
+#: templates/authentication/password_reset_confirm.html:52
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+msgstr ""
+"The password reset link was invalid, possibly because it has already been "
+"used. Please request a new password reset."
+
+#: templates/authentication/password_reset_done.html:14
+msgid "Email Sent!"
+msgstr "Email Sent!"
+
+#: templates/authentication/password_reset_done.html:17
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the mail you entered. You should receive them shortly."
+msgstr ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the mail you entered. You should receive them shortly."
+
+#: templates/authentication/password_reset_done.html:19
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+
+#: templates/authentication/register.html:16
+msgid "Register Down Below, it's Free!"
+msgstr "Register Down Below, it's Free!"
+
+#: templates/authentication/register.html:49
+msgid "Confirm Password"
+msgstr "Confirm Password"
+
+#: templates/authentication/register.html:50
+msgid "Repeat Password"
+msgstr "Repeat Password"
+
+#: templates/authentication/register.html:54
+msgid "Show Password"
+msgstr "Show Password"
+
+#: templates/authentication/register.html:59
+msgid "Already have an account?"
+msgstr "Already have an account?"
+
+#: templates/authentication/register.html:59
+#: templates/dashboard/dashboard.html:303 templates/expenses/index.html:238
+#: templates/income/index.html:238
+msgid "Login!"
+msgstr "Login!"
+
+#: templates/base.html:53
+msgid "Light"
+msgstr "Light"
+
+#: templates/base.html:60
+msgid "Dark"
+msgstr "Dark"
+
+#: templates/base.html:152 templates/partials/_footer.html:9
+#| msgid "Powered by "
+msgid "Powered by"
+msgstr "Powered by"
+
+#: templates/dashboard/dashboard.html:18 templates/partials/_sidebar.html:21
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: templates/dashboard/dashboard.html:28
+#: templates/dashboard/dashboard.html:124
+msgid "Total Balance"
+msgstr "Total Balance"
+
+#: templates/dashboard/dashboard.html:37
+#: templates/dashboard/dashboard.html:133
+msgid "Total Expenses"
+msgstr "Total Expenses"
+
+#: templates/dashboard/dashboard.html:46
+#: templates/dashboard/dashboard.html:142
+msgid "Total Income"
+msgstr "Total Income"
+
+#: templates/dashboard/dashboard.html:60
+#: templates/dashboard/dashboard.html:209
+msgid "No data to show!"
+msgstr "No data to show!"
+
+#: templates/dashboard/dashboard.html:61
+#: templates/dashboard/dashboard.html:210
+msgid "You have no transactions yet."
+msgstr "You have no transactions yet."
+
+#: templates/dashboard/dashboard.html:63
+#: templates/dashboard/dashboard.html:212
+#: templates/expenses/expenses_summary.html:29
+#: templates/expenses/expenses_summary.html:88
+msgid "Create some Expenses"
+msgstr "Create some Expenses"
+
+#: templates/dashboard/dashboard.html:64
+#: templates/dashboard/dashboard.html:213
+#: templates/income/income_summary.html:29
+#: templates/income/income_summary.html:88
+msgid "Create some Income"
+msgstr "Create some Income"
+
+#: templates/dashboard/dashboard.html:77
+#: templates/dashboard/dashboard.html:156
+msgid "Recent Activity"
+msgstr "Recent Activity"
+
+#: templates/dashboard/dashboard.html:82
+#: templates/dashboard/dashboard.html:161
+msgid "Name"
+msgstr "Name"
+
+#: templates/dashboard/dashboard.html:83
+#: templates/dashboard/dashboard.html:162
+#: templates/expenses/add_expense.html:32
+#: templates/expenses/edit_expense.html:33
+#: templates/expenses/edit_expense.html:67 templates/income/add_income.html:32
+#: templates/income/edit_income.html:33 templates/income/edit_income.html:65
+msgid "Date"
+msgstr "Date"
+
+#: templates/dashboard/dashboard.html:84
+#: templates/dashboard/dashboard.html:163
+msgid "Description"
+msgstr "Description"
+
+#: templates/dashboard/dashboard.html:85
+#: templates/dashboard/dashboard.html:164
+#: templates/expenses/add_expense.html:36
+#: templates/expenses/edit_expense.html:37
+#: templates/expenses/edit_expense.html:71 templates/income/add_income.html:36
+#: templates/income/edit_income.html:37 templates/income/edit_income.html:69
+msgid "Amount"
+msgstr "Amount"
+
+#: templates/dashboard/dashboard.html:86
+#: templates/dashboard/dashboard.html:165
+msgid "Type"
+msgstr "Type"
+
+#: templates/dashboard/dashboard.html:104
+#: templates/dashboard/dashboard.html:190
+#: templates/dashboard/dashboard.html:232 templates/expenses/index.html:47
+#: templates/income/index.html:47
+msgid "Export Data"
+msgstr "Export Data"
+
+#: templates/dashboard/dashboard.html:105
+#: templates/dashboard/dashboard.html:191
+#: templates/dashboard/dashboard.html:216
+#: templates/dashboard/dashboard.html:275 templates/expenses/index.html:48
+#: templates/expenses/index.html:131 templates/income/index.html:48
+#: templates/income/index.html:131
+msgid "Import Data"
+msgstr "Import Data"
+
+#: templates/dashboard/dashboard.html:238 templates/expenses/index.html:173
+#: templates/income/index.html:173
+msgid "Select the file format that you prefer:"
+msgstr "Select the file format that you prefer:"
+
+#: templates/dashboard/dashboard.html:263
+#: templates/dashboard/dashboard.html:296
+#: templates/dashboard/dashboard.html:307 templates/expenses/index.html:155
+#: templates/expenses/index.html:198 templates/expenses/index.html:231
+#: templates/expenses/index.html:242 templates/income/index.html:155
+#: templates/income/index.html:198 templates/income/index.html:231
+#: templates/income/index.html:242 templates/preferences/index.html:126
+msgid "Close"
+msgstr "Close"
+
+#: templates/dashboard/dashboard.html:264 templates/expenses/index.html:199
+#: templates/income/index.html:199
+msgid "Export"
+msgstr "Export"
+
+#: templates/dashboard/dashboard.html:282 templates/expenses/index.html:217
+#: templates/income/index.html:217
+msgid "Note that only"
+msgstr "Note that only"
+
+#: templates/dashboard/dashboard.html:282 templates/expenses/index.html:217
+#: templates/income/index.html:217
+msgid "and"
+msgstr "and"
+
+#: templates/dashboard/dashboard.html:282 templates/expenses/index.html:217
+#: templates/income/index.html:217
+msgid "files are supported for import as of now."
+msgstr "files are supported for import as of now."
+
+#: templates/dashboard/dashboard.html:283
+msgid ""
+"Do you want to delete the previous data and just keep the imported one? "
+"(Check the box below if that is the case)"
+msgstr ""
+"Do you want to delete the previous data and just keep the imported one? "
+"(Check the box below if that is the case)"
+
+#: templates/dashboard/dashboard.html:288 templates/expenses/index.html:223
+#: templates/income/index.html:223
+msgid ""
+"Yes, I do wish to delete the previous data and just keep the imported one."
+msgstr ""
+"Yes, I do wish to delete the previous data and just keep the imported one."
+
+#: templates/dashboard/dashboard.html:297 templates/expenses/index.html:232
+#: templates/income/index.html:232
+msgid "Import"
+msgstr "Import"
+
+#: templates/dashboard/dashboard.html:302 templates/expenses/index.html:237
+#: templates/income/index.html:237
+msgid ""
+"Sorry but only authenticated users can import data! Be sure to export your "
+"data in a"
+msgstr ""
+"Sorry but only authenticated users can import data! Be sure to export your "
+"data in a"
+
+#: templates/dashboard/dashboard.html:302
+#: templates/dashboard/dashboard.html:303 templates/expenses/index.html:237
+#: templates/expenses/index.html:238 templates/income/index.html:237
+#: templates/income/index.html:238
+msgid "or"
+msgstr "or"
+
+#: templates/dashboard/dashboard.html:302 templates/expenses/index.html:237
+#: templates/income/index.html:237
+msgid "file and"
+msgstr "file and"
+
+#: templates/dashboard/dashboard.html:303 templates/expenses/index.html:238
+#: templates/income/index.html:238
+msgid "into an existing account to use this feature!"
+msgstr "into an existing account to use this feature!"
+
+#: templates/expenses/add_expense.html:9
+#: templates/expenses/edit_expense.html:11
+#: templates/expenses/expenses_summary.html:13
+#: templates/expenses/index.html:18 templates/income/add_income.html:9
+#: templates/income/edit_income.html:11
+#: templates/income/income_summary.html:13 templates/income/index.html:18
+#: templates/partials/_sidebar.html:15
+msgid "Home"
+msgstr "Home"
+
+#: templates/expenses/add_expense.html:10
+#: templates/expenses/edit_expense.html:12
+#: templates/expenses/expenses_summary.html:14
+#: templates/expenses/index.html:19 templates/partials/_sidebar.html:35
+msgid "Expenses"
+msgstr "Expenses"
+
+#: templates/expenses/add_expense.html:11
+#: templates/expenses/add_expense.html:52 templates/expenses/index.html:46
+#: templates/expenses/index.html:127
+msgid "Add Expense"
+msgstr "Add Expense"
+
+#: templates/expenses/add_expense.html:24
+msgid "Expense Form"
+msgstr "Expense Form"
+
+#: templates/expenses/add_expense.html:28
+#: templates/expenses/edit_expense.html:29
+#: templates/expenses/edit_expense.html:63
+msgid "Expense Name"
+msgstr "Expense Name"
+
+#: templates/expenses/add_expense.html:29
+msgid "Enter expense name"
+msgstr "Enter expense name"
+
+#: templates/expenses/add_expense.html:33 templates/income/add_income.html:33
+msgid "dd-mm-yyyy"
+msgstr "dd-mm-yyyy"
+
+#: templates/expenses/add_expense.html:37 templates/income/add_income.html:37
+msgid "Enter amount"
+msgstr "Enter amount"
+
+#: templates/expenses/add_expense.html:40
+#: templates/expenses/edit_expense.html:41
+#: templates/expenses/edit_expense.html:75
+msgid "Category"
+msgstr "Category"
+
+#: templates/expenses/add_expense.html:42
+msgid "Select category"
+msgstr "Select category"
+
+#: templates/expenses/add_expense.html:49
+#: templates/expenses/edit_expense.html:50
+#: templates/expenses/edit_expense.html:84 templates/income/add_income.html:49
+#: templates/income/edit_income.html:50 templates/income/edit_income.html:82
+msgid "Description (Optional)"
+msgstr "Description (Optional)"
+
+#: templates/expenses/add_expense.html:50
+#: templates/expenses/edit_expense.html:54 templates/income/add_income.html:50
+#: templates/income/edit_income.html:83
+msgid "Enter description"
+msgstr "Enter description"
+
+#: templates/expenses/add_expense.html:50 templates/income/add_income.html:50
+msgid "No description provided"
+msgstr "No description provided"
+
+#: templates/expenses/edit_expense.html:13
+msgid "Edit Expense"
+msgstr "Edit Expense"
+
+#: templates/expenses/edit_expense.html:57
+#: templates/expenses/edit_expense.html:87
+#: templates/income/edit_income.html:57 templates/income/edit_income.html:85
+#: templates/preferences/index.html:73 templates/preferences/index.html:76
+msgid "Save Changes"
+msgstr "Save Changes"
+
+#: templates/expenses/expenses_summary.html:15
+#: templates/expenses/expenses_summary.html:36
+#: templates/expenses/expenses_summary.html:62
+#: templates/partials/_sidebar.html:58
+msgid "Expenses Summary"
+msgstr "Expenses Summary"
+
+#: templates/expenses/expenses_summary.html:28
+#: templates/expenses/expenses_summary.html:87
+#: templates/income/income_summary.html:28
+#: templates/income/income_summary.html:87
+msgid "No summary to show!"
+msgstr "No summary to show!"
+
+#: templates/expenses/expenses_summary.html:28
+#: templates/expenses/expenses_summary.html:87
+msgid "You have no expenses yet."
+msgstr "You have no expenses yet."
+
+#: templates/expenses/expenses_summary.html:40
+#: templates/expenses/expenses_summary.html:66
+#: templates/income/income_summary.html:40
+#: templates/income/income_summary.html:66
+msgid "Doughnut Chart"
+msgstr "Doughnut Chart"
+
+#: templates/expenses/expenses_summary.html:41
+#: templates/expenses/expenses_summary.html:67
+#: templates/income/income_summary.html:41
+#: templates/income/income_summary.html:67
+msgid "Pie Chart"
+msgstr "Pie Chart"
+
+#: templates/expenses/expenses_summary.html:42
+#: templates/expenses/expenses_summary.html:68
+#: templates/income/income_summary.html:42
+#: templates/income/income_summary.html:68
+msgid "Line Chart"
+msgstr "Line Chart"
+
+#: templates/expenses/expenses_summary.html:43
+#: templates/expenses/expenses_summary.html:69
+#: templates/income/income_summary.html:43
+#: templates/income/income_summary.html:69
+msgid "Bar Chart"
+msgstr "Bar Chart"
+
+#: templates/expenses/index.html:35
+msgid "Expenses List"
+msgstr "Expenses List"
+
+#: templates/expenses/index.html:38
+msgid "Search for expenses"
+msgstr "Search for expenses"
+
+#: templates/expenses/index.html:72 templates/income/index.html:72
+msgid "Edit"
+msgstr "Edit"
+
+#: templates/expenses/index.html:75 templates/income/index.html:75
+msgid "Delete"
+msgstr "Delete"
+
+#: templates/expenses/index.html:121
+msgid "No Expenses yet"
+msgstr "No Expenses yet"
+
+#: templates/expenses/index.html:123
+msgid "Click on the button below to create a new expense!"
+msgstr "Click on the button below to create a new expense!"
+
+#: templates/expenses/index.html:145 templates/expenses/index.html:156
+msgid "Delete Expense"
+msgstr "Delete Expense"
+
+#: templates/expenses/index.html:151
+msgid ""
+"Are you sure you want to delete this Expense? All the data will be "
+"permanently removed. This action cannot be undone."
+msgstr ""
+"Are you sure you want to delete this Expense? All the data will be "
+"permanently removed. This action cannot be undone."
+
+#: templates/expenses/index.html:167
+msgid "Export Expense Data"
+msgstr "Export Expense Data"
+
+#: templates/expenses/index.html:210
+msgid "Import Expense Data"
+msgstr "Import Expense Data"
+
+#: templates/expenses/index.html:218
+msgid ""
+"Do you want to delete the previous expenses data and just keep the imported "
+"one? (Check the box below if that is the case)"
+msgstr ""
+"Do you want to delete the previous expenses data and just keep the imported "
+"one? (Check the box below if that is the case)"
+
+#: templates/income/add_income.html:10 templates/income/edit_income.html:12
+#: templates/income/income_summary.html:14 templates/income/index.html:19
+#: templates/partials/_sidebar.html:29
+msgid "Income"
+msgstr "Income"
+
+#: templates/income/add_income.html:11 templates/income/add_income.html:52
+#: templates/income/index.html:46
+msgid "Add Income"
+msgstr "Add Income"
+
+#: templates/income/add_income.html:24 templates/income/edit_income.html:24
+msgid "Income Form"
+msgstr "Income Form"
+
+#: templates/income/add_income.html:28 templates/income/edit_income.html:29
+#: templates/income/edit_income.html:61
+msgid "Income Name"
+msgstr "Income Name"
+
+#: templates/income/add_income.html:29
+msgid "Enter income name"
+msgstr "Enter income name"
+
+#: templates/income/add_income.html:40 templates/income/edit_income.html:41
+#: templates/income/edit_income.html:73
+msgid "Source"
+msgstr "Source"
+
+#: templates/income/add_income.html:42
+msgid "Select source"
+msgstr "Select source"
+
+#: templates/income/edit_income.html:13
+msgid "Edit Income"
+msgstr "Edit Income"
+
+#: templates/income/income_summary.html:15
+#: templates/income/income_summary.html:36
+#: templates/income/income_summary.html:62 templates/partials/_sidebar.html:50
+msgid "Income Summary"
+msgstr "Income Summary"
+
+#: templates/income/income_summary.html:28
+#: templates/income/income_summary.html:87
+msgid "You have no income yet."
+msgstr "You have no income yet."
+
+#: templates/income/index.html:35
+msgid "Income List"
+msgstr "Income List"
+
+#: templates/income/index.html:38
+msgid "Search for Income"
+msgstr "Search for Income"
+
+#: templates/income/index.html:121
+msgid "No Income yet"
+msgstr "No Income yet"
+
+#: templates/income/index.html:123
+msgid "Click on the button below to create a new income!"
+msgstr "Click on the button below to create a new income!"
+
+#: templates/income/index.html:127
+msgid "Add income"
+msgstr "Add income"
+
+#: templates/income/index.html:145 templates/income/index.html:156
+msgid "Delete Income"
+msgstr "Delete Income"
+
+#: templates/income/index.html:151
+msgid ""
+"Are you sure you want to delete this Income? All the data will be "
+"permanently removed. This action cannot be undone."
+msgstr ""
+"Are you sure you want to delete this Income? All the data will be "
+"permanently removed. This action cannot be undone."
+
+#: templates/income/index.html:167
+msgid "Export Income Data"
+msgstr "Export Income Data"
+
+#: templates/income/index.html:210
+msgid "Import Income Data"
+msgstr "Import Income Data"
+
+#: templates/income/index.html:218
+msgid ""
+"Do you want to delete the previous income data and just keep the imported "
+"one? (Check the box below if that is the case)"
+msgstr ""
+"Do you want to delete the previous income data and just keep the imported "
+"one? (Check the box below if that is the case)"
+
+#: templates/partials/_nouser.html:6
+msgid "Not logged in"
+msgstr "Not logged in"
+
+#: templates/partials/_nouser.html:7
+msgid "Remember to "
+msgstr "Remember to"
+
+#: templates/partials/_nouser.html:7 templates/partials/_sidebar.html:96
+msgid "Register"
+msgstr "Register"
+
+#: templates/partials/_nouser.html:7
+msgid " or "
+msgstr "or"
+
+#: templates/partials/_nouser.html:7
+msgid ""
+" to save your information and be able to track your expenses and "
+"investments!"
+msgstr ""
+"to save your information and be able to track your expenses and investments!"
+
+#: templates/partials/_sidebar.html:42
+msgid "Summary"
+msgstr "Summary"
+
+#: templates/partials/_sidebar.html:66
+msgid "Account"
+msgstr "Account"
+
+#: templates/partials/_sidebar.html:72
+msgid "Preferences & Settings"
+msgstr "Preferences & Settings"
+
+#: templates/partials/_sidebar.html:79
+msgid "Sign out"
+msgstr "Sign out"
+
+#: templates/preferences/index.html:17
+msgid "Select your desired preferences"
+msgstr "Select your desired preferences"
+
+#: templates/preferences/index.html:19
+msgid "Select your desired preferences!"
+msgstr "Select your desired preferences!"
+
+#: templates/preferences/index.html:27
+msgid "Select your preferred currency!"
+msgstr "Select your preferred currency!"
+
+#: templates/preferences/index.html:29 templates/preferences/index.html:31
+#: templates/preferences/index.html:52 templates/preferences/index.html:54
+msgid "Current:"
+msgstr "Current:"
+
+#: templates/preferences/index.html:50
+msgid "Language"
+msgstr "Language"
+
+#: templates/preferences/index.html:56
+msgid "Select your preferred language."
+msgstr "Select your preferred language."
+
+#: templates/preferences/index.html:74
+msgid "Remember to save so the changes can take place!"
+msgstr "Remember to save so the changes can take place!"
+
+#: templates/preferences/index.html:84
+msgid "Settings"
+msgstr "Settings"
+
+#: templates/preferences/index.html:85
+msgid "Account Settings"
+msgstr "Account Settings"
+
+#: templates/preferences/index.html:89
+msgid "Change password?"
+msgstr "Change password?"
+
+#: templates/preferences/index.html:90
+msgid "We will send you an email with a link to change your password"
+msgstr "We will send you an email with a link to change your password"
+
+#: templates/preferences/index.html:92
+msgid "Change password"
+msgstr "Change password"
+
+#: templates/preferences/index.html:98
+msgid "Delete account?"
+msgstr "Delete account?"
+
+#: templates/preferences/index.html:99
+msgid ""
+"This change is not reversible and you won't be able to get your data back."
+msgstr ""
+"This change is not reversible and you won't be able to get your data back."
+
+#: templates/preferences/index.html:101
+msgid "Delete account"
+msgstr "Delete account"
+
+#: templates/preferences/index.html:109
+msgid "Account Deletion"
+msgstr "Account Deletion"
+
+#: templates/preferences/index.html:121
+msgid "I understand the consequences."
+msgstr "I understand the consequences."
+
+#: templates/preferences/index.html:127
+msgid "Delete Account"
+msgstr "Delete Account"
+
+#, fuzzy
+#~ msgid " 2024 Powered by"
+#~ msgstr "2024 Powered by"
+
+#~ msgid "Note that only "
+#~ msgstr "Note that only"
+
+#~ msgid "and "
+#~ msgstr "and"
+
+#~ msgid ""
+#~ "Sorry but only authenticated users can import data! Be sure to export your "
+#~ "data in a "
+#~ msgstr ""
+#~ "Sorry but only authenticated users can import data! Be sure to export your "
+#~ "data in a"
+
+#~ msgid "file and "
+#~ msgstr "file and"
+
+#~ msgid "income edited successfully!"
+#~ msgstr "income edited successfully!"

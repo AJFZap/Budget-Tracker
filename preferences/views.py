@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
 from django.contrib import messages, auth
 from django.urls import reverse
 from django.conf import settings
@@ -48,7 +49,7 @@ def Preferences(request):
             savedLanguage = user_preferences.language
             savedPreferences = [savedCurrency, savedLanguage]
 
-            messages.success(request, "Changes have been saved succesfully!")
+            messages.success(request, _("Changes have been saved successfully!"))
             return render(request, 'preferences/index.html', {'currencies': currencies, 'saved': savedPreferences})
     
     # WHEN IT IS A GUEST WE DON'T SAVE A SINGLE THING.
@@ -59,7 +60,7 @@ def Preferences(request):
         
         elif request.method == 'POST':
 
-            messages.success(request, "Changes have been saved succesfully!")
+            messages.success(request, _("Changes have been saved successfully!"))
             return render(request, 'preferences/index.html', {'currencies': currencies})
 
 def delete_user(request, pk):
@@ -70,7 +71,7 @@ def delete_user(request, pk):
         user = User.objects.get(id=pk)
         name = user.username
         user.delete()
-        messages.success(request, f"{name} account has been deleted successfully!")
+        messages.success(request, _(f"{name} account has been deleted successfully!"))
         return JsonResponse({'success': True})
     
     return JsonResponse({'success': False})

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 {% block content %}
@@ -13,9 +14,9 @@
         
         <h2 class="h3 mb-4 page-title">Preferences</h2>
         {% if user.username %}
-            <p>Select your desired preferences, {{user.username}}!</p>
+            <p>{% trans "Select your desired preferences" %}, {{user.username}}!</p>
         {% else %}
-            <p>Select your desired preferences!</p>
+            <p>{% trans "Select your desired preferences!" %}</p>
         {% endif %}
 <div class="list-group mb-5 shadow">
     <form id="preferencesForm" action="{% url 'preferences' %}" method="post">
@@ -23,11 +24,11 @@
         <div class="list-group-item">
             <div class="row align-items-center">
                 <div class="col">
-                    <strong class="mb-2">Select your prefered currency!</strong>
+                    <strong class="mb-2">{% trans "Select your preferred currency!" %}</strong>
                     {% if saved %}
-                    <span class="badge badge-pill badge-success">Current: {{saved.0}}</span>  <!-- Change this to the user prefered one -->
+                    <span class="badge badge-pill badge-success">{% trans "Current:" %} {{saved.0}}</span>  <!-- Change this to the user preferred one -->
                     {% else %}
-                    <span id="currentCurrency" class="badge badge-pill badge-success">Current: USD - United States Dollar</span>
+                    <span id="currentCurrency" class="badge badge-pill badge-success">{% trans "Current:" %} USD - United States Dollar</span>
                     {% endif %}
                     <select id="currencySelect" name="currency" class="form-select" aria-label="Default select example">
                         {% if saved %}
@@ -46,22 +47,22 @@
         <div class="list-group-item">
             <div class="row align-items-center">
                 <div class="col">
-                    <strong class="mb-2">Language</strong>
+                    <strong class="mb-2">{% trans "Language" %}</strong>
                     {% if saved %}
-                    <span class="badge badge-pill badge-success">Current: {{saved.1}}</span>  <!-- Change this to the user prefered one -->
+                    <span class="badge badge-pill badge-success">{% trans "Current:" %} {{saved.1}}</span>  <!-- Change this to the user preferred one -->
                     {% else %}
-                    <span id="currentLanguage" class="badge badge-pill badge-success">Current: English</span>
+                    <span id="currentLanguage" class="badge badge-pill badge-success">{% trans "Current:" %} English</span>
                     {% endif %}
-                    <p class="text-muted mb-2">Select your prefered language.</p>
+                    <p class="text-muted mb-2">{% trans "Select your preferred language." %}</p>
                     <select id="languageSelect" name="language" class="form-select" aria-label="Default select example">
                         {% if saved %}
                         <option selected>{{saved.1}}</option>
                         {% else %}
-                        <option selected>English</option>
+                        <option selected>{% trans "English" %}</option>
                         {% endif %}
-                        <option name="language" value="English">English</option>
-                        <option name="language" value="Español">Spanish</option>
-                        <option name="language" value="日本語">Japanese</option>
+                        <option name="language" value="English">{% trans "English" %}</option>
+                        <option name="language" value="Español">{% trans "Spanish" %}</option>
+                        <option name="language" value="日本語">{% trans "Japanese" %}</option>
                     </select>
                 </div>
             </div>
@@ -69,10 +70,10 @@
         <div class="list-group-item">
             <div class="row align-items-center mb-3">
                 <div class="col">
-                    <strong class="mb-2">Save Changes</strong>
-                    <p class="text-muted mb-1">Remember to save so the changes can take place!</p>
+                    <strong class="mb-2">{% trans "Save Changes" %}</strong>
+                    <p class="text-muted mb-1">{% trans "Remember to save so the changes can take place!" %}</p>
                     <div class="d-grid col-3">
-                        <input class="btn btn-success" type="submit" value="Save Changes">
+                        <input class="btn btn-success" type="submit" value='{% trans "Save Changes" %}'>
                     </div>
                 </div>
             </div>
@@ -80,24 +81,24 @@
     </form>
     {% if user.username %}
     <br>
-    <h2 id="SettingsExist" class="h3 mb-4 page-title">Settings</h2>
-    <p>Account Settings</p>
+    <h2 id="SettingsExist" class="h3 mb-4 page-title">{% trans "Settings" %}</h2>
+    <p>{% trans "Account Settings" %}</p>
     <div class="list-group-item">
         <div class="row align-items-center mb-3">
             <div class="col">
-                <strong class="mb-2">Change password?</strong>
-                <p class="text-muted mb-1">We will send you an email with a link to change your password</p>
+                <strong class="mb-2">{% trans "Change password?" %}</strong>
+                <p class="text-muted mb-1">{% trans "We will send you an email with a link to change your password" %}</p>
                 <div class="d-grid col-3">
-                    <a class="btn btn-info" href="{% url 'reset_password' %}">Change password</a>
+                    <a class="btn btn-info" href="{% url 'reset_password' %}">{% trans "Change password" %}</a>
                 </div>
             </div>
         </div>
         <div class="row align-items-center mb-3">
             <div class="col">
-                <strong class="mb-2">Delete account?</strong>
-                <p class="text-muted mb-1">This change is not reversible and you won't be able to get your data back.</p>
+                <strong class="mb-2">{% trans "Delete account?" %}</strong>
+                <p class="text-muted mb-1">{% trans "This change is not reversible and you won't be able to get your data back." %}</p>
                 <div class="d-grid col-3">
-                    <button id="deleteButton" class="btn btn-danger" data-bs-target="#delete-modal" data-bs-toggle="modal" value="{{ user.pk }}">Delete account</button>
+                    <button id="deleteButton" class="btn btn-danger" data-bs-target="#delete-modal" data-bs-toggle="modal" value="{{ user.pk }}">{% trans "Delete account" %}</button>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="delete-modal" tabindex="-1" aria-hidden="true">
@@ -105,25 +106,25 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title">
-                                    Account Deletion
+                                    {% trans "Account Deletion" %}
                                 </h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body text-center">
                                 <div class="modal-body text-muted">
-                                    Deleting your account removes your profile and all associated data. This change is irreversible.
-                                    Are you sure you want to proceed? (Check the box below to enable the Deletion button.)
+                                    {% trans "Deleting your account removes your profile and all associated data. This change is irreversible.
+                                    Are you sure you want to proceed? (Check the box below to enable the Deletion button.)" %}
                                 </div>
                                 <div class="form-check d-inline-block">
                                     <input class="form-check-input" type="checkbox" id="confirmCheckbox">
                                     <label class="form-check-label" for="confirmCheckbox">
-                                        I understand the consequences.
+                                        {% trans "I understand the consequences." %}
                                     </label>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger"  id="deleteAccountButton" disabled>Delete Account</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+                                <button type="button" class="btn btn-danger"  id="deleteAccountButton" disabled>{% trans "Delete Account" %}</button>
                             </div>
                         </div>
                     </div>

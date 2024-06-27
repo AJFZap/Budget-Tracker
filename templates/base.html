@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load bootstrap5 %}
 
 <html lang="en" data-bs-theme="auto">
@@ -49,14 +50,14 @@
         <li>
           <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
             <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#sun-fill"></use></svg>
-            Light
+            {% trans "Light" %}
             <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
           </button>
         </li>
         <li>
           <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
             <svg class="bi me-2 opacity-50" width="1em" height="1em"><use href="#moon-stars-fill"></use></svg>
-            Dark
+            {% trans "Dark" %}
             <svg class="bi ms-auto d-none" width="1em" height="1em"><use href="#check2"></use></svg>
           </button>
         </li>
@@ -148,7 +149,7 @@
 <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="{% url 'dashboard' %}">Budget Tracker</a>
   <div class="col-md-5 d-flex align-items-center">
-      <span class="mb-3 mb-md-0 text-muted">&copy; 2024 Powered by <a id="powered" href="https://ajfzap.github.io/Portfolio/" target="_blank">Ariel Zappia</a></span>
+      <span class="mb-3 mb-md-0 text-muted">&copy; 2024 {% trans "Powered by" %} <a id="powered" href="https://ajfzap.github.io/Portfolio/" target="_blank">Ariel Zappia</a></span>
   </div>
   <div class="col-md-2 d-flex align-items-center">
     <ul id="poweredIcons" class="nav col-md-4 justify-content-end list-unstyled d-flex">

@@ -1,4 +1,5 @@
 {% extends 'base_auth.html' %}
+{% load i18n %}
 {% load bootstrap5 %}
 {% load static %}
 
@@ -12,10 +13,10 @@
             <div class="card-body py-3">
                 <div class="card-title py-3">
                     <div class="card-title py-3">
-                        <h3 class="text-center">Register Down Below, it's Free!</h3>
+                        <h3 class="text-center">{% trans "Register Down Below, it's Free!" %}</h3>
                     </div>
 
-                    <form action="{% url 'register' %}" method="post" id= "registerForm" class="d-grid gap-1">
+                    <form action="{% url 'register' %}" method="post" id="registerForm" class="d-grid gap-1">
 
                         {% csrf_token %}
 
@@ -32,30 +33,30 @@
                         </div>
                         <!-- Username input -->
                         <div data-mdb-input-init class="form-floating mb-4">
-                            <input type="text" id="usernameField" name="username" class="form-control bg-dark text-success" value="{{fieldValues.username}}" placeholder="username"/>
-                            <label class="form-label text-success bg-text-primary" for="usernameField">Username</label>
+                            <input type="text" id="usernameField" name="username" class="form-control bg-dark text-success" value="{{fieldValues.username}}" placeholder='{% trans "username" %}'/>
+                            <label class="form-label text-success bg-text-primary" for="usernameField">{% trans "Username" %}</label>
                         </div>
                         <div class="user-invalid invalid-feedback" style="display: none">
                             
                         </div>
                         <!-- Password input -->
                         <div data-mdb-input-init class="form-floating mb-4">
-                            <input type="password" id="passwordField" name="password" class="form-control bg-dark text-success" placeholder="password"/>
-                            <label class="form-label text-success bg-text-primary" for="passwordField">Password</label>
+                            <input type="password" id="passwordField" name="password" class="form-control bg-dark text-success" placeholder='{% trans "password" %}'/>
+                            <label class="form-label text-success bg-text-primary" for="passwordField">{% trans "Password"}</label>
                         </div>
 
                         <div data-mdb-input-init class="form-floating mb-4">
-                            <input type="password" id="confirmField" name="confirmPassword" class="form-control bg-dark text-success" placeholder="Confirm Password"/>
-                            <label class="form-label text-success bg-text-primary" for="passwordField">Repeat Password</label>
+                            <input type="password" id="confirmField" name="confirmPassword" class="form-control bg-dark text-success" placeholder='{% trans "Confirm Password" %}'/>
+                            <label class="form-label text-success bg-text-primary" for="passwordField">{% trans "Repeat Password" %}</label>
                         </div>
                     
                         <div class="d-grid gap-2 items-align-center">
-                            <small class="showPassToggle text-center">Show Password</small>
+                            <small class="showPassToggle text-center">{% trans "Show Password" %}</small>
                             <input type="submit" value="Register" class="btn btn-block btn-primary submit-btn">
                         </div>
                         <hr class="my-2">
                         <div class="text-center">
-                            <p>Already have an account?<br><a href="{% url 'login' %}">Login!</a></p>
+                            <p>{% trans "Already have an account?" %}<br><a href="{% url 'login' %}">{% trans "Login!" %}</a></p>
                         </div>
                     </form>
                 </div>

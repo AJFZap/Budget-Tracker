@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.utils.translation import gettext as _
 # from django.core.cache import cache
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse
@@ -39,7 +40,7 @@ def add_income(request):
     elif request.method == 'POST':
         
         # If no description is provided we just do a default.
-        descriptionValue = "No description provided."
+        descriptionValue = _("No description provided.")
 
         # In case the user uses spaces in the description we still don't count them as a description.
         if request.POST['description'].strip():
@@ -58,12 +59,12 @@ def add_income(request):
             )
             newIncomeList.save()
 
-            messages.success(request, "Income Added to your list!")
+            messages.success(request, _("Income Added to your list!"))
             return redirect('income')
         
         # When the user is not authenticated.
         else:
-            messages.success(request, "Income Added to your list!")
+            messages.success(request, _("Income Added to your list!"))
             return redirect('income')
 
 def delete_income(request,pk):
@@ -73,7 +74,7 @@ def delete_income(request,pk):
     if request.method == 'POST':
         income = Income.objects.get(id=pk)
         income.delete()
-        messages.success(request, "Income deleted successfully!")
+        messages.success(request, _("Income deleted successfully!"))
         return JsonResponse({'success': True})
     
     return JsonResponse({'success': False})
@@ -93,7 +94,7 @@ def edit_income(request, pk):
             elif request.method == 'POST':
                 
                 # If no description is provided we just do a default.
-                descriptionValue = "No description provided."
+                descriptionValue = _("No description provided.")
 
                 # In case the user uses spaces in the description we still don't count them as a description.
                 if request.POST['description'].strip():
@@ -112,17 +113,17 @@ def edit_income(request, pk):
 
                     editedIncome.save()
                     
-                messages.success(request, "Income edited successfully!")
+                messages.success(request, _("Income edited successfully!"))
                 return redirect('income')
         else:
-            messages.error(request, "Naugthy Naugthy. You don't have permissions to see that.")
+            messages.error(request, _("Naughty Naughty. You don't have permissions to see that."))
             return redirect('income')
     else:
         ## DO SOMETHING WHEN THE USER IS NOT AUTHENTICATED
         if request.method == 'GET':
             return render(request, 'income/edit_income.html', {'sources': sources, 'incomes': pk})
         else:
-            messages.success(request, "income edited successfully!")
+            messages.success(request, _("Income edited successfully!"))
             return redirect('income')
     
 def search_income(request):
@@ -154,7 +155,7 @@ def search_income(request):
         # cache.set(cache_key, data, timeout=300)  # Cache the result for 5 minutes (300 seconds)
         return JsonResponse(list(data), safe=False)
     
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
+    return JsonResponse({'error': _('Invalid request method')}, status=400)
 
 def get_source(income):
     return income.source
@@ -189,13 +190,13 @@ def income_data(request):
 
                 return JsonResponse({'income_data': finalRepresentation}, safe=False)
             else:
-                return JsonResponse({'error': 'No income to show.'}, status=404)
+                return JsonResponse({'error': _('No income to show.')}, status=404)
         
         else:
             ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED
-            return JsonResponse({'error': 'No income to show.'}, status=404)
+            return JsonResponse({'error': _('No income to show.')}, status=404)
 
-        return JsonResponse({'error': 'No income to show.'}, status=404)
+        return JsonResponse({'error': _('No income to show.')}, status=404)
 
 def income_summary(request):
     if request.method == 'GET':
@@ -221,7 +222,7 @@ def export_data(request):
         match fileType:
             case 'csv':
                 response = HttpResponse(content_type='text/csv')
-                response['Content-Disposition'] = f'attachment; filename = Income-{str(datetime.datetime.now().date())}.csv'
+                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.csv')
 
                 writer = csv.writer(response)
                 writer.writerow(['Name', 'Source', 'Amount', 'Description', 'Date'])
@@ -267,7 +268,7 @@ def export_data(request):
             
             case 'pdf':
                 response = HttpResponse(content_type='text/pdf')
-                response['Content-Disposition'] = f'attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf'
+                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf')
                 response['Content-Transfer-Encoding'] = 'binary'
 
                 html_string = render_to_string('income/pdf-output.html', {'incomes': incomes, 'total': incomes.aggregate(Sum('amount'))['amount__sum']})
@@ -284,7 +285,7 @@ def export_data(request):
 
                 return response
 
-        return HttpResponse("Export format not supported")
+        return HttpResponse(_("Export format not supported"))
 
     else:
         data = json.loads(request.body)
@@ -294,7 +295,7 @@ def export_data(request):
         match fileType:
             case 'csv':
                 response = HttpResponse(content_type='text/csv')
-                response['Content-Disposition'] = f'attachment; filename = Income-{str(datetime.datetime.now().date())}.csv'
+                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.csv')
 
                 writer = csv.writer(response)
                 writer.writerow(['Name', 'Source', 'Amount', 'Description', 'Date'])
@@ -306,7 +307,7 @@ def export_data(request):
             
             case 'xlsx':
                 response = HttpResponse(content_type='text/ms-excel')
-                response['Content-Disposition'] = f'attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx'
+                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx')
 
                 wb = xlwt.Workbook(encoding='utf-8')
                 ws = wb.add_sheet('Income')
@@ -338,7 +339,7 @@ def export_data(request):
             
             case 'pdf':
                 response = HttpResponse(content_type='text/pdf')
-                response['Content-Disposition'] = f'attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf'
+                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf')
                 response['Content-Transfer-Encoding'] = 'binary'
 
                 incomes = data.get('incomes')
@@ -362,9 +363,9 @@ def export_data(request):
 
                 return response
 
-        return HttpResponse("Export format not supported")
+        return HttpResponse(_("Export format not supported"))
         
-    return HttpResponse("Export format not supported")
+    return HttpResponse(_("Export format not supported"))
 
 def import_data(request):
     if request.method == 'POST':
@@ -374,7 +375,7 @@ def import_data(request):
             # print(delete_previous)
 
             if not file:
-                return JsonResponse({'error': 'No file provided'}, status=400)
+                return JsonResponse({'error': _('No file provided')}, status=400)
 
             file_type = file.name.split('.')[-1].lower()
 
@@ -384,14 +385,14 @@ def import_data(request):
                 elif file_type in ['xls', 'xlsx']:
                     df = pd.read_excel(file)
                 else:
-                    messages.error(request, 'Unsupported file format')
-                    return JsonResponse({'error': f'Unsupported file format'})
+                    messages.error(request, _('Unsupported file format'))
+                    return JsonResponse({'error': _('Unsupported file format')})
                 
                 # Check that the file has all the needed columns.
                 required_columns = ['Name', 'Source', 'Amount', 'Date', 'Description']
                 if not all(column in df.columns for column in required_columns):
-                    messages.error(request, 'Wrong amount of columns or names.')
-                    return JsonResponse({'error': 'Wrong amount of columns or names.'}, status=400)
+                    messages.error(request, _('Wrong amount of columns or names.'))
+                    return JsonResponse({'error': _('Wrong amount of columns or names.')}, status=400)
                 
                 # Clear existing records if the user requested it.
                 if delete_previous == True:
@@ -410,16 +411,16 @@ def import_data(request):
                         date=row['Date'],
                     )
 
-                messages.success(request, 'Income imported successfully')
+                messages.success(request, _('Income imported successfully'))
                 return JsonResponse({'success': True})
 
             except Exception as e:
-                messages.error(request, f'Error processing file: {e}')
-                return JsonResponse({'error': f'Error pocessing file: {e}'}, status=400)
+                messages.error(request, _(f'Error processing file: {e}'))
+                return JsonResponse({'error': _(f'Error processing file: {e}')}, status=400)
         
         else:
             ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED.
-            return JsonResponse({'error': f'Error pocessing file: {e}'}, status=400)
+            return JsonResponse({'error': _(f'Error processing file: {e}')}, status=400)
             
     else:
         form = UploadFileForm()

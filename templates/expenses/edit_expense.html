@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 
@@ -7,9 +8,9 @@
 <div class="container mt-4">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'dashboard' %}">Home</a></li>
-        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Expenses</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Edit Expense</li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">{% trans "Expenses" %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Edit Expense" %}</li>
         </ol>
     </nav>
 </div>
@@ -25,19 +26,19 @@
         {% csrf_token %}
         {% if user.username %}
         <div class="mb-3">
-            <label for="expenseName" class="form-label">Expense Name</label>
+            <label for="expenseName" class="form-label">{% trans "Expense Name" %}</label>
             <input name="expenseName" type="text" class="form-control" id="expenseName" value="{{ expenses.name }}" required>
         </div>
         <div class="mb-3">
-            <label for="expenseDate" class="form-label">Date</label>
+            <label for="expenseDate" class="form-label">{% trans "Date" %}</label>
             <input name="datePicked" type="date" class="form-control" id="expenseDate" placeholder="dd-mm-yyyy" value="{{ expenses.date|date:'Y-m-d' }}">
         </div>
         <div class="mb-3">
-            <label for="expenseAmount" class="form-label">Amount</label>
+            <label for="expenseAmount" class="form-label">{% trans "Amount" %}</label>
             <input name="amount" type="number" class="form-control" id="expenseAmount" placeholder="Enter amount" value="{{ expenses.amount }}" required>
         </div>
         <div class="mb-3">
-            <label for="expenseCategory" class="form-label">Category</label>
+            <label for="expenseCategory" class="form-label">{% trans "Category" %}</label>
             <select name="category" class="form-select" id="expenseCategory" required>
                 <option value="{{ expenses.category }}" selected>{{ expenses.category }}</option>
                 {% for category in categories %}
@@ -46,30 +47,32 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="expenseDescription" class="form-label">Description (Optional)</label>
-            {% if expenses.description != "No description provided." %}
+            <label for="expenseDescription" class="form-label">{% trans "Description (Optional)" %}</label>
+            {% if expenses.description != {% trans "No description provided." %} %}
             <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder="Enter description">{{ expenses.description }}</textarea>
             {% else %}
-            <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder="Enter description"></textarea>
+            <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder='{% trans "Enter description" %}'></textarea>
             {% endif %}
         </div>
-        <input type="submit" class="btn btn-primary" value="Save Changes">
+        <input type="submit" class="btn btn-primary" value='{% trans "Save Changes" %}'>
+
         {% else %}
+
         <input id="ElementId" style="display: none;" value="{{expenses}}"> <!-- We store the id of the item to edit here to get it in the JS file. -->
         <div class="mb-3">
-            <label for="expenseName" class="form-label">Expense Name</label>
+            <label for="expenseName" class="form-label">{% trans "Expense Name" %}</label>
             <input name="expenseName" type="text" class="form-control" id="expenseName" value="" required>
         </div>
         <div class="mb-3">
-            <label for="expenseDate" class="form-label">Date</label>
+            <label for="expenseDate" class="form-label">{% trans "Date" %}</label>
             <input name="datePicked" type="date" class="form-control" id="expenseDate" placeholder="dd-mm-yyyy" value="">
         </div>
         <div class="mb-3">
-            <label for="expenseAmount" class="form-label">Amount</label>
+            <label for="expenseAmount" class="form-label">{% trans "Amount" %}</label>
             <input name="amount" type="number" class="form-control" id="expenseAmount" placeholder="Enter amount" value="" required>
         </div>
         <div class="mb-3">
-            <label for="expenseCategory" class="form-label">Category</label>
+            <label for="expenseCategory" class="form-label">{% trans "Category" %}</label>
             <select name="category" class="form-select" id="expenseCategory" required>
                 <option value="" selected></option>
                 {% for category in categories %}
@@ -78,10 +81,10 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="expenseDescription" class="form-label">Description (Optional)</label>
+            <label for="expenseDescription" class="form-label">{% trans "Description (Optional)" %}</label>
             <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder="Enter description"></textarea>
         </div>
-        <input type="submit" class="btn btn-primary" value="Save Changes">
+        <input type="submit" class="btn btn-primary" value='{% trans "Save Changes" %}'>
         {% endif %}
     </form>
 </div>

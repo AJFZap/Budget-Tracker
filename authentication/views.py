@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
 from django.contrib import messages, auth
 from django.core.mail import send_mail
 from django.urls import reverse
@@ -39,7 +40,7 @@ class RegistrationView(View):
         if not User.objects.filter(email=email).exists():
             if not User.objects.filter(username=username).exists():
                 if len(password) < 6:
-                    messages.error(request, "Password can't be shorther than six characters!")
+                    messages.error(request, _("Password can't be shorter than six characters!"))
                     return render(request, 'authentication/register.html', context)
 
                 user = User.objects.create_user(username=username, email=email)
@@ -53,14 +54,14 @@ class RegistrationView(View):
                 link = reverse("activate", kwargs={'uid64': uid64,'token': token})
 
                 self.SendVerificationEmail(email, user, link, domain)
-                messages.success(request, "Account succesfully created! A verification link has been sent to your email.")
+                messages.success(request, _("Account successfully created! A verification link has been sent to your email."))
                 return render(request, 'authentication/register.html')
             
             else:
-                messages.error(request, "Username already in use, pick another one.")
+                messages.error(request, _("Username already in use, pick another one."))
                 return render(request, 'authentication/register.html', context)
         else:
-            messages.error(request, "This Email is already associated with an existing account")
+            messages.error(request, _("This Email is already associated with an existing account"))
             return render(request, 'authentication/register.html', context)
 
         # messages.success(request, 'Registered Successfully')
@@ -78,8 +79,8 @@ class RegistrationView(View):
         activate_url = f'http://{domain}{link}'
 
         send_mail(
-            "Account Activation",
-            f"Hello {user.username}! \n Please click on the link below to activate your account!\n {activate_url}",
+            _("Account Activation"),
+            _(f"Hello {user.username}! \n Please click on the link below to activate your account!\n {activate_url}"),
             config('DEFAULT_FROM_EMAIL'),
             [userEmail],
             fail_silently=False,
@@ -95,13 +96,13 @@ class VerificationView(View):
             user = User.objects.get(pk=id)
 
             if user.is_active:
-                messages.info(request, 'Account already active')
+                messages.info(request, _('Account already active'))
                 return redirect('login')
             
             user.is_active = True
             user.save()
 
-            messages.success(request, 'Account activated successfully')
+            messages.success(request, _('Account activated successfully'))
 
         except Exception as e:
             return e
@@ -121,7 +122,7 @@ class LoginView(View):
         password = request.POST['password']
 
         if username == '' or password == '':
-            messages.error(request, 'Please fill out the fields.')
+            messages.error(request, _('Please fill out the fields.'))
             return render(request, 'authentication/login.html')
 
         if User.objects.filter(username=username).exists():
@@ -131,22 +132,22 @@ class LoginView(View):
             if user:
                 if user.is_active:
                     auth.login(request, user)
-                    messages.success(request, f'Welcome Back, {user.username}!')
+                    messages.success(request, _(f'Welcome Back, {user.username}!'))
                     return redirect('dashboard')
                 elif not user.is_active:
-                    messages.error(request, f'Activate your account to login, {user.username}!, Check your email and your spam inbox.')
+                    messages.error(request, _(f'Activate your account to login, {user.username}!, Check your email and your spam inbox.'))
                     return render(request, 'authentication/login.html')
             else:
-                messages.error(request, 'Wrong Password')
+                messages.error(request, _('Wrong Password'))
                 return render(request, 'authentication/login.html')
         
         else:
-            messages.error(request, 'No account with that username exists')
+            messages.error(request, _('No account with that username exists'))
             return render(request, 'authentication/login.html')
 
 def LogoutView(request):
     auth.logout(request)
-    messages.success(request, "You've logged out!")
+    messages.success(request, _("You've logged out!"))
     return redirect('login')
 
 class EmailValidationView(View):
@@ -158,9 +159,9 @@ class EmailValidationView(View):
         email = data['email']
 
         if not validate_email(email):
-            return JsonResponse({'email_Error': 'Need to introduce a valid email.'}, status=400)
+            return JsonResponse({'email_Error': _('Need to introduce a valid email.')}, status=400)
         if User.objects.filter(email=email).exists():
-            return JsonResponse({'email_Error': 'Email already registered on the database.'}, status=409)
+            return JsonResponse({'email_Error': _('Email already registered on the database.')}, status=409)
         
         return JsonResponse({'email_valid': True})
 
@@ -173,8 +174,8 @@ class UsernameValidationView(View):
         username = data['username']
 
         if not str(username).isalnum():
-            return JsonResponse({'username_Error': 'Username should only contain alphanumerical characters.'}, status=400)
+            return JsonResponse({'username_Error': _('Username should only contain alphanumerical characters.')}, status=400)
         if User.objects.filter(username=username).exists():
-            return JsonResponse({'username_Error': 'Username already exists.'}, status=409)
+            return JsonResponse({'username_Error': _('Username already exists.')}, status=409)
         
         return JsonResponse({'username_valid': True})

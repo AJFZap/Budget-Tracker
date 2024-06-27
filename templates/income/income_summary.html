@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 
@@ -9,9 +10,9 @@
 <div class="container mt-4">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'dashboard' %}">Home</a></li>
-        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'income' %}">Income</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Income Summary</li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'income' %}">{% trans "Income" %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Income Summary" %}</li>
         </ol>
     </nav>
 </div>
@@ -24,22 +25,22 @@
     <div id="NoGraph" class="row justify-content-center">
         <div class="col-md-6">
             <div class="text-center md-5">
-                <h3><strong>No summary to show!</strong></h3><br><h4 class="text-muted">You have no income yet.</h4><br>
-                <a href="{% url 'add-income' %}" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill">Create some Income</a>
+                <h3><strong>{% trans "No summary to show!" %}</strong></h3><br><h4 class="text-muted">{% trans "You have no income yet." %}</h4><br>
+                <a href="{% url 'add-income' %}" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill">{% trans "Create some Income" %}</a>
             </div>
         </div>
     </div>
     <div id="GraphContainer" class="container mt-5" style="display: none;">
         <div class="row">
             <div class="col-md-8 d-flex align-items-center">
-                <h1>Income Summary</h1>
+                <h1>{% trans "Income Summary" %}</h1>
             </div>
             <div class="col-md-4 d-flex align-items-center">
                 <select id="graphStyle" class="form-select" aria-label="Default select example">
-                    <option selected value="doughnut">Doughnut Chart</option>
-                    <option value="pie">Pie Chart</option>
-                    <option value="line">Line Chart</option>
-                    <option value="bar">Bar Chart</option>
+                    <option selected value="doughnut">{% trans "Doughnut Chart" %}</option>
+                    <option value="pie">{% trans "Pie Chart" %}</option>
+                    <option value="line">{% trans "Line Chart" %}</option>
+                    <option value="bar">{% trans "Bar Chart" %}</option>
                 </select>
             </div>
         </div>
@@ -58,14 +59,14 @@
     <div id="GraphContainer" class="container mt-5">
         <div class="row">
             <div class="col-md-8 d-flex align-items-center">
-                <h1>Income Summary</h1>
+                <h1>{% trans "Income Summary" %}</h1>
             </div>
             <div class="col-md-4 d-flex align-items-center">
                 <select id="graphStyle" class="form-select" aria-label="Default select example">
-                    <option selected value="doughnut">Doughnut Chart</option>
-                    <option value="pie">Pie Chart</option>
-                    <option value="line">Line Chart</option>
-                    <option value="bar">Bar Chart</option>
+                    <option selected value="doughnut">{% trans "Doughnut Chart" %}</option>
+                    <option value="pie">{% trans "Pie Chart" %}</option>
+                    <option value="line">{% trans "Line Chart" %}</option>
+                    <option value="bar">{% trans "Bar Chart" %}</option>
                 </select>
             </div>
         </div>
@@ -83,8 +84,8 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="text-center md-5">
-                    <h3><strong>No summary to show!</strong></h3><br><h4 class="text-muted">You have no income yet.</h4><br>
-                    <a href="{% url 'income' %}" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill">Create some Income</a>
+                    <h3><strong>{% trans "No summary to show!" %}</strong></h3><br><h4 class="text-muted">{% trans "You have no income yet." %}</h4><br>
+                    <a href="{% url 'income' %}" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill">{% trans "Create some Income" %}</a>
                 </div>
             </div>
         </div>

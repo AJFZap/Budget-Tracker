@@ -1,4 +1,5 @@
 {% extends 'base_auth.html' %}
+{% load i18n %}
 {% load bootstrap5 %}
 {% load static %}
 
@@ -11,7 +12,7 @@
         <div class="card">
             <div class="card-body py-3">
                 <div class="card-title py-3">
-                    <h3 class="text-center">Log into your account!</h3>
+                    <h3 class="text-center">{% trans "Log into your account!" %}</h3>
                 </div>
 
                 <form action="{% url 'login' %}" method="post" id="loginForm">
@@ -20,29 +21,29 @@
 
                     <!-- Username input -->
                     <div data-mdb-input-init class="form-floating mb-4">
-                      <input type="text" id="usernameField" name="username" class="form-control bg-dark text-success" value="{{fieldValues.username}}" placeholder="username"/>
-                      <label class="form-label text-success bg-text-primary" for="usernameField">Username</label>
+                      <input type="text" id="usernameField" name="username" class="form-control bg-dark text-success" value="{{fieldValues.username}}" placeholder='{% trans "username" %}'/>
+                      <label class="form-label text-success bg-text-primary" for="usernameField">{% trans "Username" %}</label>
                     </div>
 
                     <!-- Password input -->
                     <div data-mdb-input-init class="form-floating mb-4">
-                        <input type="password" id="passwordField" name="password" class="form-control bg-dark text-success" placeholder="password"/>
-                        <label class="form-label text-success bg-text-primary" for="passwordField">Password</label>
+                        <input type="password" id="passwordField" name="password" class="form-control bg-dark text-success" placeholder='{% trans "password" %}'/>
+                        <label class="form-label text-success bg-text-primary" for="passwordField">{% trans "Password" %}</label>
                     </div>
 
                     <!-- Submit button -->
                     <div data-mdb-input-init class="form-outline mb-4 d-flex justify-content-center">
-                        <input type="submit" value="Login" class="btn btn-block btn-primary submit-btn w-50">
+                        <input type="submit" value='{% trans "Login" %}' class="btn btn-block btn-primary submit-btn w-50">
                     </div>
 
                     <!-- Register buttons -->
                     <div class="col d-flex justify-content-center">
                         <!-- Simple link -->
-                        <a href="{% url 'reset_password' %}">Forgot password?</a>
+                        <a href="{% url 'reset_password' %}">{% trans "Forgot password?" %}</a>
                     </div>
                     <hr class="my-2">
                     <div class="text-center">
-                      <p>Not a member?<br><a href="{% url 'register' %}">Register!</a></p>
+                      <p>{% trans "Not a member?" %}<br><a href="{% url 'register' %}">{% trans "Register!" %}</a></p>
                     </div>
                 </form>
             </div>

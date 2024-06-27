@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 <!-- Breadcrumb -->
 <div class="container mt-4">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'dashboard' %}">Home</a></li>
-        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">Expenses</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Expense</li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'expenses' %}">{% trans "Expenses" %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add Expense" %}</li>
         </ol>
     </nav>
 </div>
@@ -20,35 +21,35 @@
 <!-- Expenses form -->
 
 <div class="container mt-5">
-    <h2 class="mb-3">Expense Form</h2>
+    <h2 class="mb-3">{% trans "Expense Form" %}</h2>
     <form id="expenseForm" action="{% url 'add-expenses' %}" method="POST">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="expenseName" class="form-label">Expense Name</label>
-            <input name="expenseName" type="text" class="form-control" id="expenseName" placeholder="Enter expense name" required>
+            <label for="expenseName" class="form-label">{% trans "Expense Name" %}</label>
+            <input name="expenseName" type="text" class="form-control" id="expenseName" placeholder='{% trans "Enter expense name" %}' required>
         </div>
         <div class="mb-3">
-            <label for="expenseDate" class="form-label">Date</label>
-            <input name="datePicked" type="date" class="form-control" id="expenseDate" placeholder="dd-mm-yyyy" value="">
+            <label for="expenseDate" class="form-label">{% trans "Date" %}</label>
+            <input name="datePicked" type="date" class="form-control" id="expenseDate" placeholder='{% trans "dd-mm-yyyy" %}' value="">
         </div>
         <div class="mb-3">
-            <label for="expenseAmount" class="form-label">Amount</label>
-            <input name="amount" type="number" class="form-control" id="expenseAmount" step="0.01" placeholder="Enter amount" required>
+            <label for="expenseAmount" class="form-label">{% trans "Amount" %}</label>
+            <input name="amount" type="number" class="form-control" id="expenseAmount" step="0.01" placeholder='{% trans "Enter amount" %}' required>
         </div>
         <div class="mb-3">
-            <label for="expenseCategory" class="form-label">Category</label>
+            <label for="expenseCategory" class="form-label">{% trans "Category" %}</label>
             <select name="category" class="form-select" id="expenseCategory" required>
-                <option value="" selected>Select category</option>
+                <option value="" selected>{% trans "Select category" %}</option>
                 {% for category in categories %}
                     <option name="category" value="{{category}}">{{category}}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="mb-3">
-            <label for="expenseDescription" class="form-label">Description (Optional)</label>
-            <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder="Enter description" value="No description provided"></textarea>
+            <label for="expenseDescription" class="form-label">{% trans "Description (Optional)" %}</label>
+            <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder='{% trans "Enter description" %}' value='{% trans "No description provided" %}'></textarea>
         </div>
-        <input type="submit" class="btn btn-primary" value="Add Expense">
+        <input type="submit" class="btn btn-primary" value='{% trans "Add Expense" %}'>
     </form>
 </div>
 

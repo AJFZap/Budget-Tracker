@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 
@@ -14,7 +15,7 @@
     <!-- Header -->
     <div class="row mb-4">
         <div class="col-12">
-            <h1 class="text-center">Dashboard</h1>
+            <h1 class="text-center">{% trans "Dashboard" %}</h1>
         </div>
     </div>
 
@@ -24,7 +25,7 @@
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center p-4">
-                    <h5 class="card-title text-primary mb-3">Total Balance</h5>
+                    <h5 class="card-title text-primary mb-3">{% trans "Total Balance" %}</h5>
                     <p class="card-text display-4" id="totalBalance">0.00</p>
                     <p class="displayCurrency text-muted">USD</p>
                 </div>
@@ -33,7 +34,7 @@
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center p-4">
-                    <h5 class="card-title text-primary mb-3">Total Expenses</h5>
+                    <h5 class="card-title text-primary mb-3">{% trans "Total Expenses" %}</h5>
                     <p class="card-text display-4" id="totalExpenses">0.00</p>
                     <p class="displayCurrency text-muted">USD</p>
                 </div>
@@ -42,7 +43,7 @@
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center p-4">
-                    <h5 class="card-title text-primary mb-3">Total Income</h5>
+                    <h5 class="card-title text-primary mb-3">{% trans "Total Income" %}</h5>
                     <p class="card-text display-4" id="totalIncome">0.00</p>
                     <p class="displayCurrency text-muted">USD</p>
                 </div>
@@ -56,11 +57,11 @@
             <div class="col-md-6 mb-8">
                 <div class="card shadow-sm">
                     <div class="card-body text-center p-5">
-                        <h3 class="mb-3"><strong>No data to show!</strong></h3>
-                        <h4 class="text-muted mb-4">You have no transactions yet.</h4>
+                        <h3 class="mb-3"><strong>{% trans "No data to show!" %}</strong></h3>
+                        <h4 class="text-muted mb-4">{% trans "You have no transactions yet." %}</h4>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                            <a href="{% url 'expenses' %}" class="btn btn-primary btn-lg px-4 rounded-pill me-md-2">Create some Expenses</a>
-                            <a href="{% url 'income' %}" class="btn btn-primary btn-lg px-4 rounded-pill">Create some Income</a>
+                            <a href="{% url 'expenses' %}" class="btn btn-primary btn-lg px-4 rounded-pill me-md-2">{% trans "Create some Expenses" %}</a>
+                            <a href="{% url 'income' %}" class="btn btn-primary btn-lg px-4 rounded-pill">{% trans "Create some Income" %}</a>
                         </div>
                     </div>
                 </div>
@@ -73,16 +74,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Recent Transactions</h5>
+                    <h5 class="card-title">{% trans "Recent Activity" %}</h5>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Description</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
+                                    <th>{% trans "Name" %}</th>
+                                    <th>{% trans "Date" %}</th>
+                                    <th>{% trans "Description" %}</th>
+                                    <th>{% trans "Amount" %}</th>
+                                    <th>{% trans "Type" %}</th>
                                 </tr>
                             </thead>
                             <tbody id="transactionTable">
@@ -100,8 +101,8 @@
         <div class="row">
             <div class="col-md-12 d-flex justify-content-center mt-1">
                 <div class="col-md-5 d-flex justify-content-between mt-1">
-                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openExportModal" data-bs-target="#data-modal" data-bs-toggle="modal">Export Data</a>
-                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">Import Data</a>
+                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openExportModal" data-bs-target="#data-modal" data-bs-toggle="modal">{% trans "Export Data" %}</a>
+                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">{% trans "Import Data" %}</a>
                 </div>
             </div>
         </div>
@@ -120,7 +121,7 @@
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center p-4">
-                    <h5 class="card-title text-primary mb-3">Total Balance</h5>
+                    <h5 class="card-title text-primary mb-3">{% trans "Total Balance" %}</h5>
                     <p class="card-text display-4" id="totalBalance">{{ balances.Balance }}</p>
                     <p class="text-muted">{{ preferences }}</p>
                 </div>
@@ -129,7 +130,7 @@
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center p-4">
-                    <h5 class="card-title text-primary mb-3">Total Expenses</h5>
+                    <h5 class="card-title text-primary mb-3">{% trans "Total Expenses" %}</h5>
                     <p class="card-text display-4" id="totalExpenses">{{ balances.Expenses }}</p>
                     <p class="text-muted">{{ preferences }}</p>
                 </div>
@@ -138,7 +139,7 @@
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm">
                 <div class="card-body text-center p-4">
-                    <h5 class="card-title text-primary mb-3">Total Income</h5>
+                    <h5 class="card-title text-primary mb-3">{% trans "Total Income" %}</h5>
                     <p class="card-text display-4" id="totalIncome">{{ balances.Income }}</p>
                     <p class="text-muted">{{ preferences }}</p>
                 </div>
@@ -152,16 +153,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Recent Activity</h5>
+                    <h5 class="card-title">{% trans "Recent Activity" %}</h5>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Date</th>
-                                    <th>Description</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
+                                    <th>{% trans "Name" %}</th>
+                                    <th>{% trans "Date" %}</th>
+                                    <th>{% trans "Description" %}</th>
+                                    <th>{% trans "Amount" %}</th>
+                                    <th>{% trans "Type" %}</th>
                                 </tr>
                             </thead>
                             {% for entry in balances.latest_entries %}
@@ -186,8 +187,8 @@
         <div class="row">
             <div class="col-md-12 d-flex justify-content-center mt-1">
                 <div class="col-md-5 d-flex justify-content-between mt-1">
-                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openExportModal" data-bs-target="#data-modal" data-bs-toggle="modal">Export Data</a>
-                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">Import Data</a>
+                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openExportModal" data-bs-target="#data-modal" data-bs-toggle="modal">{% trans "Export Data" %}</a>
+                    <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">{% trans "Import Data" %}</a>
                 </div>
             </div>
         </div>
@@ -205,14 +206,14 @@
             <div class="col-md-6 mb-8">
                 <div class="card shadow-sm">
                     <div class="card-body text-center p-5">
-                        <h3 class="mb-3"><strong>No data to show!</strong></h3>
-                        <h4 class="text-muted mb-4">You have no transactions yet.</h4>
+                        <h3 class="mb-3"><strong>{% trans "No data to show!" %}</strong></h3>
+                        <h4 class="text-muted mb-4">{% trans "You have no transactions yet." %}</h4>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-4">
-                            <a href="{% url 'expenses' %}" class="btn btn-primary btn-lg px-4 rounded-pill me-md-2">Create some Expenses</a>
-                            <a href="{% url 'income' %}" class="btn btn-primary btn-lg px-4 rounded-pill">Create some Income</a>
+                            <a href="{% url 'expenses' %}" class="btn btn-primary btn-lg px-4 rounded-pill me-md-2">{% trans "Create some Expenses" %}</a>
+                            <a href="{% url 'income' %}" class="btn btn-primary btn-lg px-4 rounded-pill">{% trans "Create some Income" %}</a>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                            <a class="btn btn-primary btn-lg px-4 rounded-pill" data-bs-target="#import-modal" data-bs-toggle="modal">Import Data</a>
+                            <a class="btn btn-primary btn-lg px-4 rounded-pill" data-bs-target="#import-modal" data-bs-toggle="modal">{% trans "Import Data" %}</a>
                         </div>
                     </div>
                 </div>
@@ -228,13 +229,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    Export Data
+                    {% trans "Export Data" %}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
                 <div class="modal-body text-muted">
-                    Select the file format that you prefer:
+                    {% trans "Select the file format that you prefer:" %}
                 </div>
                 <form id="exportForm" method="post" action="{% url 'export_everything' %}">
                     {% csrf_token %}
@@ -259,8 +260,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="exportButton" disabled>Export</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+                <button type="button" class="btn btn-primary" id="exportButton" disabled>{% trans "Export" %}</button>
             </div>
         </div>
     </div>
@@ -271,20 +272,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    Import Data
+                    {% trans "Import Data" %}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             {% if user.username %}
             <div class="modal-body text-center">
                 <div class="modal-body text-muted">
-                    <p>Note that only <strong>csv</strong> and <strong>xls/xlsx</strong> files are supported for import as of now.</p>
-                    Do you want to delete the previous data and just keep the imported one? (Check the box below if that is the case)
+                    <p>{% trans "Note that only" %} <strong>csv</strong> {% trans "and" %} <strong>xls/xlsx</strong> {% trans "files are supported for import as of now." %}</p>
+                    {% trans "Do you want to delete the previous data and just keep the imported one? (Check the box below if that is the case)" %}
                 </div>
                 <div class="form-check d-inline-block">
                     <input class="form-check-input" type="checkbox" id="confirmCheckbox">
                     <label class="form-check-label" for="confirmCheckbox">
-                        Yes, I do wish to delete the previous data and just keep the imported one.
+                        {% trans "Yes, I do wish to delete the previous data and just keep the imported one."%}
                     </label>
                 </div>
                 <div class="form-group mt-2">
@@ -292,18 +293,18 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="importIncomeButton">Import</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+                <button type="button" class="btn btn-primary" id="importIncomeButton">{% trans "Import" %}</button>
             </div>
             {% else %}
             <div class="modal-body text-center">
                 <div class="modal-body text-muted">
-                    Sorry but only authenticated users can import data! Be sure to export your data in a <strong>csv</strong> or <strong>xls/xlsx</strong> file and
-                    <a class="text-info" href="{% url 'register' %}">Register!</a> or <a class="text-info" href="{% url 'login' %}">Login!</a> into an existing account to use this feature!
+                    {% trans "Sorry but only authenticated users can import data! Be sure to export your data in a" %} <strong>csv</strong> {% trans "or" %} <strong>xls/xlsx</strong> {% trans "file and" %}
+                    <a class="text-info" href="{% url 'register' %}"> {% trans "Register!" %} </a>{% trans "or" %} <a class="text-info" href="{% url 'login' %}">{% trans "Login!" %}</a> {% trans "into an existing account to use this feature!" %}
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
             </div>
             {% endif %}
         </div>

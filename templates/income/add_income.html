@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 {% block content %}
 <!-- Breadcrumb -->
 <div class="container mt-4">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
-        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'dashboard' %}">Home</a></li>
-        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'income' %}">Income</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add Income</li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'dashboard' %}">{% trans "Home" %}</a></li>
+        <li class="breadcrumb-item" aria-current="page"><a href="{% url 'income' %}">{% trans "Income" %}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "Add Income" %}</li>
         </ol>
     </nav>
 </div>
@@ -20,35 +21,35 @@
 <!-- Income form -->
 
 <div class="container mt-5">
-    <h2 class="mb-3">Income Form</h2>
+    <h2 class="mb-3">{% trans "Income Form" %}</h2>
     <form id="incomeForm" action="{% url 'add-income' %}" method="POST">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="IncomeName" class="form-label">Income Name</label>
-            <input name="incomeName" type="text" class="form-control" id="incomeName" placeholder="Enter income name" required>
+            <label for="IncomeName" class="form-label">{% trans "Income Name" %}</label>
+            <input name="incomeName" type="text" class="form-control" id="incomeName" placeholder='{% trans "Enter income name" %}' required>
         </div>
         <div class="mb-3">
-            <label for="incomeDate" class="form-label">Date</label>
-            <input name="datePicked" type="date" class="form-control" id="incomeDate" placeholder="dd-mm-yyyy" value="">
+            <label for="incomeDate" class="form-label">{% trans "Date" %}</label>
+            <input name="datePicked" type="date" class="form-control" id="incomeDate" placeholder='{% trans "dd-mm-yyyy" %}' value="">
         </div>
         <div class="mb-3">
-            <label for="incomeAmount" class="form-label">Amount</label>
-            <input name="amount" type="number" class="form-control" id="incomeAmount" step="0.01" placeholder="Enter amount" required>
+            <label for="incomeAmount" class="form-label">{% trans "Amount" %}</label>
+            <input name="amount" type="number" class="form-control" id="incomeAmount" step="0.01" placeholder='{% trans "Enter amount" %}' required>
         </div>
         <div class="mb-3">
-            <label for="incomeSource" class="form-label">Source</label>
+            <label for="incomeSource" class="form-label">{% trans "Source" %}</label>
             <select name="source" class="form-select" id="incomeSource" required>
-                <option value="" selected>Select source</option>
+                <option value="" selected>{% trans "Select source" %}</option>
                 {% for source in sources %}
                     <option name="source" value="{{source}}">{{source}}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="mb-3">
-            <label for="incomeDescription" class="form-label">Description (Optional)</label>
-            <textarea name="description" class="form-control" id="incomeDescription" rows="3" placeholder="Enter description" value="No description provided"></textarea>
+            <label for="incomeDescription" class="form-label">{% trans "Description (Optional)" %}</label>
+            <textarea name="description" class="form-control" id="incomeDescription" rows="3" placeholder='{% trans "Enter description" %}' value='{% trans "No description provided" %}'></textarea>
         </div>
-        <input type="submit" class="btn btn-primary" value="Add Income">
+        <input type="submit" class="btn btn-primary" value='{% trans "Add Income" %}'>
     </form>
 </div>
 
