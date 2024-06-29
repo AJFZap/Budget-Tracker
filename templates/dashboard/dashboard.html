@@ -172,7 +172,7 @@
                                     <td>{{ entry.date }}</td>
                                     <td>{{ entry.description }}</td>
                                     {% if entry.entry_type == 'Expense' %}<td class="text-danger">{{ entry.amount }}</td>{% else %}<td class="text-success">{{ entry.amount }}</td>{% endif %}
-                                    <td>{% if entry.entry_type == 'Expense' %}Expense{% else %}Income{% endif %}</td>
+                                    <td>{% if entry.entry_type == 'Expense' %}{% trans "Expense" %}{% else %}{% trans "Income" %}{% endif %}</td>
                                 </tr>
                             </tbody>
                             {% endfor %}

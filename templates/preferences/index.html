@@ -12,7 +12,7 @@
         <br>
         {% include 'partials/_messages.html' %}
         
-        <h2 class="h3 mb-4 page-title">Preferences</h2>
+        <h2 class="h3 mb-4 page-title">{% trans "Preferences" %}</h2>
         {% if user.username %}
             <p>{% trans "Select your desired preferences" %}, {{user.username}}!</p>
         {% else %}

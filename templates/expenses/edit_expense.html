@@ -21,8 +21,8 @@
 {% endif %}
 
 <div class="container mt-5">
-    <h2 class="mb-3">Expense Form</h2>
-    <form id="expenseForm" {% if user.username %}action="{% url 'edit-expenses' pk %}"{% else %}action=""{% endif %} method="POST">
+    <h2 class="mb-3">{% trans "Expense Form" %}</h2>
+    <form id="expenseForm" {% if user.username %} action="{% url 'edit-expenses' expenses.id %}" {% else %} action="" {% endif %} method="POST">
         {% csrf_token %}
         {% if user.username %}
         <div class="mb-3">
@@ -35,7 +35,7 @@
         </div>
         <div class="mb-3">
             <label for="expenseAmount" class="form-label">{% trans "Amount" %}</label>
-            <input name="amount" type="number" class="form-control" id="expenseAmount" placeholder="Enter amount" value="{{ expenses.amount }}" required>
+            <input name="amount" type="number" class="form-control" id="expenseAmount" step="0.01" placeholder="Enter amount" value="{{ expenses.amount|floatformat:2 }}" required>
         </div>
         <div class="mb-3">
             <label for="expenseCategory" class="form-label">{% trans "Category" %}</label>
@@ -48,7 +48,7 @@
         </div>
         <div class="mb-3">
             <label for="expenseDescription" class="form-label">{% trans "Description (Optional)" %}</label>
-            {% if expenses.description != {% trans "No description provided." %} %}
+            {% if expenses.description != "No description provided." %}
             <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder="Enter description">{{ expenses.description }}</textarea>
             {% else %}
             <textarea name="description" class="form-control" id="expenseDescription" rows="3" placeholder='{% trans "Enter description" %}'></textarea>

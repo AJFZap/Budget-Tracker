@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -139,6 +140,10 @@ LANGUAGES = [
     ('es', _('Spanish')),
     ('ja', _('Japanese')),
 ]
+
+MODELTRANSLATION_LANGUAGES = ('en', 'es', 'ja')
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'en'
 
 TIME_ZONE = 'UTC'
 

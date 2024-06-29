@@ -1,9 +1,11 @@
 from django.contrib import admin
-from .models import Expense, Category
+from modeltranslation.admin import TranslationAdmin
+from .models import Category
 
 # Register your models here.
 
-admin.site.register(Expense)
-admin.site.register(Category)
+class CategoryAdmin(TranslationAdmin):
+    list_display = ('name',)
+    fields = ('name',)
 
-
+admin.site.register(Category, CategoryAdmin)

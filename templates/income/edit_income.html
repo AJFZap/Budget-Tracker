@@ -22,7 +22,7 @@
 
 <div class="container mt-5">
     <h2 class="mb-3">{% trans "Income Form" %}</h2>
-    <form id="incomeForm" {% if user.username %}action="{% url 'edit-income' pk %}"{% else %}action=""{% endif %} method="POST">
+    <form id="incomeForm" {% if user.username %}action="{% url 'edit-income' income.id %}"{% else %}action=""{% endif %} method="POST">
         {% csrf_token %}
         {% if user.username %}
         <div class="mb-3">
@@ -35,7 +35,7 @@
         </div>
         <div class="mb-3">
             <label for="incomeAmount" class="form-label">{% trans "Amount" %}</label>
-            <input name="amount" type="number" class="form-control" id="incomeAmount" placeholder="Enter amount" value="{{ income.amount }}" required>
+            <input name="amount" type="number" class="form-control" id="incomeAmount" placeholder="Enter amount" value="{{ income.amount|floatformat:2 }}" required>
         </div>
         <div class="mb-3">
             <label for="incomeSource" class="form-label">{% trans "Source" %}</label>

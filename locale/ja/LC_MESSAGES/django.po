@@ -8,37 +8,38 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-27 15:42-0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2024-06-29 15:09-0300\n"
+"PO-Revision-Date: 2024-06-29 17:36+0000\n"
+"Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
 
 #: authentication/views.py:43
 msgid "Password can't be shorter than six characters!"
-msgstr ""
+msgstr "パスワードは 6 文字未満にすることはできません。"
 
 #: authentication/views.py:57
 msgid ""
 "Account successfully created! A verification link has been sent to your "
 "email."
-msgstr ""
+msgstr "アカウントが正常に作成されました。確認リンクがメールで送信されました。"
 
 #: authentication/views.py:61
 msgid "Username already in use, pick another one."
-msgstr ""
+msgstr "ユーザー名はすでに使用されています。別のユーザー名を選択してください。"
 
 #: authentication/views.py:64
 msgid "This Email is already associated with an existing account"
-msgstr ""
+msgstr "このメールは既に既存のアカウントに関連付けられています"
 
 #: authentication/views.py:82
 msgid "Account Activation"
-msgstr ""
+msgstr "アカウント開設"
 
 #: authentication/views.py:83
 #, python-brace-format
@@ -47,23 +48,26 @@ msgid ""
 " Please click on the link below to activate your account!\n"
 " {activate_url}"
 msgstr ""
+"こんにちは、{user.username}さん！\n"
+"アカウントを有効にするには、以下のリンクをクリックしてください！\n"
+"{activate_url}"
 
 #: authentication/views.py:99
 msgid "Account already active"
-msgstr ""
+msgstr "アカウントはすでにアクティブです"
 
 #: authentication/views.py:105
 msgid "Account activated successfully"
-msgstr ""
+msgstr "アカウントが正常に有効化されました"
 
 #: authentication/views.py:125
 msgid "Please fill out the fields."
-msgstr ""
+msgstr "フィールドに入力してください。"
 
 #: authentication/views.py:135
 #, python-brace-format
 msgid "Welcome Back, {user.username}!"
-msgstr ""
+msgstr "{user.username}さん、おかえりなさい！"
 
 #: authentication/views.py:138
 #, python-brace-format
@@ -71,384 +75,432 @@ msgid ""
 "Activate your account to login, {user.username}!, Check your email and your "
 "spam inbox."
 msgstr ""
+"ログインするにはアカウントを有効にしてください、{user.username}!、メールとス"
+"パム受信トレイを確認してください。"
 
 #: authentication/views.py:141
 msgid "Wrong Password"
-msgstr ""
+msgstr "間違ったパスワード"
 
 #: authentication/views.py:145
 msgid "No account with that username exists"
-msgstr ""
+msgstr "そのユーザー名のアカウントは存在しません"
 
 #: authentication/views.py:150
 msgid "You've logged out!"
-msgstr ""
+msgstr "あなたがログアウトしました！"
 
 #: authentication/views.py:162
 msgid "Need to introduce a valid email."
-msgstr ""
+msgstr "有効なメールアドレスを入力する必要があります。"
 
 #: authentication/views.py:164
 msgid "Email already registered on the database."
-msgstr ""
+msgstr "電子メールはすでにデータベースに登録されています。"
 
 #: authentication/views.py:177
 msgid "Username should only contain alphanumerical characters."
-msgstr ""
+msgstr "ユーザー名には英数字のみを含めることができます。"
 
 #: authentication/views.py:179
 msgid "Username already exists."
-msgstr ""
+msgstr "ユーザー名は既に存在します。"
 
 #: dashboard/views.py:183 dashboard/views.py:267 expenses/views.py:292
 #: income/views.py:288 income/views.py:366 income/views.py:368
 msgid "Export format not supported"
-msgstr ""
+msgstr "エクスポート形式はサポートされていません"
 
 #: dashboard/views.py:278 expenses/views.py:382 income/views.py:378
 msgid "No file provided"
-msgstr ""
+msgstr "ファイルが提供されていません"
 
 #: dashboard/views.py:288 dashboard/views.py:289 expenses/views.py:392
 #: expenses/views.py:393 income/views.py:388 income/views.py:389
 msgid "Unsupported file format"
-msgstr ""
+msgstr "サポートされていないファイル形式"
 
 #: dashboard/views.py:294 dashboard/views.py:295 expenses/views.py:398
 #: expenses/views.py:399 income/views.py:394 income/views.py:395
 msgid "Wrong amount of columns or names."
-msgstr ""
+msgstr "列または名前の数が間違っています。"
 
 #: dashboard/views.py:325
 msgid "Data imported successfully"
-msgstr ""
+msgstr "データのインポートに成功しました"
 
 #: dashboard/views.py:329 dashboard/views.py:330 expenses/views.py:422
 #: expenses/views.py:423 income/views.py:418 income/views.py:419
 #: income/views.py:423
 #, python-brace-format
 msgid "Error processing file: {e}"
-msgstr ""
+msgstr "ファイルの処理中にエラーが発生しました: {e}"
+
+#: expenses/models.py:10 income/models.py:10
+msgid "name"
+msgstr "名前"
+
+#: expenses/models.py:11 income/models.py:11
+msgid "date"
+msgstr "日付"
+
+#: expenses/models.py:12 income/models.py:12
+msgid "description"
+msgstr "説明"
+
+#: expenses/models.py:13 income/models.py:13
+msgid "amount"
+msgstr "金額"
+
+#: expenses/models.py:14
+msgid "category"
+msgstr "カテゴリー"
+
+#: expenses/models.py:37
+msgid "Categories"
+msgstr "カテゴリー"
+
+#: expenses/views.py:47 expenses/views.py:98 income/views.py:43
+#: income/views.py:97
+msgid "No description provided."
+msgstr "説明はありません。"
 
 #: expenses/views.py:63
 msgid "Expense Added to your list!"
-msgstr ""
+msgstr "経費がリストに追加されました!"
 
 #: expenses/views.py:78
 msgid "Expense deleted successfully!"
-msgstr ""
-
-#: expenses/views.py:98 income/views.py:43 income/views.py:97
-msgid "No description provided."
-msgstr ""
+msgstr "経費が正常に削除されました。"
 
 #: expenses/views.py:117 expenses/views.py:128
 msgid "Expense edited successfully!"
-msgstr ""
+msgstr "経費の編集が完了しました。"
 
 #: expenses/views.py:120 income/views.py:119
 msgid "Naughty Naughty. You don't have permissions to see that."
-msgstr ""
+msgstr "悪い子、悪い子。あなたにはそれを見る権限がありません。"
 
 #: expenses/views.py:160 income/views.py:158
 msgid "Invalid request method"
-msgstr ""
+msgstr "リクエスト方法が無効です"
 
 #: expenses/views.py:196 expenses/views.py:200 expenses/views.py:202
 msgid "No expenses to show."
-msgstr ""
+msgstr "表示すべき経費はありません。"
 
 #: expenses/views.py:229 expenses/views.py:303
 msgid ""
 "attachment; filename = Expenses-{str(datetime.datetime.now().date())}.csv"
-msgstr ""
+msgstr "attachment; filename = 経費-{str(datetime.datetime.now().date())}.csv"
 
 #: expenses/views.py:241 expenses/views.py:315
 msgid ""
 "attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx"
-msgstr ""
+msgstr "attachment; filename = 経費-{str(datetime.datetime.now().date())}.xlsx"
 
 #: expenses/views.py:275 expenses/views.py:346
 msgid ""
 "attachment; filename = Expenses-{str(datetime.datetime.now().date())}.pdf"
-msgstr ""
+msgstr "attachment; filename = 経費-{str(datetime.datetime.now().date())}.pdf"
 
 #: expenses/views.py:418
 msgid "Expenses imported successfully"
-msgstr ""
+msgstr "経費が正常にインポートされました"
 
-#: expenseswebsite/settings.py:138 templates/preferences/index.html:61
+#: expenseswebsite/settings.py:139 templates/preferences/index.html:61
 #: templates/preferences/index.html:63
 msgid "English"
-msgstr ""
+msgstr "英語"
 
-#: expenseswebsite/settings.py:139 templates/preferences/index.html:64
+#: expenseswebsite/settings.py:140 templates/preferences/index.html:64
 msgid "Spanish"
-msgstr ""
+msgstr "スペイン語"
 
-#: expenseswebsite/settings.py:140 templates/preferences/index.html:65
+#: expenseswebsite/settings.py:141 templates/preferences/index.html:65
 msgid "Japanese"
-msgstr ""
+msgstr "日本語"
+
+#: income/models.py:14
+msgid "source"
+msgstr "ソース"
+
+#: income/models.py:37
+msgid "Sources"
+msgstr "ソース"
 
 #: income/views.py:62 income/views.py:67
 msgid "Income Added to your list!"
-msgstr ""
+msgstr "収入がリストに追加されました!"
 
 #: income/views.py:77
 msgid "Income deleted successfully!"
-msgstr ""
+msgstr "収入が正常に削除されました!"
 
 #: income/views.py:116 income/views.py:126
 msgid "Income edited successfully!"
-msgstr ""
+msgstr "収入の編集に収入しました!"
 
 #: income/views.py:193 income/views.py:197 income/views.py:199
 msgid "No income to show."
-msgstr ""
+msgstr "表示できる収入はありません。"
 
 #: income/views.py:225 income/views.py:298
 msgid "attachment; filename = Income-{str(datetime.datetime.now().date())}.csv"
-msgstr ""
+msgstr "attachment; filename = 収入-{str(datetime.datetime.now().date())}.csv"
 
 #: income/views.py:271 income/views.py:342
 msgid "attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf"
-msgstr ""
+msgstr "attachment; filename = 収入-{str(datetime.datetime.now().date())}.pdf"
 
 #: income/views.py:310
 msgid ""
 "attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx"
-msgstr ""
+msgstr "attachment; filename = 収入-{str(datetime.datetime.now().date())}.xlsx"
 
 #: income/views.py:414
 msgid "Income imported successfully"
-msgstr ""
+msgstr "収入が正常にインポートされました"
 
 #: preferences/views.py:52 preferences/views.py:63
 msgid "Changes have been saved successfully!"
-msgstr ""
+msgstr "変更が正常に保存されました。"
 
 #: preferences/views.py:74
 #, python-brace-format
 msgid "{name} account has been deleted successfully!"
-msgstr ""
+msgstr "{name} アカウントが正常に削除されました。"
 
 #: templates/authentication/login.html:15
 msgid "Log into your account!"
-msgstr ""
+msgstr "あなたのアカウントにログイン！"
 
 #: templates/authentication/login.html:24
 #: templates/authentication/register.html:36
 msgid "username"
-msgstr ""
+msgstr "ユーザー名"
 
 #: templates/authentication/login.html:25
 #: templates/authentication/register.html:37
 msgid "Username"
-msgstr ""
+msgstr "ユーザー名"
 
 #: templates/authentication/login.html:30
 #: templates/authentication/register.html:44
 msgid "password"
-msgstr ""
+msgstr "パスワード"
 
 #: templates/authentication/login.html:31
 msgid "Password"
-msgstr ""
+msgstr "パスワード"
 
 #: templates/authentication/login.html:36 templates/partials/_nouser.html:7
 #: templates/partials/_sidebar.html:88
 msgid "Login"
-msgstr ""
+msgstr "ログイン"
 
 #: templates/authentication/login.html:42
 msgid "Forgot password?"
-msgstr ""
+msgstr "パスワードをお忘れですか？"
 
 #: templates/authentication/login.html:46
 msgid "Not a member?"
-msgstr ""
+msgstr "会員ではありませんか？"
 
 #: templates/authentication/login.html:46
 #: templates/dashboard/dashboard.html:303 templates/expenses/index.html:238
 #: templates/income/index.html:238
 msgid "Register!"
-msgstr ""
+msgstr "登録する！"
 
 #: templates/authentication/password_reset.html:16
 msgid "Password Reset"
-msgstr ""
+msgstr "パスワードのリセット"
 
 #: templates/authentication/password_reset.html:18
 msgid ""
 "Enter the email that is associated with your account. And we'll send an "
 "email to reset your password!"
 msgstr ""
+"アカウントに関連付けられているメールアドレスを入力してください。パスワードを"
+"リセットするためのメールが送信されます。"
 
 #: templates/authentication/password_reset_complete.html:14
 msgid "Password reset complete"
-msgstr ""
+msgstr "パスワードのリセットが完了しました"
 
 #: templates/authentication/password_reset_complete.html:18
 msgid "Your new password has been set. You may go ahead and log in now!"
-msgstr ""
+msgstr "新しいパスワードが設定されました。今すぐログインしてください。"
 
 #: templates/authentication/password_reset_complete.html:22
 msgid "LOGIN NOW!"
-msgstr ""
+msgstr "ここでログイン！"
 
 #: templates/authentication/password_reset_confirm.html:18
 msgid "Enter your new password!"
-msgstr ""
+msgstr "新しいパスワードを入力してください。"
 
 #: templates/authentication/password_reset_confirm.html:20
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr ""
+"正しく入力されたことを確認するため、新しいパスワードを 2 回入力してください。"
 
 #: templates/authentication/password_reset_confirm.html:24
 msgid "Your password can’t be too similar to your other personal information."
-msgstr ""
+msgstr "パスワードは他の個人情報とあまり類似したものであってはなりません。"
 
 #: templates/authentication/password_reset_confirm.html:24
 msgid "Your password must contain at least 8 characters."
-msgstr ""
+msgstr "パスワードには少なくとも 8 文字を含める必要があります。"
 
 #: templates/authentication/password_reset_confirm.html:24
 msgid "Your password can’t be a commonly used password."
-msgstr ""
+msgstr "パスワードはよく使用されるパスワードにすることはできません。"
 
 #: templates/authentication/password_reset_confirm.html:24
 msgid "Your password can’t be entirely numeric."
-msgstr ""
+msgstr "パスワードをすべて数字にすることはできません。"
 
 #: templates/authentication/password_reset_confirm.html:29
 msgid "Your new password here!"
-msgstr ""
+msgstr "新しいパスワードはここにあります!"
 
 #: templates/authentication/password_reset_confirm.html:30
 msgid "Enter new password:"
-msgstr ""
+msgstr "新しいパスワードを入力してください："
 
 #: templates/authentication/password_reset_confirm.html:33
 msgid "Repeat your new password!"
-msgstr ""
+msgstr "新しいパスワードを繰り返してください。"
 
 #: templates/authentication/password_reset_confirm.html:34
 msgid "Confirm Password:"
-msgstr ""
+msgstr "パスワードを認証する："
 
 #: templates/authentication/password_reset_confirm.html:38
 msgid "Update Password"
-msgstr ""
+msgstr "パスワードを更新"
 
 #: templates/authentication/password_reset_confirm.html:50
 msgid "Link Expired!"
-msgstr ""
+msgstr "リンクの有効期限が切れました!"
 
 #: templates/authentication/password_reset_confirm.html:52
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
 msgstr ""
+"パスワード リセット リンクが無効です。すでに使用されている可能性があります。"
+"新しいパスワード リセットをリクエストしてください。"
 
 #: templates/authentication/password_reset_done.html:14
 msgid "Email Sent!"
-msgstr ""
+msgstr "メールを送信しました!"
 
 #: templates/authentication/password_reset_done.html:17
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the mail you entered. You should receive them shortly."
 msgstr ""
+"入力したメールアドレスにアカウントが存在する場合、パスワードを設定するための"
+"手順をメールで送信しました。まもなく受信されるはずです。"
 
 #: templates/authentication/password_reset_done.html:19
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
 msgstr ""
+"メールが届かない場合は、登録したアドレスを入力したことを確認し、スパムフォル"
+"ダを確認してください。"
 
 #: templates/authentication/register.html:16
 msgid "Register Down Below, it's Free!"
-msgstr ""
+msgstr "下記から登録してください。無料です!"
 
 #: templates/authentication/register.html:49
 msgid "Confirm Password"
-msgstr ""
+msgstr "パスワードを認証する"
 
 #: templates/authentication/register.html:50
 msgid "Repeat Password"
-msgstr ""
+msgstr "パスワードを再度入力してください"
 
 #: templates/authentication/register.html:54
 msgid "Show Password"
-msgstr ""
+msgstr "パスワードを表示"
 
 #: templates/authentication/register.html:59
 msgid "Already have an account?"
-msgstr ""
+msgstr "すでにアカウントをお持ちですか？"
 
 #: templates/authentication/register.html:59
 #: templates/dashboard/dashboard.html:303 templates/expenses/index.html:238
 #: templates/income/index.html:238
 msgid "Login!"
-msgstr ""
+msgstr "ログイン！"
 
 #: templates/base.html:53
 msgid "Light"
-msgstr ""
+msgstr "ライトモード"
 
 #: templates/base.html:60
 msgid "Dark"
-msgstr ""
+msgstr "ダークモード"
+
+#: templates/base.html:67
+msgid "Auto"
+msgstr "オート"
 
 #: templates/base.html:152 templates/partials/_footer.html:9
 msgid "Powered by"
-msgstr ""
+msgstr "提供された"
 
 #: templates/dashboard/dashboard.html:18 templates/partials/_sidebar.html:21
 msgid "Dashboard"
-msgstr ""
+msgstr "ダッシュボード"
 
 #: templates/dashboard/dashboard.html:28 templates/dashboard/dashboard.html:124
 msgid "Total Balance"
-msgstr ""
+msgstr "総合収支"
 
 #: templates/dashboard/dashboard.html:37 templates/dashboard/dashboard.html:133
 msgid "Total Expenses"
-msgstr ""
+msgstr "総経費"
 
 #: templates/dashboard/dashboard.html:46 templates/dashboard/dashboard.html:142
 msgid "Total Income"
-msgstr ""
+msgstr "総収入"
 
 #: templates/dashboard/dashboard.html:60 templates/dashboard/dashboard.html:209
 msgid "No data to show!"
-msgstr ""
+msgstr "表示するデータがありません。"
 
 #: templates/dashboard/dashboard.html:61 templates/dashboard/dashboard.html:210
 msgid "You have no transactions yet."
-msgstr ""
+msgstr "まだ取引はありません。"
 
 #: templates/dashboard/dashboard.html:63 templates/dashboard/dashboard.html:212
 #: templates/expenses/expenses_summary.html:29
 #: templates/expenses/expenses_summary.html:88
 msgid "Create some Expenses"
-msgstr ""
+msgstr "経費を作成する"
 
 #: templates/dashboard/dashboard.html:64 templates/dashboard/dashboard.html:213
 #: templates/income/income_summary.html:29
 #: templates/income/income_summary.html:88
 msgid "Create some Income"
-msgstr ""
+msgstr "収入を創出する"
 
 #: templates/dashboard/dashboard.html:77 templates/dashboard/dashboard.html:156
 msgid "Recent Activity"
-msgstr ""
+msgstr "最近の活動"
 
 #: templates/dashboard/dashboard.html:82 templates/dashboard/dashboard.html:161
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: templates/dashboard/dashboard.html:83 templates/dashboard/dashboard.html:162
 #: templates/expenses/add_expense.html:32
@@ -456,11 +508,11 @@ msgstr ""
 #: templates/expenses/edit_expense.html:67 templates/income/add_income.html:32
 #: templates/income/edit_income.html:33 templates/income/edit_income.html:65
 msgid "Date"
-msgstr ""
+msgstr "日付"
 
 #: templates/dashboard/dashboard.html:84 templates/dashboard/dashboard.html:163
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 #: templates/dashboard/dashboard.html:85 templates/dashboard/dashboard.html:164
 #: templates/expenses/add_expense.html:36
@@ -468,18 +520,18 @@ msgstr ""
 #: templates/expenses/edit_expense.html:71 templates/income/add_income.html:36
 #: templates/income/edit_income.html:37 templates/income/edit_income.html:69
 msgid "Amount"
-msgstr ""
+msgstr "金額"
 
 #: templates/dashboard/dashboard.html:86 templates/dashboard/dashboard.html:165
 msgid "Type"
-msgstr ""
+msgstr "タイプ"
 
 #: templates/dashboard/dashboard.html:104
 #: templates/dashboard/dashboard.html:190
 #: templates/dashboard/dashboard.html:232 templates/expenses/index.html:47
 #: templates/income/index.html:47
 msgid "Export Data"
-msgstr ""
+msgstr "データのエクスポート"
 
 #: templates/dashboard/dashboard.html:105
 #: templates/dashboard/dashboard.html:191
@@ -488,12 +540,22 @@ msgstr ""
 #: templates/expenses/index.html:131 templates/income/index.html:48
 #: templates/income/index.html:131
 msgid "Import Data"
-msgstr ""
+msgstr "データのインポート"
+
+#: templates/dashboard/dashboard.html:175
+msgid "Expense"
+msgstr "経費"
+
+#: templates/dashboard/dashboard.html:175 templates/income/add_income.html:10
+#: templates/income/edit_income.html:12 templates/income/income_summary.html:14
+#: templates/income/index.html:19 templates/partials/_sidebar.html:29
+msgid "Income"
+msgstr "所得"
 
 #: templates/dashboard/dashboard.html:238 templates/expenses/index.html:173
 #: templates/income/index.html:173
 msgid "Select the file format that you prefer:"
-msgstr ""
+msgstr "希望するファイル形式を選択してください:"
 
 #: templates/dashboard/dashboard.html:263
 #: templates/dashboard/dashboard.html:296
@@ -503,44 +565,48 @@ msgstr ""
 #: templates/income/index.html:198 templates/income/index.html:231
 #: templates/income/index.html:242 templates/preferences/index.html:126
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 #: templates/dashboard/dashboard.html:264 templates/expenses/index.html:199
 #: templates/income/index.html:199
 msgid "Export"
-msgstr ""
+msgstr "輸出"
 
 #: templates/dashboard/dashboard.html:282 templates/expenses/index.html:217
 #: templates/income/index.html:217
 msgid "Note that only"
-msgstr ""
+msgstr "のみに注意してください"
 
 #: templates/dashboard/dashboard.html:282 templates/expenses/index.html:217
 #: templates/income/index.html:217
 msgid "and"
-msgstr ""
+msgstr "そして"
 
 #: templates/dashboard/dashboard.html:282 templates/expenses/index.html:217
 #: templates/income/index.html:217
 msgid "files are supported for import as of now."
-msgstr ""
+msgstr "現時点ではファイルのインポートがサポートされています。"
 
 #: templates/dashboard/dashboard.html:283
 msgid ""
 "Do you want to delete the previous data and just keep the imported one? "
 "(Check the box below if that is the case)"
 msgstr ""
+"以前のデータを削除し、インポートしたデータのみを保持しますか? (その場合は下の"
+"ボックスにチェックを入れてください)"
 
 #: templates/dashboard/dashboard.html:288 templates/expenses/index.html:223
 #: templates/income/index.html:223
 msgid ""
 "Yes, I do wish to delete the previous data and just keep the imported one."
 msgstr ""
+"はい、以前のデータを削除して、インポートしたデータだけを保持したいと思いま"
+"す。"
 
 #: templates/dashboard/dashboard.html:297 templates/expenses/index.html:232
 #: templates/income/index.html:232
 msgid "Import"
-msgstr ""
+msgstr "輸入"
 
 #: templates/dashboard/dashboard.html:302 templates/expenses/index.html:237
 #: templates/income/index.html:237
@@ -548,23 +614,25 @@ msgid ""
 "Sorry but only authenticated users can import data! Be sure to export your "
 "data in a"
 msgstr ""
+"申し訳ありませんが、認証されたユーザーのみがデータをインポートできます。必ず"
+"データをエクスポートしてください。"
 
 #: templates/dashboard/dashboard.html:302
 #: templates/dashboard/dashboard.html:303 templates/expenses/index.html:237
 #: templates/expenses/index.html:238 templates/income/index.html:237
 #: templates/income/index.html:238
 msgid "or"
-msgstr ""
+msgstr "または"
 
 #: templates/dashboard/dashboard.html:302 templates/expenses/index.html:237
 #: templates/income/index.html:237
 msgid "file and"
-msgstr ""
+msgstr "ファイルと"
 
 #: templates/dashboard/dashboard.html:303 templates/expenses/index.html:238
 #: templates/income/index.html:238
 msgid "into an existing account to use this feature!"
-msgstr ""
+msgstr "この機能を使用するには、既存のアカウントにログインしてください。"
 
 #: templates/expenses/add_expense.html:9
 #: templates/expenses/edit_expense.html:11
@@ -573,375 +641,382 @@ msgstr ""
 #: templates/income/income_summary.html:13 templates/income/index.html:18
 #: templates/partials/_sidebar.html:15
 msgid "Home"
-msgstr ""
+msgstr "ホーム"
 
 #: templates/expenses/add_expense.html:10
 #: templates/expenses/edit_expense.html:12
 #: templates/expenses/expenses_summary.html:14 templates/expenses/index.html:19
 #: templates/partials/_sidebar.html:35
 msgid "Expenses"
-msgstr ""
+msgstr "経費"
 
 #: templates/expenses/add_expense.html:11
 #: templates/expenses/add_expense.html:52 templates/expenses/index.html:46
 #: templates/expenses/index.html:127
 msgid "Add Expense"
-msgstr ""
+msgstr "経費を追加"
 
 #: templates/expenses/add_expense.html:24
+#: templates/expenses/edit_expense.html:24
 msgid "Expense Form"
-msgstr ""
+msgstr "経費フォーム"
 
 #: templates/expenses/add_expense.html:28
 #: templates/expenses/edit_expense.html:29
 #: templates/expenses/edit_expense.html:63
 msgid "Expense Name"
-msgstr ""
+msgstr "経費名"
 
 #: templates/expenses/add_expense.html:29
 msgid "Enter expense name"
-msgstr ""
+msgstr "経費名を入力"
 
 #: templates/expenses/add_expense.html:33 templates/income/add_income.html:33
 msgid "dd-mm-yyyy"
-msgstr ""
+msgstr "日-月-年"
 
 #: templates/expenses/add_expense.html:37 templates/income/add_income.html:37
 msgid "Enter amount"
-msgstr ""
+msgstr "金額を入力します"
 
 #: templates/expenses/add_expense.html:40
 #: templates/expenses/edit_expense.html:41
 #: templates/expenses/edit_expense.html:75
 msgid "Category"
-msgstr ""
+msgstr "カテゴリー"
 
 #: templates/expenses/add_expense.html:42
 msgid "Select category"
-msgstr ""
+msgstr "カテゴリを選んでください"
 
 #: templates/expenses/add_expense.html:49
 #: templates/expenses/edit_expense.html:50
 #: templates/expenses/edit_expense.html:84 templates/income/add_income.html:49
 #: templates/income/edit_income.html:50 templates/income/edit_income.html:82
 msgid "Description (Optional)"
-msgstr ""
+msgstr "説明（オプション）"
 
 #: templates/expenses/add_expense.html:50
 #: templates/expenses/edit_expense.html:54 templates/income/add_income.html:50
 #: templates/income/edit_income.html:83
 msgid "Enter description"
-msgstr ""
+msgstr "説明を入力"
 
 #: templates/expenses/add_expense.html:50 templates/income/add_income.html:50
 msgid "No description provided"
-msgstr ""
+msgstr "説明はありません"
 
 #: templates/expenses/edit_expense.html:13
 msgid "Edit Expense"
-msgstr ""
+msgstr "経費を編集"
 
 #: templates/expenses/edit_expense.html:57
 #: templates/expenses/edit_expense.html:87 templates/income/edit_income.html:57
 #: templates/income/edit_income.html:85 templates/preferences/index.html:73
 #: templates/preferences/index.html:76
 msgid "Save Changes"
-msgstr ""
+msgstr "変更内容を保存"
 
 #: templates/expenses/expenses_summary.html:15
 #: templates/expenses/expenses_summary.html:36
 #: templates/expenses/expenses_summary.html:62
 #: templates/partials/_sidebar.html:58
 msgid "Expenses Summary"
-msgstr ""
+msgstr "経費概要"
 
 #: templates/expenses/expenses_summary.html:28
 #: templates/expenses/expenses_summary.html:87
 #: templates/income/income_summary.html:28
 #: templates/income/income_summary.html:87
 msgid "No summary to show!"
-msgstr ""
+msgstr "表示する概要がありません。"
 
 #: templates/expenses/expenses_summary.html:28
 #: templates/expenses/expenses_summary.html:87
 msgid "You have no expenses yet."
-msgstr ""
+msgstr "まだ経費は発生していません。"
 
 #: templates/expenses/expenses_summary.html:40
 #: templates/expenses/expenses_summary.html:66
 #: templates/income/income_summary.html:40
 #: templates/income/income_summary.html:66
 msgid "Doughnut Chart"
-msgstr ""
+msgstr "ドーナツチャート"
 
 #: templates/expenses/expenses_summary.html:41
 #: templates/expenses/expenses_summary.html:67
 #: templates/income/income_summary.html:41
 #: templates/income/income_summary.html:67
 msgid "Pie Chart"
-msgstr ""
+msgstr "円グラフ"
 
 #: templates/expenses/expenses_summary.html:42
 #: templates/expenses/expenses_summary.html:68
 #: templates/income/income_summary.html:42
 #: templates/income/income_summary.html:68
 msgid "Line Chart"
-msgstr ""
+msgstr "折れ線グラフ"
 
 #: templates/expenses/expenses_summary.html:43
 #: templates/expenses/expenses_summary.html:69
 #: templates/income/income_summary.html:43
 #: templates/income/income_summary.html:69
 msgid "Bar Chart"
-msgstr ""
+msgstr "棒グラフ"
 
 #: templates/expenses/index.html:35
 msgid "Expenses List"
-msgstr ""
+msgstr "経費リスト"
 
 #: templates/expenses/index.html:38
 msgid "Search for expenses"
-msgstr ""
+msgstr "経費を検索"
 
 #: templates/expenses/index.html:72 templates/income/index.html:72
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 #: templates/expenses/index.html:75 templates/income/index.html:75
 msgid "Delete"
-msgstr ""
+msgstr "削除"
 
 #: templates/expenses/index.html:121
 msgid "No Expenses yet"
-msgstr ""
+msgstr "まだ経費はありません"
 
 #: templates/expenses/index.html:123
 msgid "Click on the button below to create a new expense!"
-msgstr ""
+msgstr "新しい経費を作成するには、下のボタンをクリックしてください。"
 
 #: templates/expenses/index.html:145 templates/expenses/index.html:156
 msgid "Delete Expense"
-msgstr ""
+msgstr "経費を削除"
 
 #: templates/expenses/index.html:151
 msgid ""
 "Are you sure you want to delete this Expense? All the data will be "
 "permanently removed. This action cannot be undone."
 msgstr ""
+"この経費を削除してもよろしいですか? すべてのデータは永久に削除されます。この"
+"操作は元に戻せません。"
 
 #: templates/expenses/index.html:167
 msgid "Export Expense Data"
-msgstr ""
+msgstr "経費データのエクスポート"
 
 #: templates/expenses/index.html:210
 msgid "Import Expense Data"
-msgstr ""
+msgstr "経費データのインポート"
 
 #: templates/expenses/index.html:218
 msgid ""
 "Do you want to delete the previous expenses data and just keep the imported "
 "one? (Check the box below if that is the case)"
 msgstr ""
-
-#: templates/income/add_income.html:10 templates/income/edit_income.html:12
-#: templates/income/income_summary.html:14 templates/income/index.html:19
-#: templates/partials/_sidebar.html:29
-msgid "Income"
-msgstr ""
+"以前の経費データを削除し、インポートしたデータのみを保持しますか? (その場合"
+"は、下のボックスにチェックを入れてください)"
 
 #: templates/income/add_income.html:11 templates/income/add_income.html:52
 #: templates/income/index.html:46
 msgid "Add Income"
-msgstr ""
+msgstr "収入を追加"
 
 #: templates/income/add_income.html:24 templates/income/edit_income.html:24
 msgid "Income Form"
-msgstr ""
+msgstr "収入フォーム"
 
 #: templates/income/add_income.html:28 templates/income/edit_income.html:29
 #: templates/income/edit_income.html:61
 msgid "Income Name"
-msgstr ""
+msgstr "収入名"
 
 #: templates/income/add_income.html:29
 msgid "Enter income name"
-msgstr ""
+msgstr "収入名を入力"
 
 #: templates/income/add_income.html:40 templates/income/edit_income.html:41
 #: templates/income/edit_income.html:73
 msgid "Source"
-msgstr ""
+msgstr "ソース"
 
 #: templates/income/add_income.html:42
 msgid "Select source"
-msgstr ""
+msgstr "ソースを選択"
 
 #: templates/income/edit_income.html:13
 msgid "Edit Income"
-msgstr ""
+msgstr "収入を編集"
 
 #: templates/income/income_summary.html:15
 #: templates/income/income_summary.html:36
 #: templates/income/income_summary.html:62 templates/partials/_sidebar.html:50
 msgid "Income Summary"
-msgstr ""
+msgstr "収入概要"
 
 #: templates/income/income_summary.html:28
 #: templates/income/income_summary.html:87
 msgid "You have no income yet."
-msgstr ""
+msgstr "まだ収入はありません。"
 
 #: templates/income/index.html:35
 msgid "Income List"
-msgstr ""
+msgstr "収入一覧"
 
 #: templates/income/index.html:38
 msgid "Search for Income"
-msgstr ""
+msgstr "収入を探す"
 
 #: templates/income/index.html:121
 msgid "No Income yet"
-msgstr ""
+msgstr "まだ収入はありません"
 
 #: templates/income/index.html:123
 msgid "Click on the button below to create a new income!"
-msgstr ""
+msgstr "下のボタンをクリックして新しい収入を生み出しましょう!"
 
 #: templates/income/index.html:127
 msgid "Add income"
-msgstr ""
+msgstr "収入を追加"
 
 #: templates/income/index.html:145 templates/income/index.html:156
 msgid "Delete Income"
-msgstr ""
+msgstr "収入を削除"
 
 #: templates/income/index.html:151
 msgid ""
 "Are you sure you want to delete this Income? All the data will be "
 "permanently removed. This action cannot be undone."
 msgstr ""
+"この収入を削除してもよろしいですか? すべてのデータは永久に削除されます。この"
+"操作は元に戻せません。"
 
 #: templates/income/index.html:167
 msgid "Export Income Data"
-msgstr ""
+msgstr "輸出収入データ"
 
 #: templates/income/index.html:210
 msgid "Import Income Data"
-msgstr ""
+msgstr "収入データのインポート"
 
 #: templates/income/index.html:218
 msgid ""
 "Do you want to delete the previous income data and just keep the imported "
 "one? (Check the box below if that is the case)"
 msgstr ""
+"以前の収入データを削除し、インポートしたデータのみを保持しますか? (その場合は"
+"下のボックスにチェックを入れてください)"
 
 #: templates/partials/_nouser.html:6
 msgid "Not logged in"
-msgstr ""
+msgstr "ログインしていない"
 
 #: templates/partials/_nouser.html:7
 msgid "Remember to "
-msgstr ""
+msgstr "覚えておいてください"
 
 #: templates/partials/_nouser.html:7 templates/partials/_sidebar.html:96
 msgid "Register"
-msgstr ""
+msgstr "登録する"
 
 #: templates/partials/_nouser.html:7
 msgid " or "
-msgstr ""
+msgstr "または"
 
 #: templates/partials/_nouser.html:7
 msgid ""
 " to save your information and be able to track your expenses and investments!"
-msgstr ""
+msgstr "あなたの情報を保存し、あなたの支出と投資を追跡できるようにします！"
 
 #: templates/partials/_sidebar.html:42
 msgid "Summary"
-msgstr ""
+msgstr "まとめ"
 
 #: templates/partials/_sidebar.html:66
 msgid "Account"
-msgstr ""
+msgstr "アカウント"
 
 #: templates/partials/_sidebar.html:72
 msgid "Preferences & Settings"
-msgstr ""
+msgstr "設定と環境設定"
 
 #: templates/partials/_sidebar.html:79
 msgid "Sign out"
-msgstr ""
+msgstr "サインアウト"
+
+#: templates/preferences/index.html:15
+msgid "Preferences"
+msgstr "環境設定"
 
 #: templates/preferences/index.html:17
 msgid "Select your desired preferences"
-msgstr ""
+msgstr "ご希望の設定を選択してください"
 
 #: templates/preferences/index.html:19
 msgid "Select your desired preferences!"
-msgstr ""
+msgstr "ご希望の設定を選択してください"
 
 #: templates/preferences/index.html:27
 msgid "Select your preferred currency!"
-msgstr ""
+msgstr "ご希望の通貨を選択してください。"
 
 #: templates/preferences/index.html:29 templates/preferences/index.html:31
 #: templates/preferences/index.html:52 templates/preferences/index.html:54
 msgid "Current:"
-msgstr ""
+msgstr "現在："
 
 #: templates/preferences/index.html:50
 msgid "Language"
-msgstr ""
+msgstr "言語"
 
 #: templates/preferences/index.html:56
 msgid "Select your preferred language."
-msgstr ""
+msgstr "ご希望の言語を選択します。"
 
 #: templates/preferences/index.html:74
 msgid "Remember to save so the changes can take place!"
-msgstr ""
+msgstr "変更を反映させるために必ず保存してください。"
 
 #: templates/preferences/index.html:84
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #: templates/preferences/index.html:85
 msgid "Account Settings"
-msgstr ""
+msgstr "アカウント設定"
 
 #: templates/preferences/index.html:89
 msgid "Change password?"
-msgstr ""
+msgstr "パスワードを変更する？"
 
 #: templates/preferences/index.html:90
 msgid "We will send you an email with a link to change your password"
-msgstr ""
+msgstr "パスワードを変更するためのリンクを記載したメールをお送りします"
 
 #: templates/preferences/index.html:92
 msgid "Change password"
-msgstr ""
+msgstr "パスワードを変更する"
 
 #: templates/preferences/index.html:98
 msgid "Delete account?"
-msgstr ""
+msgstr "アカウントを削除する？"
 
 #: templates/preferences/index.html:99
 msgid ""
 "This change is not reversible and you won't be able to get your data back."
-msgstr ""
+msgstr "この変更は元に戻すことはできず、データを復元することはできません。"
 
 #: templates/preferences/index.html:101
 msgid "Delete account"
-msgstr ""
+msgstr "アカウントを削除する"
 
 #: templates/preferences/index.html:109
 msgid "Account Deletion"
-msgstr ""
+msgstr "アカウントの削除"
 
 #: templates/preferences/index.html:121
 msgid "I understand the consequences."
-msgstr ""
+msgstr "私はその結果を理解しています。"
 
 #: templates/preferences/index.html:127
 msgid "Delete Account"
-msgstr ""
+msgstr "アカウントを削除する"

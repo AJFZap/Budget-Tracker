@@ -1,7 +1,11 @@
 from django.contrib import admin
-from .models import Income, Source
+from modeltranslation.admin import TranslationAdmin
+from .models import Source
 
 # Register your models here.
 
-admin.site.register(Income)
-admin.site.register(Source)
+class SourceAdmin(TranslationAdmin):
+    list_display = ('name',)
+    fields = ('name',)
+
+admin.site.register(Source, SourceAdmin)

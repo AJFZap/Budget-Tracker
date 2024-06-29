@@ -44,7 +44,7 @@ def add_expense(request):
         # WHEN A USER IS AUTHENTICATED.
         if request.user.is_authenticated:
             # If no description is provided we just do a default.
-            descriptionValue = "No description provided."
+            descriptionValue = _("No description provided.")
 
             # In case the user uses spaces in the description we still don't count them as a description.
             if request.POST['description'].strip():
