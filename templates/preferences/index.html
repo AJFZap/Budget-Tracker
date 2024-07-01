@@ -49,20 +49,20 @@
                 <div class="col">
                     <strong class="mb-2">{% trans "Language" %}</strong>
                     {% if saved %}
-                    <span class="badge badge-pill badge-success">{% trans "Current:" %} {{saved.1}}</span>  <!-- Change this to the user preferred one -->
+                    <span class="badge badge-pill badge-success">{% trans "Current:" %} {% if saved.1 == 'en' %} English {% elif saved.1 == 'es' %} Español {% else %} 日本語 {% endif %}</span>  <!-- Change this to the user preferred one -->
                     {% else %}
                     <span id="currentLanguage" class="badge badge-pill badge-success">{% trans "Current:" %} English</span>
                     {% endif %}
                     <p class="text-muted mb-2">{% trans "Select your preferred language." %}</p>
                     <select id="languageSelect" name="language" class="form-select" aria-label="Default select example">
                         {% if saved %}
-                        <option selected>{{saved.1}}</option>
+                        <option selected>{% if saved.1 == 'en' %} English {% elif saved.1 == 'es' %} Español {% else %} 日本語 {% endif %}</option>
                         {% else %}
                         <option selected>{% trans "English" %}</option>
                         {% endif %}
-                        <option name="language" value="English">{% trans "English" %}</option>
-                        <option name="language" value="Español">{% trans "Spanish" %}</option>
-                        <option name="language" value="日本語">{% trans "Japanese" %}</option>
+                        <option name="language" value="en">{% trans "English" %}</option>
+                        <option name="language" value="es">{% trans "Spanish" %}</option>
+                        <option name="language" value="ja">{% trans "Japanese" %}</option>
                     </select>
                 </div>
             </div>

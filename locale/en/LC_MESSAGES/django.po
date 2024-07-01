@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 18:13-0300\n"
+"POT-Creation-Date: 2024-07-01 19:18-0300\n"
 "PO-Revision-Date: 2024-07-01 21:11+0000\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,16 +205,18 @@ msgstr "Expenses imported successfully"
 msgid "Error processing file: {e}"
 msgstr "Error processing file: {e}"
 
-#: expenseswebsite/settings.py:139 templates/preferences/index.html:61
+#: expenseswebsite/settings.py:139 preferences/models.py:11
 #: templates/preferences/index.html:63
 msgid "English"
 msgstr "English"
 
-#: expenseswebsite/settings.py:140 templates/preferences/index.html:64
+#: expenseswebsite/settings.py:140 preferences/models.py:12
+#: templates/preferences/index.html:64
 msgid "Spanish"
 msgstr "Spanish"
 
-#: expenseswebsite/settings.py:141 templates/preferences/index.html:65
+#: expenseswebsite/settings.py:141 preferences/models.py:13
+#: templates/preferences/index.html:65
 msgid "Japanese"
 msgstr "Japanese"
 
@@ -258,11 +260,11 @@ msgstr "attachment; filename = Income-{}.pdf"
 msgid "Income imported successfully"
 msgstr "Income imported successfully"
 
-#: preferences/views.py:52 preferences/views.py:63
+#: preferences/views.py:55 preferences/views.py:66
 msgid "Changes have been saved successfully!"
 msgstr "Changes have been saved successfully!"
 
-#: preferences/views.py:74
+#: preferences/views.py:77
 msgid "{} account has been deleted successfully!"
 msgstr "{} account has been deleted successfully!"
 

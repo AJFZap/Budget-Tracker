@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.models import User
+from django.utils import translation
 from django.utils.translation import gettext as _
 from django.contrib import messages, auth
 from django.urls import reverse
@@ -40,14 +41,16 @@ def Preferences(request):
             currency = request.POST['currency']
             language = request.POST['language']
 
+            # Save the currency and language.
             user_preferences.currency, user_preferences.language = currency, language
             user_preferences.save()
 
-            # We take them again so on the page reload we can see the changes in place.
-            user_preferences = UserPreferences.objects.get(user=request.user)
-            savedCurrency = user_preferences.currency
-            savedLanguage = user_preferences.language
-            savedPreferences = [savedCurrency, savedLanguage]
+            # We change the language of the page to the one the user selected.
+            request.session[settings.LANGUAGE_COOKIE_NAME] = language
+            translation.activate(language)
+
+            # We save them so on the page reload we can see the changes take place.
+            savedPreferences = [currency, language]
 
             messages.success(request, _("Changes have been saved successfully!"))
             return render(request, 'preferences/index.html', {'currencies': currencies, 'saved': savedPreferences})
