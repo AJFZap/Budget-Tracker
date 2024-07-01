@@ -3,12 +3,15 @@ from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
+from django.utils import translation
 from django.contrib import messages, auth
 from django.core.mail import send_mail
 from django.urls import reverse
 from validate_email import validate_email
 from decouple import config
 from .utils import tokenGenerator
+from preferences.models import UserPreferences
+from django.conf import settings
 import json
 
 from django.utils.encoding import force_bytes, force_str
@@ -132,7 +135,14 @@ class LoginView(View):
             if user:
                 if user.is_active:
                     auth.login(request, user)
+                    
+                    #Language change to the one the user prefers.
+                    language = UserPreferences.objects.get(user=request.user).language
+                    request.session[settings.LANGUAGE_COOKIE_NAME] = language
+                    translation.activate(language)
+
                     messages.success(request, _('Welcome Back, {}!').format(request.user.username))
+
                     return redirect('dashboard')
                 elif not user.is_active:
                     messages.error(request, _('Activate your account to login, {}!, Check your email and your spam inbox.').format(request.user.username))
