@@ -80,7 +80,7 @@ class RegistrationView(View):
 
         send_mail(
             _("Account Activation"),
-            _(f"Hello {user.username}! \n Please click on the link below to activate your account!\n {activate_url}"),
+            _("Hello {}! \n Please click on the link below to activate your account!\n {}").format(user.username, activate_url),
             config('DEFAULT_FROM_EMAIL'),
             [userEmail],
             fail_silently=False,
@@ -132,10 +132,10 @@ class LoginView(View):
             if user:
                 if user.is_active:
                     auth.login(request, user)
-                    messages.success(request, _(f'Welcome Back, {user.username}!'))
+                    messages.success(request, _('Welcome Back, {}!').format(request.user.username))
                     return redirect('dashboard')
                 elif not user.is_active:
-                    messages.error(request, _(f'Activate your account to login, {user.username}!, Check your email and your spam inbox.'))
+                    messages.error(request, _('Activate your account to login, {}!, Check your email and your spam inbox.').format(request.user.username))
                     return render(request, 'authentication/login.html')
             else:
                 messages.error(request, _('Wrong Password'))

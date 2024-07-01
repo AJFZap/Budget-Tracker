@@ -226,7 +226,7 @@ def export_data(request, non_user_data = None):
         match fileType:
             case 'csv':
                 response = HttpResponse(content_type='text/csv')
-                response['Content-Disposition'] = _(f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.csv')
+                response['Content-Disposition'] = _('attachment; filename = Expenses-{}.csv').format(str(datetime.datetime.now().date()))
 
                 writer = csv.writer(response)
                 writer.writerow(['Name', 'Category', 'Amount', 'Description', 'Date'])
@@ -238,7 +238,7 @@ def export_data(request, non_user_data = None):
             
             case 'xlsx':
                 response = HttpResponse(content_type='text/ms-excel')
-                response['Content-Disposition'] = _(f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx')
+                response['Content-Disposition'] = _('attachment; filename = Expenses-{}.xlsx').format(str(datetime.datetime.now().date()))
 
                 wb = xlwt.Workbook(encoding='utf-8')
                 ws = wb.add_sheet('Expenses')
@@ -272,7 +272,7 @@ def export_data(request, non_user_data = None):
             
             case 'pdf':
                 response = HttpResponse(content_type='text/pdf')
-                response['Content-Disposition'] = _(f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.pdf')
+                response['Content-Disposition'] = _('attachment; filename = Expenses-{}.pdf').format(str(datetime.datetime.now().date()))
                 response['Content-Transfer-Encoding'] = 'binary'
 
                 html_string = render_to_string('expenses/pdf-output.html', {'expenses': expenses, 'total': expenses.aggregate(Sum('amount'))['amount__sum']})
@@ -300,7 +300,7 @@ def export_data(request, non_user_data = None):
         match fileType:
             case 'csv':
                 response = HttpResponse(content_type='text/csv')
-                response['Content-Disposition'] = _(f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.csv')
+                response['Content-Disposition'] = _('attachment; filename = Expenses-{}.csv').format(str(datetime.datetime.now().date()))
 
                 writer = csv.writer(response)
                 writer.writerow(['Name', 'Category', 'Amount', 'Description', 'Date'])
@@ -312,7 +312,7 @@ def export_data(request, non_user_data = None):
             
             case 'xlsx':
                 response = HttpResponse(content_type='text/ms-excel')
-                response['Content-Disposition'] = _(f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx')
+                response['Content-Disposition'] = _('attachment; filename = Expenses-{}.xlsx').format(str(datetime.datetime.now().date()))
 
                 wb = xlwt.Workbook(encoding='utf-8')
                 ws = wb.add_sheet('Expenses')
@@ -343,7 +343,7 @@ def export_data(request, non_user_data = None):
             
             case 'pdf':
                 response = HttpResponse(content_type='text/pdf')
-                response['Content-Disposition'] = _(f'attachment; filename = Expenses-{str(datetime.datetime.now().date())}.pdf')
+                response['Content-Disposition'] = _('attachment; filename = Expenses-{}.pdf').format(str(datetime.datetime.now().date()))
                 response['Content-Transfer-Encoding'] = 'binary'
 
                 expenses = data.get('expenses')
@@ -419,8 +419,8 @@ def import_data(request):
                 return JsonResponse({'success': True})
 
             except Exception as e:
-                messages.error(request, _(f'Error processing file: {e}'))
-                return JsonResponse({'error': _(f'Error processing file: {e}')}, status=400)
+                messages.error(request, _('Error processing file: {e}').format(e))
+                return JsonResponse({'error': _('Error processing file: {}').format(e)}, status=400)
         
         else:
             form = UploadFileForm()

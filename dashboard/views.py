@@ -326,7 +326,7 @@ def import_data(request):
                 return JsonResponse({'success': True})
 
             except Exception as e:
-                messages.error(request, _(f'Error processing file: {e}'))
-                return JsonResponse({'error': _(f'Error processing file: {e}')}, status=400)
+                messages.error(request, _('Error processing file: {}').format(e))
+                return JsonResponse({'error': _('Error processing file: {}').format(e)}, status=400)
     else:
         form = UploadFileForm()

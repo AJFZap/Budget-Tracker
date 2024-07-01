@@ -71,7 +71,7 @@ def delete_user(request, pk):
         user = User.objects.get(id=pk)
         name = user.username
         user.delete()
-        messages.success(request, _(f"{name} account has been deleted successfully!"))
+        messages.success(request, _("{} account has been deleted successfully!").format(name))
         return JsonResponse({'success': True})
     
     return JsonResponse({'success': False})

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-29 15:09-0300\n"
-"PO-Revision-Date: 2024-06-29 17:36+0000\n"
+"POT-Creation-Date: 2024-07-01 18:13-0300\n"
+"PO-Revision-Date: 2024-07-01 21:11+0000\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -44,15 +44,14 @@ msgid "Account Activation"
 msgstr "Account Activation"
 
 #: authentication/views.py:83
-#, python-brace-format
 msgid ""
-"Hello {user.username}! \n"
+"Hello {}! \n"
 " Please click on the link below to activate your account!\n"
-" {activate_url}"
+" {}"
 msgstr ""
-"Hello {user.username}!\n"
+"Hello {}!\n"
 "Please click on the link below to activate your account!\n"
-"{activate_url}"
+"{}"
 
 #: authentication/views.py:99
 msgid "Account already active"
@@ -67,18 +66,14 @@ msgid "Please fill out the fields."
 msgstr "Please fill out the fields."
 
 #: authentication/views.py:135
-#, python-brace-format
-msgid "Welcome Back, {user.username}!"
-msgstr "Welcome Back, {user.username}!"
+msgid "Welcome Back, {}!"
+msgstr "Welcome Back, {}!"
 
 #: authentication/views.py:138
-#, python-brace-format
 msgid ""
-"Activate your account to login, {user.username}!, Check your email and your "
-"spam inbox."
+"Activate your account to login, {}!, Check your email and your spam inbox."
 msgstr ""
-"Activate your account to login, {user.username}!, Check your email and your "
-"spam inbox."
+"Activate your account to login, {}!, Check your email and your spam inbox."
 
 #: authentication/views.py:141
 msgid "Wrong Password"
@@ -131,12 +126,10 @@ msgstr "Wrong amount of columns or names."
 msgid "Data imported successfully"
 msgstr "Data imported successfully"
 
-#: dashboard/views.py:329 dashboard/views.py:330 expenses/views.py:422
-#: expenses/views.py:423 income/views.py:418 income/views.py:419
-#: income/views.py:423
-#, python-brace-format
-msgid "Error processing file: {e}"
-msgstr "Error processing file: {e}"
+#: dashboard/views.py:329 dashboard/views.py:330 expenses/views.py:423
+#: income/views.py:418 income/views.py:419 income/views.py:423
+msgid "Error processing file: {}"
+msgstr "Error processing file: {}"
 
 #: expenses/models.py:10 income/models.py:10
 msgid "name"
@@ -192,26 +185,25 @@ msgid "No expenses to show."
 msgstr "No expenses to show."
 
 #: expenses/views.py:229 expenses/views.py:303
-msgid ""
-"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.csv"
-msgstr ""
-"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.csv"
+msgid "attachment; filename = Expenses-{}.csv"
+msgstr "attachment; filename = Expenses-{}.csv"
 
 #: expenses/views.py:241 expenses/views.py:315
-msgid ""
-"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx"
-msgstr ""
-"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.xlsx"
+msgid "attachment; filename = Expenses-{}.xlsx"
+msgstr "attachment; filename = Expenses-{}.xlsx"
 
 #: expenses/views.py:275 expenses/views.py:346
-msgid ""
-"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.pdf"
-msgstr ""
-"attachment; filename = Expenses-{str(datetime.datetime.now().date())}.pdf"
+msgid "attachment; filename = Expenses-{}.pdf"
+msgstr "attachment; filename = Expenses-{}.pdf"
 
 #: expenses/views.py:418
 msgid "Expenses imported successfully"
 msgstr "Expenses imported successfully"
+
+#: expenses/views.py:422
+#, python-brace-format
+msgid "Error processing file: {e}"
+msgstr "Error processing file: {e}"
 
 #: expenseswebsite/settings.py:139 templates/preferences/index.html:61
 #: templates/preferences/index.html:63
@@ -251,20 +243,16 @@ msgid "No income to show."
 msgstr "No income to show."
 
 #: income/views.py:225 income/views.py:298
-msgid "attachment; filename = Income-{str(datetime.datetime.now().date())}.csv"
-msgstr ""
-"attachment; filename = Income-{str(datetime.datetime.now().date())}.csv"
+msgid "attachment; filename = Income-{}.csv"
+msgstr "attachment; filename = Income-{}"
+
+#: income/views.py:237 income/views.py:310
+msgid "attachment; filename = Income-{}.xlsx"
+msgstr "attachment; filename = Income-{}.xlsx"
 
 #: income/views.py:271 income/views.py:342
-msgid "attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf"
-msgstr ""
-"attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf"
-
-#: income/views.py:310
-msgid ""
-"attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx"
-msgstr ""
-"attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx"
+msgid "attachment; filename = Income-{}.pdf"
+msgstr "attachment; filename = Income-{}.pdf"
 
 #: income/views.py:414
 msgid "Income imported successfully"
@@ -275,9 +263,8 @@ msgid "Changes have been saved successfully!"
 msgstr "Changes have been saved successfully!"
 
 #: preferences/views.py:74
-#, python-brace-format
-msgid "{name} account has been deleted successfully!"
-msgstr "{name} account has been deleted successfully!"
+msgid "{} account has been deleted successfully!"
+msgstr "{} account has been deleted successfully!"
 
 #: templates/authentication/login.html:15
 msgid "Log into your account!"
@@ -299,6 +286,7 @@ msgid "password"
 msgstr "password"
 
 #: templates/authentication/login.html:31
+#: templates/authentication/register.html:45
 msgid "Password"
 msgstr "Password"
 
@@ -429,6 +417,10 @@ msgstr ""
 msgid "Register Down Below, it's Free!"
 msgstr "Register Down Below, it's Free!"
 
+#: templates/authentication/register.html:28
+msgid "Email"
+msgstr "Email"
+
 #: templates/authentication/register.html:49
 msgid "Confirm Password"
 msgstr "Confirm Password"
@@ -440,6 +432,11 @@ msgstr "Repeat Password"
 #: templates/authentication/register.html:54
 msgid "Show Password"
 msgstr "Show Password"
+
+#: templates/authentication/register.html:55 templates/partials/_nouser.html:7
+#: templates/partials/_sidebar.html:96
+msgid "Register"
+msgstr "Register"
 
 #: templates/authentication/register.html:59
 msgid "Already have an account?"
@@ -921,10 +918,6 @@ msgstr "Not logged in"
 #: templates/partials/_nouser.html:7
 msgid "Remember to "
 msgstr "Remember to"
-
-#: templates/partials/_nouser.html:7 templates/partials/_sidebar.html:96
-msgid "Register"
-msgstr "Register"
 
 #: templates/partials/_nouser.html:7
 msgid " or "

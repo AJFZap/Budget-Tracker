@@ -14,7 +14,7 @@ class Income(models.Model):
     source = models.CharField(_("source"), max_length=255)
 
     def __str__(self) -> str:
-        return self.category
+        return self.source
 
     @property
     def entry_type(self):

@@ -222,7 +222,7 @@ def export_data(request):
         match fileType:
             case 'csv':
                 response = HttpResponse(content_type='text/csv')
-                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.csv')
+                response['Content-Disposition'] = _('attachment; filename = Income-{}.csv').format(str(datetime.datetime.now().date()))
 
                 writer = csv.writer(response)
                 writer.writerow(['Name', 'Source', 'Amount', 'Description', 'Date'])
@@ -234,7 +234,7 @@ def export_data(request):
             
             case 'excel':
                 response = HttpResponse(content_type='text/ms-excel')
-                response['Content-Disposition'] = f'attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx'
+                response['Content-Disposition'] = _('attachment; filename = Income-{}.xlsx').format(str(datetime.datetime.now().date()))
 
                 wb = xlwt.Workbook(encoding='utf-8')
                 ws = wb.add_sheet('Income')
@@ -268,7 +268,7 @@ def export_data(request):
             
             case 'pdf':
                 response = HttpResponse(content_type='text/pdf')
-                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf')
+                response['Content-Disposition'] = _('attachment; filename = Income-{}.pdf').format(str(datetime.datetime.now().date()))
                 response['Content-Transfer-Encoding'] = 'binary'
 
                 html_string = render_to_string('income/pdf-output.html', {'incomes': incomes, 'total': incomes.aggregate(Sum('amount'))['amount__sum']})
@@ -295,7 +295,7 @@ def export_data(request):
         match fileType:
             case 'csv':
                 response = HttpResponse(content_type='text/csv')
-                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.csv')
+                response['Content-Disposition'] = _('attachment; filename = Income-{}.csv').format(str(datetime.datetime.now().date()))
 
                 writer = csv.writer(response)
                 writer.writerow(['Name', 'Source', 'Amount', 'Description', 'Date'])
@@ -307,7 +307,7 @@ def export_data(request):
             
             case 'xlsx':
                 response = HttpResponse(content_type='text/ms-excel')
-                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.xlsx')
+                response['Content-Disposition'] = _('attachment; filename = Income-{}.xlsx').format(str(datetime.datetime.now().date()))
 
                 wb = xlwt.Workbook(encoding='utf-8')
                 ws = wb.add_sheet('Income')
@@ -339,7 +339,7 @@ def export_data(request):
             
             case 'pdf':
                 response = HttpResponse(content_type='text/pdf')
-                response['Content-Disposition'] = _(f'attachment; filename = Income-{str(datetime.datetime.now().date())}.pdf')
+                response['Content-Disposition'] = _('attachment; filename = Income-{}.pdf').format(str(datetime.datetime.now().date()))
                 response['Content-Transfer-Encoding'] = 'binary'
 
                 incomes = data.get('incomes')
@@ -415,12 +415,12 @@ def import_data(request):
                 return JsonResponse({'success': True})
 
             except Exception as e:
-                messages.error(request, _(f'Error processing file: {e}'))
-                return JsonResponse({'error': _(f'Error processing file: {e}')}, status=400)
+                messages.error(request, _('Error processing file: {}').format(e))
+                return JsonResponse({'error': _('Error processing file: {}').format(e)}, status=400)
         
         else:
             ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED.
-            return JsonResponse({'error': _(f'Error processing file: {e}')}, status=400)
+            return JsonResponse({'error': _('Error processing file: {}').format(e)}, status=400)
             
     else:
         form = UploadFileForm()
