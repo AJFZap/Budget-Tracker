@@ -48,6 +48,9 @@ def add_income(request):
 
         # WHEN A USER IS AUTHENTICATED.
         if request.user.is_authenticated:
+            
+            ## GET ALL THE LANGUAGES FOR THE SOURCE.
+            sourcesLang = Source.objects.get(name=request.POST['source'])
 
             newIncomeList = Income.objects.create(
                 user = request.user,
@@ -56,6 +59,9 @@ def add_income(request):
                 description = descriptionValue,
                 amount = request.POST['amount'],
                 source = request.POST['source'],
+                source_en = sourcesLang.name_en,
+                source_ja = sourcesLang.name_ja,
+                source_es = sourcesLang.name_es,
             )
             newIncomeList.save()
 

@@ -50,6 +50,9 @@ def add_expense(request):
             if request.POST['description'].strip():
                 descriptionValue = request.POST['description']
 
+            ## GET ALL THE LANGUAGES FOR THE CATEGORY.
+            categoriesLang = Category.objects.get(name=request.POST['category'])
+
             newExpensesList = Expense.objects.create(
                 user = request.user,
                 name = request.POST['expenseName'],
@@ -57,6 +60,9 @@ def add_expense(request):
                 description = descriptionValue,
                 amount = request.POST['amount'],
                 category = request.POST['category'],
+                category_en = categoriesLang.name_en,
+                category_ja = categoriesLang.name_ja,
+                category_es = categoriesLang.name_es,
             )
             newExpensesList.save()
 
