@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
+from django.utils import translation
 
 # Create your models here.
 
@@ -18,6 +19,11 @@ class Income(models.Model):
 
     @property
     def entry_type(self):
+        language = translation.get_language()
+        if language == 'es':
+            return "Ingresos"
+        elif language == 'ja':
+            return "所得"
         return "Income"
 
     @property

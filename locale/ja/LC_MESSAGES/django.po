@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 19:18-0300\n"
-"PO-Revision-Date: 2024-07-01 21:14+0000\n"
+"POT-Creation-Date: 2024-07-03 15:03-0300\n"
+"PO-Revision-Date: 2024-07-03 19:48+0000\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,29 +19,29 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Translated-Using: django-rosetta 0.10.0\n"
 
-#: authentication/views.py:43
+#: authentication/views.py:46
 msgid "Password can't be shorter than six characters!"
 msgstr "パスワードは 6 文字未満にすることはできません。"
 
-#: authentication/views.py:57
+#: authentication/views.py:60
 msgid ""
 "Account successfully created! A verification link has been sent to your "
 "email."
 msgstr "アカウントが正常に作成されました。確認リンクがメールで送信されました。"
 
-#: authentication/views.py:61
+#: authentication/views.py:64
 msgid "Username already in use, pick another one."
 msgstr "ユーザー名はすでに使用されています。別のユーザー名を選択してください。"
 
-#: authentication/views.py:64
+#: authentication/views.py:67
 msgid "This Email is already associated with an existing account"
 msgstr "このメールは既に既存のアカウントに関連付けられています"
 
-#: authentication/views.py:82
+#: authentication/views.py:85
 msgid "Account Activation"
 msgstr "アカウント開設"
 
-#: authentication/views.py:83
+#: authentication/views.py:86
 msgid ""
 "Hello {}! \n"
 " Please click on the link below to activate your account!\n"
@@ -51,211 +51,284 @@ msgstr ""
 "アカウントを有効にするには、以下のリンクをクリックしてください！\n"
 "{}"
 
-#: authentication/views.py:99
+#: authentication/views.py:102
 msgid "Account already active"
 msgstr "アカウントはすでにアクティブです"
 
-#: authentication/views.py:105
+#: authentication/views.py:108
 msgid "Account activated successfully"
 msgstr "アカウントが正常に有効化されました"
 
-#: authentication/views.py:125
+#: authentication/views.py:128
 msgid "Please fill out the fields."
 msgstr "フィールドに入力してください。"
 
-#: authentication/views.py:135
+#: authentication/views.py:144
 msgid "Welcome Back, {}!"
 msgstr "{}さん、おかえりなさい！"
 
-#: authentication/views.py:138
+#: authentication/views.py:148
 msgid ""
 "Activate your account to login, {}!, Check your email and your spam inbox."
-msgstr ""
-"ログインするにはアカウントを有効にしてください、{}!、メールとスパム受信トレイ"
-"を確認してください。"
+msgstr "ログインするにはアカウントを有効にしてください、{}!、メールとスパム受信トレイを確認してください。"
 
-#: authentication/views.py:141
+#: authentication/views.py:151
 msgid "Wrong Password"
 msgstr "間違ったパスワード"
 
-#: authentication/views.py:145
+#: authentication/views.py:155
 msgid "No account with that username exists"
 msgstr "そのユーザー名のアカウントは存在しません"
 
-#: authentication/views.py:150
+#: authentication/views.py:160
 msgid "You've logged out!"
 msgstr "あなたがログアウトしました！"
 
-#: authentication/views.py:162
+#: authentication/views.py:172
 msgid "Need to introduce a valid email."
 msgstr "有効なメールアドレスを入力する必要があります。"
 
-#: authentication/views.py:164
+#: authentication/views.py:174
 msgid "Email already registered on the database."
 msgstr "電子メールはすでにデータベースに登録されています。"
 
-#: authentication/views.py:177
+#: authentication/views.py:187
 msgid "Username should only contain alphanumerical characters."
 msgstr "ユーザー名には英数字のみを含めることができます。"
 
-#: authentication/views.py:179
+#: authentication/views.py:189
 msgid "Username already exists."
 msgstr "ユーザー名は既に存在します。"
 
-#: dashboard/views.py:183 dashboard/views.py:267 expenses/views.py:292
-#: income/views.py:288 income/views.py:366 income/views.py:368
+#: dashboard/views.py:116 dashboard/views.py:140 expenses/views.py:239
+#: expenses/views.py:258 income/views.py:235 income/views.py:254
+#: templates/dashboard/dashboard.html:82
+#: templates/dashboard/dashboard.html:161
+#: templates/dashboard/pdf-output.html:64
+#: templates/expenses/pdf-output.html:64 templates/income/pdf-output.html:64
+msgid "Name"
+msgstr "名前"
+
+#: dashboard/views.py:116 dashboard/views.py:140
+msgid "Source/Category"
+msgstr "ソース/カテゴリ"
+
+#: dashboard/views.py:116 dashboard/views.py:140 expenses/views.py:239
+#: expenses/views.py:258 income/views.py:235 income/views.py:254
+#: templates/dashboard/dashboard.html:83
+#: templates/dashboard/dashboard.html:162
+#: templates/dashboard/pdf-output.html:66
+#: templates/expenses/add_expense.html:32
+#: templates/expenses/edit_expense.html:33
+#: templates/expenses/edit_expense.html:67
+#: templates/expenses/pdf-output.html:66 templates/income/add_income.html:32
+#: templates/income/edit_income.html:33 templates/income/edit_income.html:65
+#: templates/income/pdf-output.html:66
+msgid "Date"
+msgstr "日付"
+
+#: dashboard/views.py:116 dashboard/views.py:140 expenses/views.py:239
+#: expenses/views.py:258 income/views.py:235 income/views.py:254
+#: templates/dashboard/dashboard.html:84
+#: templates/dashboard/dashboard.html:163
+msgid "Description"
+msgstr "説明"
+
+#: dashboard/views.py:116 dashboard/views.py:140
+#: templates/dashboard/dashboard.html:86
+#: templates/dashboard/dashboard.html:165
+#: templates/dashboard/pdf-output.html:67
+msgid "Type"
+msgstr "タイプ"
+
+#: dashboard/views.py:116 dashboard/views.py:140 expenses/views.py:239
+#: expenses/views.py:258 income/views.py:235 income/views.py:254
+#: templates/dashboard/dashboard.html:85
+#: templates/dashboard/dashboard.html:164
+#: templates/dashboard/pdf-output.html:68
+#: templates/expenses/add_expense.html:36
+#: templates/expenses/edit_expense.html:37
+#: templates/expenses/edit_expense.html:71
+#: templates/expenses/pdf-output.html:67 templates/income/add_income.html:36
+#: templates/income/edit_income.html:37 templates/income/edit_income.html:69
+#: templates/income/pdf-output.html:67
+msgid "Amount"
+msgstr "金額"
+
+#: dashboard/views.py:119 dashboard/views.py:151
+#: templates/dashboard/dashboard.html:175
+msgid "Expense"
+msgstr "経費"
+
+#: dashboard/views.py:187 dashboard/views.py:271 expenses/views.py:299
+#: income/views.py:295 income/views.py:373 income/views.py:375
 msgid "Export format not supported"
 msgstr "エクスポート形式はサポートされていません"
 
-#: dashboard/views.py:278 expenses/views.py:382 income/views.py:378
+#: dashboard/views.py:282 expenses/views.py:389 income/views.py:385
 msgid "No file provided"
 msgstr "ファイルが提供されていません"
 
-#: dashboard/views.py:288 dashboard/views.py:289 expenses/views.py:392
-#: expenses/views.py:393 income/views.py:388 income/views.py:389
+#: dashboard/views.py:292 dashboard/views.py:293 expenses/views.py:399
+#: expenses/views.py:400 income/views.py:395 income/views.py:396
 msgid "Unsupported file format"
 msgstr "サポートされていないファイル形式"
 
-#: dashboard/views.py:294 dashboard/views.py:295 expenses/views.py:398
-#: expenses/views.py:399 income/views.py:394 income/views.py:395
+#: dashboard/views.py:298 dashboard/views.py:299 expenses/views.py:405
+#: expenses/views.py:406 income/views.py:401 income/views.py:402
 msgid "Wrong amount of columns or names."
 msgstr "列または名前の数が間違っています。"
 
-#: dashboard/views.py:325
+#: dashboard/views.py:329
 msgid "Data imported successfully"
 msgstr "データのインポートに成功しました"
 
-#: dashboard/views.py:329 dashboard/views.py:330 expenses/views.py:423
-#: income/views.py:418 income/views.py:419 income/views.py:423
+#: dashboard/views.py:333 dashboard/views.py:334 expenses/views.py:430
+#: income/views.py:425 income/views.py:426 income/views.py:430
 msgid "Error processing file: {}"
 msgstr "ファイルの処理中にエラーが発生しました: {}"
 
-#: expenses/models.py:10 income/models.py:10
+#: expenses/models.py:11 income/models.py:11
 msgid "name"
 msgstr "名前"
 
-#: expenses/models.py:11 income/models.py:11
+#: expenses/models.py:12 income/models.py:12
 msgid "date"
 msgstr "日付"
 
-#: expenses/models.py:12 income/models.py:12
+#: expenses/models.py:13 income/models.py:13
 msgid "description"
 msgstr "説明"
 
-#: expenses/models.py:13 income/models.py:13
+#: expenses/models.py:14 income/models.py:14
 msgid "amount"
 msgstr "金額"
 
-#: expenses/models.py:14
+#: expenses/models.py:15
 msgid "category"
 msgstr "カテゴリー"
 
-#: expenses/models.py:37
+#: expenses/models.py:43
 msgid "Categories"
 msgstr "カテゴリー"
 
-#: expenses/views.py:47 expenses/views.py:98 income/views.py:43
-#: income/views.py:97
+#: expenses/views.py:47 expenses/views.py:104 income/views.py:43
+#: income/views.py:103
 msgid "No description provided."
 msgstr "説明はありません。"
 
-#: expenses/views.py:63
+#: expenses/views.py:69
 msgid "Expense Added to your list!"
 msgstr "経費がリストに追加されました!"
 
-#: expenses/views.py:78
+#: expenses/views.py:84
 msgid "Expense deleted successfully!"
 msgstr "経費が正常に削除されました。"
 
-#: expenses/views.py:117 expenses/views.py:128
+#: expenses/views.py:123 expenses/views.py:134
 msgid "Expense edited successfully!"
 msgstr "経費の編集が完了しました。"
 
-#: expenses/views.py:120 income/views.py:119
+#: expenses/views.py:126 income/views.py:125
 msgid "Naughty Naughty. You don't have permissions to see that."
 msgstr "悪い子、悪い子。あなたにはそれを見る権限がありません。"
 
-#: expenses/views.py:160 income/views.py:158
+#: expenses/views.py:166 income/views.py:164
 msgid "Invalid request method"
 msgstr "リクエスト方法が無効です"
 
-#: expenses/views.py:196 expenses/views.py:200 expenses/views.py:202
+#: expenses/views.py:202 expenses/views.py:206 expenses/views.py:208
 msgid "No expenses to show."
 msgstr "表示すべき経費はありません。"
 
-#: expenses/views.py:229 expenses/views.py:303
+#: expenses/views.py:236 expenses/views.py:310
 msgid "attachment; filename = Expenses-{}.csv"
 msgstr "attachment; filename = 経費-{}.csv"
 
-#: expenses/views.py:241 expenses/views.py:315
+#: expenses/views.py:239 expenses/views.py:258
+#: templates/dashboard/pdf-output.html:65
+#: templates/expenses/add_expense.html:40
+#: templates/expenses/edit_expense.html:41
+#: templates/expenses/edit_expense.html:75
+#: templates/expenses/pdf-output.html:65
+msgid "Category"
+msgstr "カテゴリー"
+
+#: expenses/views.py:248 expenses/views.py:322
 msgid "attachment; filename = Expenses-{}.xlsx"
 msgstr "attachment; filename = 経費-{}.xlsx"
 
-#: expenses/views.py:275 expenses/views.py:346
+#: expenses/views.py:282 expenses/views.py:353
 msgid "attachment; filename = Expenses-{}.pdf"
 msgstr "attachment; filename = 経費-{}.pdf"
 
-#: expenses/views.py:418
+#: expenses/views.py:425
 msgid "Expenses imported successfully"
 msgstr "経費が正常にインポートされました"
 
-#: expenses/views.py:422
+#: expenses/views.py:429
 #, python-brace-format
 msgid "Error processing file: {e}"
 msgstr "ファイルの処理中にエラーが発生しました: {e}"
 
-#: expenseswebsite/settings.py:139 preferences/models.py:11
-#: templates/preferences/index.html:63
+#: expenseswebsite/settings.py:140 preferences/models.py:11
+#: templates/preferences/index.html:61 templates/preferences/index.html:63
 msgid "English"
 msgstr "英語"
 
-#: expenseswebsite/settings.py:140 preferences/models.py:12
+#: expenseswebsite/settings.py:141 preferences/models.py:12
 #: templates/preferences/index.html:64
 msgid "Spanish"
 msgstr "スペイン語"
 
-#: expenseswebsite/settings.py:141 preferences/models.py:13
+#: expenseswebsite/settings.py:142 preferences/models.py:13
 #: templates/preferences/index.html:65
 msgid "Japanese"
 msgstr "日本語"
 
-#: income/models.py:14
+#: income/models.py:15
 msgid "source"
 msgstr "ソース"
 
-#: income/models.py:37
+#: income/models.py:43
 msgid "Sources"
 msgstr "ソース"
 
-#: income/views.py:62 income/views.py:67
+#: income/views.py:68 income/views.py:73
 msgid "Income Added to your list!"
 msgstr "収入がリストに追加されました!"
 
-#: income/views.py:77
+#: income/views.py:83
 msgid "Income deleted successfully!"
 msgstr "収入が正常に削除されました!"
 
-#: income/views.py:116 income/views.py:126
+#: income/views.py:122 income/views.py:132
 msgid "Income edited successfully!"
 msgstr "収入の編集に収入しました!"
 
-#: income/views.py:193 income/views.py:197 income/views.py:199
+#: income/views.py:199 income/views.py:203 income/views.py:205
 msgid "No income to show."
 msgstr "表示できる収入はありません。"
 
-#: income/views.py:225 income/views.py:298
+#: income/views.py:232 income/views.py:305
 msgid "attachment; filename = Income-{}.csv"
 msgstr "attachment; filename = 収入-{}.csv"
 
-#: income/views.py:237 income/views.py:310
+#: income/views.py:235 income/views.py:254 templates/income/add_income.html:40
+#: templates/income/edit_income.html:41 templates/income/edit_income.html:73
+#: templates/income/pdf-output.html:65
+msgid "Source"
+msgstr "ソース"
+
+#: income/views.py:244 income/views.py:317
 msgid "attachment; filename = Income-{}.xlsx"
 msgstr "attachment; filename = 収入-{}.xlsx"
 
-#: income/views.py:271 income/views.py:342
+#: income/views.py:278 income/views.py:349
 msgid "attachment; filename = Income-{}.pdf"
 msgstr "attachment; filename = 収入-{}.pdf"
 
-#: income/views.py:414
+#: income/views.py:421
 msgid "Income imported successfully"
 msgstr "収入が正常にインポートされました"
 
@@ -318,9 +391,7 @@ msgstr "パスワードのリセット"
 msgid ""
 "Enter the email that is associated with your account. And we'll send an "
 "email to reset your password!"
-msgstr ""
-"アカウントに関連付けられているメールアドレスを入力してください。パスワードを"
-"リセットするためのメールが送信されます。"
+msgstr "アカウントに関連付けられているメールアドレスを入力してください。パスワードをリセットするためのメールが送信されます。"
 
 #: templates/authentication/password_reset_complete.html:14
 msgid "Password reset complete"
@@ -342,8 +413,7 @@ msgstr "新しいパスワードを入力してください。"
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
-msgstr ""
-"正しく入力されたことを確認するため、新しいパスワードを 2 回入力してください。"
+msgstr "正しく入力されたことを確認するため、新しいパスワードを 2 回入力してください。"
 
 #: templates/authentication/password_reset_confirm.html:24
 msgid "Your password can’t be too similar to your other personal information."
@@ -389,9 +459,7 @@ msgstr "リンクの有効期限が切れました!"
 msgid ""
 "The password reset link was invalid, possibly because it has already been "
 "used. Please request a new password reset."
-msgstr ""
-"パスワード リセット リンクが無効です。すでに使用されている可能性があります。"
-"新しいパスワード リセットをリクエストしてください。"
+msgstr "パスワード リセット リンクが無効です。すでに使用されている可能性があります。新しいパスワード リセットをリクエストしてください。"
 
 #: templates/authentication/password_reset_done.html:14
 msgid "Email Sent!"
@@ -401,17 +469,13 @@ msgstr "メールを送信しました!"
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the mail you entered. You should receive them shortly."
-msgstr ""
-"入力したメールアドレスにアカウントが存在する場合、パスワードを設定するための"
-"手順をメールで送信しました。まもなく受信されるはずです。"
+msgstr "入力したメールアドレスにアカウントが存在する場合、パスワードを設定するための手順をメールで送信しました。まもなく受信されるはずです。"
 
 #: templates/authentication/password_reset_done.html:19
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
-msgstr ""
-"メールが届かない場合は、登録したアドレスを入力したことを確認し、スパムフォル"
-"ダを確認してください。"
+msgstr "メールが届かない場合は、登録したアドレスを入力したことを確認し、スパムフォルダを確認してください。"
 
 #: templates/authentication/register.html:16
 msgid "Register Down Below, it's Free!"
@@ -468,69 +532,49 @@ msgstr "提供された"
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-#: templates/dashboard/dashboard.html:28 templates/dashboard/dashboard.html:124
+#: templates/dashboard/dashboard.html:28
+#: templates/dashboard/dashboard.html:124
 msgid "Total Balance"
 msgstr "総合収支"
 
-#: templates/dashboard/dashboard.html:37 templates/dashboard/dashboard.html:133
+#: templates/dashboard/dashboard.html:37
+#: templates/dashboard/dashboard.html:133
 msgid "Total Expenses"
 msgstr "総経費"
 
-#: templates/dashboard/dashboard.html:46 templates/dashboard/dashboard.html:142
+#: templates/dashboard/dashboard.html:46
+#: templates/dashboard/dashboard.html:142
 msgid "Total Income"
 msgstr "総収入"
 
-#: templates/dashboard/dashboard.html:60 templates/dashboard/dashboard.html:209
+#: templates/dashboard/dashboard.html:60
+#: templates/dashboard/dashboard.html:209
 msgid "No data to show!"
 msgstr "表示するデータがありません。"
 
-#: templates/dashboard/dashboard.html:61 templates/dashboard/dashboard.html:210
+#: templates/dashboard/dashboard.html:61
+#: templates/dashboard/dashboard.html:210
 msgid "You have no transactions yet."
 msgstr "まだ取引はありません。"
 
-#: templates/dashboard/dashboard.html:63 templates/dashboard/dashboard.html:212
+#: templates/dashboard/dashboard.html:63
+#: templates/dashboard/dashboard.html:212
 #: templates/expenses/expenses_summary.html:29
 #: templates/expenses/expenses_summary.html:88
 msgid "Create some Expenses"
 msgstr "経費を作成する"
 
-#: templates/dashboard/dashboard.html:64 templates/dashboard/dashboard.html:213
+#: templates/dashboard/dashboard.html:64
+#: templates/dashboard/dashboard.html:213
 #: templates/income/income_summary.html:29
 #: templates/income/income_summary.html:88
 msgid "Create some Income"
 msgstr "収入を創出する"
 
-#: templates/dashboard/dashboard.html:77 templates/dashboard/dashboard.html:156
+#: templates/dashboard/dashboard.html:77
+#: templates/dashboard/dashboard.html:156
 msgid "Recent Activity"
 msgstr "最近の活動"
-
-#: templates/dashboard/dashboard.html:82 templates/dashboard/dashboard.html:161
-msgid "Name"
-msgstr "名前"
-
-#: templates/dashboard/dashboard.html:83 templates/dashboard/dashboard.html:162
-#: templates/expenses/add_expense.html:32
-#: templates/expenses/edit_expense.html:33
-#: templates/expenses/edit_expense.html:67 templates/income/add_income.html:32
-#: templates/income/edit_income.html:33 templates/income/edit_income.html:65
-msgid "Date"
-msgstr "日付"
-
-#: templates/dashboard/dashboard.html:84 templates/dashboard/dashboard.html:163
-msgid "Description"
-msgstr "説明"
-
-#: templates/dashboard/dashboard.html:85 templates/dashboard/dashboard.html:164
-#: templates/expenses/add_expense.html:36
-#: templates/expenses/edit_expense.html:37
-#: templates/expenses/edit_expense.html:71 templates/income/add_income.html:36
-#: templates/income/edit_income.html:37 templates/income/edit_income.html:69
-msgid "Amount"
-msgstr "金額"
-
-#: templates/dashboard/dashboard.html:86 templates/dashboard/dashboard.html:165
-msgid "Type"
-msgstr "タイプ"
 
 #: templates/dashboard/dashboard.html:104
 #: templates/dashboard/dashboard.html:190
@@ -548,13 +592,10 @@ msgstr "データのエクスポート"
 msgid "Import Data"
 msgstr "データのインポート"
 
-#: templates/dashboard/dashboard.html:175
-msgid "Expense"
-msgstr "経費"
-
 #: templates/dashboard/dashboard.html:175 templates/income/add_income.html:10
-#: templates/income/edit_income.html:12 templates/income/income_summary.html:14
-#: templates/income/index.html:19 templates/partials/_sidebar.html:29
+#: templates/income/edit_income.html:12
+#: templates/income/income_summary.html:14 templates/income/index.html:19
+#: templates/partials/_sidebar.html:29
 msgid "Income"
 msgstr "所得"
 
@@ -597,17 +638,13 @@ msgstr "現時点ではファイルのインポートがサポートされてい
 msgid ""
 "Do you want to delete the previous data and just keep the imported one? "
 "(Check the box below if that is the case)"
-msgstr ""
-"以前のデータを削除し、インポートしたデータのみを保持しますか? (その場合は下の"
-"ボックスにチェックを入れてください)"
+msgstr "以前のデータを削除し、インポートしたデータのみを保持しますか? (その場合は下のボックスにチェックを入れてください)"
 
 #: templates/dashboard/dashboard.html:288 templates/expenses/index.html:223
 #: templates/income/index.html:223
 msgid ""
 "Yes, I do wish to delete the previous data and just keep the imported one."
-msgstr ""
-"はい、以前のデータを削除して、インポートしたデータだけを保持したいと思いま"
-"す。"
+msgstr "はい、以前のデータを削除して、インポートしたデータだけを保持したいと思います。"
 
 #: templates/dashboard/dashboard.html:297 templates/expenses/index.html:232
 #: templates/income/index.html:232
@@ -619,9 +656,7 @@ msgstr "輸入"
 msgid ""
 "Sorry but only authenticated users can import data! Be sure to export your "
 "data in a"
-msgstr ""
-"申し訳ありませんが、認証されたユーザーのみがデータをインポートできます。必ず"
-"データをエクスポートしてください。"
+msgstr "申し訳ありませんが、認証されたユーザーのみがデータをインポートできます。必ずデータをエクスポートしてください。"
 
 #: templates/dashboard/dashboard.html:302
 #: templates/dashboard/dashboard.html:303 templates/expenses/index.html:237
@@ -640,10 +675,35 @@ msgstr "ファイルと"
 msgid "into an existing account to use this feature!"
 msgstr "この機能を使用するには、既存のアカウントにログインしてください。"
 
+#: templates/dashboard/pdf-output.html:19
+#: templates/expenses/pdf-output.html:19 templates/income/pdf-output.html:19
+msgid "Page"
+msgstr "ページ"
+
+#: templates/dashboard/pdf-output.html:19
+#: templates/expenses/pdf-output.html:19 templates/income/pdf-output.html:19
+msgid "of"
+msgstr "の"
+
+#: templates/dashboard/pdf-output.html:59
+msgid "Data List"
+msgstr "データリスト"
+
+#: templates/dashboard/pdf-output.html:63
+#: templates/expenses/pdf-output.html:63 templates/income/pdf-output.html:63
+msgid "No"
+msgstr "位"
+
+#: templates/dashboard/pdf-output.html:91
+#: templates/expenses/pdf-output.html:81 templates/income/pdf-output.html:81
+msgid "Total"
+msgstr "合計"
+
 #: templates/expenses/add_expense.html:9
 #: templates/expenses/edit_expense.html:11
-#: templates/expenses/expenses_summary.html:13 templates/expenses/index.html:18
-#: templates/income/add_income.html:9 templates/income/edit_income.html:11
+#: templates/expenses/expenses_summary.html:13
+#: templates/expenses/index.html:18 templates/income/add_income.html:9
+#: templates/income/edit_income.html:11
 #: templates/income/income_summary.html:13 templates/income/index.html:18
 #: templates/partials/_sidebar.html:15
 msgid "Home"
@@ -651,8 +711,8 @@ msgstr "ホーム"
 
 #: templates/expenses/add_expense.html:10
 #: templates/expenses/edit_expense.html:12
-#: templates/expenses/expenses_summary.html:14 templates/expenses/index.html:19
-#: templates/partials/_sidebar.html:35
+#: templates/expenses/expenses_summary.html:14
+#: templates/expenses/index.html:19 templates/partials/_sidebar.html:35
 msgid "Expenses"
 msgstr "経費"
 
@@ -685,12 +745,6 @@ msgstr "日-月-年"
 msgid "Enter amount"
 msgstr "金額を入力します"
 
-#: templates/expenses/add_expense.html:40
-#: templates/expenses/edit_expense.html:41
-#: templates/expenses/edit_expense.html:75
-msgid "Category"
-msgstr "カテゴリー"
-
 #: templates/expenses/add_expense.html:42
 msgid "Select category"
 msgstr "カテゴリを選んでください"
@@ -717,9 +771,9 @@ msgid "Edit Expense"
 msgstr "経費を編集"
 
 #: templates/expenses/edit_expense.html:57
-#: templates/expenses/edit_expense.html:87 templates/income/edit_income.html:57
-#: templates/income/edit_income.html:85 templates/preferences/index.html:73
-#: templates/preferences/index.html:76
+#: templates/expenses/edit_expense.html:87
+#: templates/income/edit_income.html:57 templates/income/edit_income.html:85
+#: templates/preferences/index.html:73 templates/preferences/index.html:76
 msgid "Save Changes"
 msgstr "変更内容を保存"
 
@@ -770,7 +824,7 @@ msgstr "折れ線グラフ"
 msgid "Bar Chart"
 msgstr "棒グラフ"
 
-#: templates/expenses/index.html:35
+#: templates/expenses/index.html:35 templates/expenses/pdf-output.html:59
 msgid "Expenses List"
 msgstr "経費リスト"
 
@@ -802,9 +856,7 @@ msgstr "経費を削除"
 msgid ""
 "Are you sure you want to delete this Expense? All the data will be "
 "permanently removed. This action cannot be undone."
-msgstr ""
-"この経費を削除してもよろしいですか? すべてのデータは永久に削除されます。この"
-"操作は元に戻せません。"
+msgstr "この経費を削除してもよろしいですか? すべてのデータは永久に削除されます。この操作は元に戻せません。"
 
 #: templates/expenses/index.html:167
 msgid "Export Expense Data"
@@ -818,9 +870,7 @@ msgstr "経費データのインポート"
 msgid ""
 "Do you want to delete the previous expenses data and just keep the imported "
 "one? (Check the box below if that is the case)"
-msgstr ""
-"以前の経費データを削除し、インポートしたデータのみを保持しますか? (その場合"
-"は、下のボックスにチェックを入れてください)"
+msgstr "以前の経費データを削除し、インポートしたデータのみを保持しますか? (その場合は、下のボックスにチェックを入れてください)"
 
 #: templates/income/add_income.html:11 templates/income/add_income.html:52
 #: templates/income/index.html:46
@@ -839,11 +889,6 @@ msgstr "収入名"
 #: templates/income/add_income.html:29
 msgid "Enter income name"
 msgstr "収入名を入力"
-
-#: templates/income/add_income.html:40 templates/income/edit_income.html:41
-#: templates/income/edit_income.html:73
-msgid "Source"
-msgstr "ソース"
 
 #: templates/income/add_income.html:42
 msgid "Select source"
@@ -864,9 +909,9 @@ msgstr "収入概要"
 msgid "You have no income yet."
 msgstr "まだ収入はありません。"
 
-#: templates/income/index.html:35
+#: templates/income/index.html:35 templates/income/pdf-output.html:59
 msgid "Income List"
-msgstr "収入一覧"
+msgstr "収入リスト"
 
 #: templates/income/index.html:38
 msgid "Search for Income"
@@ -892,9 +937,7 @@ msgstr "収入を削除"
 msgid ""
 "Are you sure you want to delete this Income? All the data will be "
 "permanently removed. This action cannot be undone."
-msgstr ""
-"この収入を削除してもよろしいですか? すべてのデータは永久に削除されます。この"
-"操作は元に戻せません。"
+msgstr "この収入を削除してもよろしいですか? すべてのデータは永久に削除されます。この操作は元に戻せません。"
 
 #: templates/income/index.html:167
 msgid "Export Income Data"
@@ -908,9 +951,7 @@ msgstr "収入データのインポート"
 msgid ""
 "Do you want to delete the previous income data and just keep the imported "
 "one? (Check the box below if that is the case)"
-msgstr ""
-"以前の収入データを削除し、インポートしたデータのみを保持しますか? (その場合は"
-"下のボックスにチェックを入れてください)"
+msgstr "以前の収入データを削除し、インポートしたデータのみを保持しますか? (その場合は下のボックスにチェックを入れてください)"
 
 #: templates/partials/_nouser.html:6
 msgid "Not logged in"
@@ -926,7 +967,8 @@ msgstr "または"
 
 #: templates/partials/_nouser.html:7
 msgid ""
-" to save your information and be able to track your expenses and investments!"
+" to save your information and be able to track your expenses and "
+"investments!"
 msgstr "あなたの情報を保存し、あなたの支出と投資を追跡できるようにします！"
 
 #: templates/partials/_sidebar.html:42

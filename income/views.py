@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.utils.translation import gettext as _
+from django.utils import translation
 # from django.core.cache import cache
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse
@@ -224,23 +225,31 @@ def export_data(request):
     if request.user.is_authenticated:
         incomes = Income.objects.filter(user=request.user)
         fileType = request.POST.get('filetype')
+        language = translation.get_language()
+        timeDate = str(datetime.datetime.now().date())
 
         match fileType:
             case 'csv':
                 response = HttpResponse(content_type='text/csv')
-                response['Content-Disposition'] = _('attachment; filename = Income-{}.csv').format(str(datetime.datetime.now().date()))
+                if language == 'ja':
+                    response['Content-Disposition'] = f'attachment; filename = Income-{timeDate}.csv'
+                else:
+                    response['Content-Disposition'] = _('attachment; filename = Income-{}.csv').format(timeDate)
 
                 writer = csv.writer(response)
-                writer.writerow(['Name', 'Source', 'Amount', 'Description', 'Date'])
+                writer.writerow([_('Name'), _('Source'), _('Amount'), _('Description'), _('Date')])
 
                 for income in incomes:
                     writer.writerow([income.name, income.source, income.amount, income.description, income.date])
 
                 return response
             
-            case 'excel':
+            case 'xlsx':
                 response = HttpResponse(content_type='text/ms-excel')
-                response['Content-Disposition'] = _('attachment; filename = Income-{}.xlsx').format(str(datetime.datetime.now().date()))
+                if language == 'ja':
+                    response['Content-Disposition'] = f'attachment; filename = Income-{timeDate}.xlsx'
+                else:
+                    response['Content-Disposition'] = _('attachment; filename = Income-{}.xlsx').format(timeDate)
 
                 wb = xlwt.Workbook(encoding='utf-8')
                 ws = wb.add_sheet('Income')
@@ -250,7 +259,7 @@ def export_data(request):
                 font_style = xlwt.XFStyle()
                 font_style.font.bold = True
 
-                columns = ['Name', 'Source', 'Amount', 'Description', 'Date']
+                columns = [_('Name'), _('Source'), _('Amount'), _('Description'), _('Date')]
 
                 for col_num in range(len(columns)):
                     ws.write(row_num, col_num, columns[col_num], font_style)
@@ -274,7 +283,10 @@ def export_data(request):
             
             case 'pdf':
                 response = HttpResponse(content_type='text/pdf')
-                response['Content-Disposition'] = _('attachment; filename = Income-{}.pdf').format(str(datetime.datetime.now().date()))
+                if language == 'ja':
+                    response['Content-Disposition'] = f'attachment; filename = Income-{timeDate}.pdf'
+                else:
+                    response['Content-Disposition'] = _('attachment; filename = Income-{}.pdf').format(timeDate)
                 response['Content-Transfer-Encoding'] = 'binary'
 
                 html_string = render_to_string('income/pdf-output.html', {'incomes': incomes, 'total': incomes.aggregate(Sum('amount'))['amount__sum']})

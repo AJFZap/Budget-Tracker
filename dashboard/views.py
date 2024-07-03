@@ -97,13 +97,15 @@ def export_data(request):
             key=attrgetter('date'),
             reverse=True
             )
-            total = float(get_income_amount(incomes)) + get_expenses_amount(expenses)
+            total = float(get_income_amount(incomes)) - get_expenses_amount(expenses)
         
         elif expenses:
             entries = Expense.objects.filter(user=request.user)
+            total = get_expenses_amount(expenses)
 
         elif income:
             entries = Income.objects.filter(user=request.user)
+            total = float(get_income_amount(incomes))
 
         match fileType:
             case 'csv':
@@ -111,17 +113,17 @@ def export_data(request):
                 response['Content-Disposition'] = f'attachment; filename = BudgetTracker-{str(datetime.datetime.now().date())}.csv'
 
                 writer = csv.writer(response)
-                writer.writerow(['Name', 'Source/Category', 'Date', 'Description', 'Type', 'Amount'])
+                writer.writerow([_('Name'), _('Source/Category'), _('Date'), _('Description'), _('Type'), _('Amount')])
 
                 for entry in entries:
-                    if entry.entry_type == 'Expense':
+                    if entry.entry_type == _('Expense'):
                         writer.writerow([entry.name, entry.category, entry.date, entry.description, entry.entry_type, entry.amount])
                     else:
                         writer.writerow([entry.name, entry.source, entry.date, entry.description, entry.entry_type, entry.amount])
                 
                 return response
             
-            case 'excel':
+            case 'xlsx':
                 response = HttpResponse(content_type='text/ms-excel')
                 response['Content-Disposition'] = f'attachment; filename = BudgetTracker-{str(datetime.datetime.now().date())}.xlsx'
 
@@ -133,7 +135,7 @@ def export_data(request):
                 font_style = xlwt.XFStyle()
                 font_style.font.bold = True
 
-                columns = ['Name', 'Source/Category', 'Date', 'Description', 'Type', 'Amount']
+                columns = [_('Name'), _('Source/Category'), _('Date'), _('Description'), _('Type'), _('Amount')]
 
                 for col_num in range(len(columns)):
                     ws.write(row_num, col_num, columns[col_num], font_style)
@@ -144,7 +146,7 @@ def export_data(request):
                 data = []
                 
                 for entry in entries:
-                    if entry.entry_type == 'Expense':
+                    if entry.entry_type == _('Expense'):
                         data.append([entry.name, entry.category, entry.date, entry.description, entry.entry_type, entry.amount])
                     else:
                         data.append([entry.name, entry.source, entry.date, entry.description, entry.entry_type, entry.amount])

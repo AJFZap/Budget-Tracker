@@ -16,7 +16,7 @@
             content: "Budget Tracker";
             }
             @bottom-right {
-            content: "Page " counter(page) " of " counter(pages);
+            content: '{% trans "Page" %} ' counter(page) ' {% trans "of" %} ' counter(pages);
             }
             @bottom-center {
             content: "ZappApps";
@@ -56,16 +56,16 @@
     </style>
 </head>
 <body>
-    <h2 class="text-center">Data List</h2>
+    <h2 class="text-center">{% trans "Data List" %}</h2>
     <table class="table">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Amount</th>
+                <th>{% trans "No" %}</th>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Category" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Amount" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -73,22 +73,22 @@
             <tr>
                 <td>{{forloop.counter}}</td>
                 <td>{{entry.name}}</td>
-                {% if user.username %}
-                {% if entry.entry_type == 'Expense' %}<td>{{ entry.category }}</td>{% else %}<td>{{ entry.source }}</td>{% endif %}
+                {% if entry.entry_type %}
+                    {% if entry.entry_type == 'Expense' or  entry.entry_type == 'Gasto' or entry.entry_type == '経費' %}<td>{{ entry.category }}</td>{% else %}<td>{{ entry.source }}</td>{% endif %}
                 {% else %}
-                <td>{{ entry.source }}</td>
+                    <td>{{ entry.source }}</td>
                 {% endif %}
                 <td>{{entry.date}}</td>
-                {% if user.username %}
-                <td>{{entry.entry_type}}</td>
+                {% if entry.entry_type %}
+                    <td>{{entry.entry_type}}</td>
                 {% else %}
-                <td>{{entry.db_type}}</td>
+                    <td>{{entry.db_type}}</td>
                 {% endif %}
                 <td>{{entry.amount}}</td>
             </tr>
             {% endfor %}
             <tr>
-                <td colspan="5" style="text-align: right;"><strong>Total</strong></td>
+                <td colspan="5" style="text-align: right;"><strong>{% trans "Total" %}</strong></td>
                 <td>{{total}}</td>
             </tr>
         </tbody>
