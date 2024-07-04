@@ -63,6 +63,11 @@ def Preferences(request):
         
         elif request.method == 'POST':
 
+            # We change the language of the page to the one the user selected.
+            language = request.POST['language']
+            request.session[settings.LANGUAGE_COOKIE_NAME] = language
+            translation.activate(language)
+
             messages.success(request, _("Changes have been saved successfully!"))
             return render(request, 'preferences/index.html', {'currencies': currencies})
 

@@ -33,8 +33,6 @@
                     <select id="currencySelect" name="currency" class="form-select" aria-label="Default select example">
                         {% if saved %}
                         <option selected>{{saved.0}}</option>
-                        {% else %}
-                        <option selected>USD - United States Dollar</option> <!-- Default to the one the user has saved. If none then it should be USD or 'Select a currency' -->
                         {% endif %}
                         {% for currency in currencies %}
                         <option name="currency" value="{{currency.name}} - {{currency.value}}">{{currency.name}} - {{currency.value}}</option>
@@ -57,8 +55,6 @@
                     <select id="languageSelect" name="language" class="form-select" aria-label="Default select example">
                         {% if saved %}
                         <option selected>{% if saved.1 == 'en' %} English {% elif saved.1 == 'es' %} Español {% else %} 日本語 {% endif %}</option>
-                        {% else %}
-                        <option selected>{% trans "English" %}</option>
                         {% endif %}
                         <option name="language" value="en">{% trans "English" %}</option>
                         <option name="language" value="es">{% trans "Spanish" %}</option>
