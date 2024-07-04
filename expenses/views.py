@@ -410,8 +410,23 @@ def import_data(request):
                     messages.error(request, _('Unsupported file format'))
                     return JsonResponse({'error': _('Unsupported file format')})
                 
-                # Check that the file has all the needed columns.
-                required_columns = ['Name', 'Category', 'Amount', 'Date', 'Description']
+                # Check that the file has all the needed columns. From each language.
+                if df.columns[0] == 'Name':
+                    required_columns = ['Name', 'Category', 'Amount', 'Description', 'Date']
+                    lang = 'en'
+                
+                elif df.columns[0] == 'Nombre':
+                    required_columns = ['Nombre', 'Categoría', 'Monto', 'Descripción', 'Fecha']
+                    lang = 'es'
+                
+                elif df.columns[0] == '名前':
+                    required_columns = ['名前', 'カテゴリー', '金額', '説明', '日付']
+                    lang = 'ja'
+                
+                else:
+                    messages.error(request, _('Wrong amount of columns or names.'))
+                    return JsonResponse({'error': _('Wrong amount of columns or names.')}, status=400)
+
                 if not all(column in df.columns for column in required_columns):
                     messages.error(request, _('Wrong amount of columns or names.'))
                     return JsonResponse({'error': _('Wrong amount of columns or names.')}, status=400)
@@ -420,24 +435,40 @@ def import_data(request):
                 if delete_previous == True:
                     Expense.objects.filter(user=request.user).delete()
 
+                # We get the language of the page and change it temporarily to the one of the file if needed to be able to import the data.
+                currentLang = translation.get_language()
+                
+                if currentLang != lang:
+                    translation.activate(lang)
+
                 # print(df)
 
                 for index, row in df.iterrows():
+                    ## GET ALL THE LANGUAGES FOR THE CATEGORY.
+                    categoryLang = Category.objects.get(name=row.iloc[1])
+                    # print(f'name={row[0]}, category={row[1]}, category_en={categoryLang.name_en}, category_es={categoryLang.name_es}, category_ja={categoryLang.name_ja}, amount={row[2]}, description={row[3]}, date={row[4]}')
                     # print(row)
                     Expense.objects.create(
                         user=request.user,
-                        name=row['Name'],
-                        category=row['Category'],
-                        amount=row['Amount'],
-                        description=row['Description'],
-                        date=row['Date'],
+                        name=row[0], # ['Name']
+                        category=categoryLang.name_en, # ['category']
+                        category_en=categoryLang.name_en,
+                        category_es=categoryLang.name_es,
+                        category_ja=categoryLang.name_ja,
+                        amount=row[2], # ['amount']
+                        description=row[3], # ['description']
+                        date=row[4], # ['date']
                     )
+                
+                # If the page language was changed we set it back to what it was.
+                if currentLang != lang:
+                    translation.activate(currentLang)
 
                 messages.success(request, _('Expenses imported successfully'))
                 return JsonResponse({'success': True})
 
             except Exception as e:
-                messages.error(request, _('Error processing file: {e}').format(e))
+                messages.error(request, _('Error processing file: {}').format(e))
                 return JsonResponse({'error': _('Error processing file: {}').format(e)}, status=400)
         
         else:

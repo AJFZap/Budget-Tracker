@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.http import JsonResponse, HttpResponse
 from django.utils.translation import gettext as _
+from django.utils import translation
 from preferences.models import UserPreferences
 from expenses.models import Category, Expense
 from income.models import Source, Income
@@ -250,7 +251,6 @@ def export_data(request):
                         totalAmount -= float(entry['amount'])
                     else:
                         totalAmount += float(entry['amount'])
-                
 
                 html_string = render_to_string('dashboard/pdf-output.html', {'entries': entries, 'total': totalAmount})
                 html = HTML(string=html_string)
@@ -290,8 +290,23 @@ def import_data(request):
                     messages.error(request, _('Unsupported file format'))
                     return JsonResponse({'error': _('Unsupported file format')})
                 
-                # Check that the file has all the needed columns.
-                required_columns = ['Name', 'Source/Category', 'Amount', 'Date', 'Type', 'Description']
+                # Check that the file has all the needed columns. From each language.
+                if df.columns[0] == 'Name':
+                    required_columns = ['Name', 'Source/Category', 'Date', 'Description', 'Type', 'Amount']
+                    lang = 'en'
+                
+                elif df.columns[0] == 'Nombre':
+                    required_columns = ['Nombre', 'Fuente/Categoria', 'Fecha', 'Descripción', 'Tipo','Monto' ]
+                    lang = 'es'
+                
+                elif df.columns[0] == '名前':
+                    required_columns = ['名前', 'ソース/カテゴリ', '日付', '説明', 'タイプ', '金額']
+                    lang = 'ja'
+                
+                else:
+                    messages.error(request, _('Wrong amount of columns or names.'))
+                    return JsonResponse({'error': _('Wrong amount of columns or names.')}, status=400)
+
                 if not all(column in df.columns for column in required_columns):
                     messages.error(request, _('Wrong amount of columns or names.'))
                     return JsonResponse({'error': _('Wrong amount of columns or names.')}, status=400)
@@ -300,29 +315,49 @@ def import_data(request):
                 if delete_previous == True:
                     Expense.objects.filter(user=request.user).delete()
                     Income.objects.filter(user=request.user).delete()
+                
+                # We get the language of the page and change it temporarily to the one of the file if needed to be able to import the data.
+                currentLang = translation.get_language()
+                
+                if currentLang != lang:
+                    translation.activate(lang)
 
                 # print(df)
 
                 for index, row in df.iterrows():
                     # print(row)
-                    if row['Type'] == 'Expense':
+                    if row[_('Type')] == _('Expense'):
+                        ## GET ALL THE LANGUAGES FOR THE CATEGORY.
+                        categoryLang = Category.objects.get(name=row.iloc[1])
                         Expense.objects.create(
                             user=request.user,
-                            name=row['Name'],
-                            category=row['Source/Category'],
-                            amount=row['Amount'],
-                            description=row['Description'],
-                            date=row['Date'],
+                            name=row[_('Name')],
+                            category=categoryLang.name_en,
+                            category_en=categoryLang.name_en,
+                            category_es=categoryLang.name_es,
+                            category_ja=categoryLang.name_ja,
+                            amount=row[_('Amount')],
+                            description=row[_('Description')],
+                            date=row[_('Date')],
                         )
                     else:
+                        ## GET ALL THE LANGUAGES FOR THE SOURCE.
+                        sourceLang = Source.objects.get(name=row.iloc[1])
                         Income.objects.create(
                             user=request.user,
-                            name=row['Name'],
-                            source=row['Source/Category'],
-                            amount=row['Amount'],
-                            description=row['Description'],
-                            date=row['Date'],
+                            name=row[_('Name')],
+                            source=sourceLang.name_en,
+                            source_en =sourceLang.name_en,
+                            source_es =sourceLang.name_es,
+                            source_ja =sourceLang.name_ja,
+                            amount=row[_('Amount')],
+                            description=row[_('Description')],
+                            date=row[_('Date')],
                         )
+                
+                # If the page language was changed we set it back to what it was.
+                if currentLang != lang:
+                    translation.activate(currentLang)
 
                 messages.success(request, _('Data imported successfully'))
                 return JsonResponse({'success': True})

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-03 15:03-0300\n"
+"POT-Creation-Date: 2024-07-04 12:13-0300\n"
 "PO-Revision-Date: 2024-07-03 18:04+0000\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,23 +104,23 @@ msgstr "El nombre de usuario sólo debe contener caracteres alfanuméricos."
 msgid "Username already exists."
 msgstr "Nombre de usuario ya existente."
 
-#: dashboard/views.py:116 dashboard/views.py:140 expenses/views.py:239
-#: expenses/views.py:258 income/views.py:235 income/views.py:254
-#: templates/dashboard/dashboard.html:82
-#: templates/dashboard/dashboard.html:161
-#: templates/dashboard/pdf-output.html:64
-#: templates/expenses/pdf-output.html:64 templates/income/pdf-output.html:64
+#: dashboard/views.py:116 dashboard/views.py:138 dashboard/views.py:335
+#: dashboard/views.py:347 expenses/views.py:244 expenses/views.py:266
+#: income/views.py:240 income/views.py:262
+#: templates/dashboard/dashboard.html:82 templates/dashboard/dashboard.html:161
+#: templates/dashboard/pdf-output.html:64 templates/expenses/pdf-output.html:64
+#: templates/income/pdf-output.html:64
 msgid "Name"
 msgstr "Nombre"
 
-#: dashboard/views.py:116 dashboard/views.py:140
+#: dashboard/views.py:116 dashboard/views.py:138
 msgid "Source/Category"
 msgstr "Fuente/Categoria"
 
-#: dashboard/views.py:116 dashboard/views.py:140 expenses/views.py:239
-#: expenses/views.py:258 income/views.py:235 income/views.py:254
-#: templates/dashboard/dashboard.html:83
-#: templates/dashboard/dashboard.html:162
+#: dashboard/views.py:116 dashboard/views.py:138 dashboard/views.py:342
+#: dashboard/views.py:354 expenses/views.py:244 expenses/views.py:266
+#: income/views.py:240 income/views.py:262
+#: templates/dashboard/dashboard.html:83 templates/dashboard/dashboard.html:162
 #: templates/dashboard/pdf-output.html:66
 #: templates/expenses/add_expense.html:32
 #: templates/expenses/edit_expense.html:33
@@ -131,24 +131,23 @@ msgstr "Fuente/Categoria"
 msgid "Date"
 msgstr "Fecha"
 
-#: dashboard/views.py:116 dashboard/views.py:140 expenses/views.py:239
-#: expenses/views.py:258 income/views.py:235 income/views.py:254
-#: templates/dashboard/dashboard.html:84
-#: templates/dashboard/dashboard.html:163
+#: dashboard/views.py:116 dashboard/views.py:138 dashboard/views.py:341
+#: dashboard/views.py:353 expenses/views.py:244 expenses/views.py:266
+#: income/views.py:240 income/views.py:262
+#: templates/dashboard/dashboard.html:84 templates/dashboard/dashboard.html:163
 msgid "Description"
 msgstr "Descripción"
 
-#: dashboard/views.py:116 dashboard/views.py:140
-#: templates/dashboard/dashboard.html:86
-#: templates/dashboard/dashboard.html:165
+#: dashboard/views.py:116 dashboard/views.py:138 dashboard/views.py:332
+#: templates/dashboard/dashboard.html:86 templates/dashboard/dashboard.html:165
 #: templates/dashboard/pdf-output.html:67
 msgid "Type"
 msgstr "Tipo"
 
-#: dashboard/views.py:116 dashboard/views.py:140 expenses/views.py:239
-#: expenses/views.py:258 income/views.py:235 income/views.py:254
-#: templates/dashboard/dashboard.html:85
-#: templates/dashboard/dashboard.html:164
+#: dashboard/views.py:116 dashboard/views.py:138 dashboard/views.py:340
+#: dashboard/views.py:352 expenses/views.py:244 expenses/views.py:266
+#: income/views.py:240 income/views.py:262
+#: templates/dashboard/dashboard.html:85 templates/dashboard/dashboard.html:164
 #: templates/dashboard/pdf-output.html:68
 #: templates/expenses/add_expense.html:36
 #: templates/expenses/edit_expense.html:37
@@ -159,36 +158,39 @@ msgstr "Tipo"
 msgid "Amount"
 msgstr "Monto"
 
-#: dashboard/views.py:119 dashboard/views.py:151
+#: dashboard/views.py:119 dashboard/views.py:149 dashboard/views.py:332
 #: templates/dashboard/dashboard.html:175
 msgid "Expense"
 msgstr "Gasto"
 
-#: dashboard/views.py:187 dashboard/views.py:271 expenses/views.py:299
-#: income/views.py:295 income/views.py:373 income/views.py:375
+#: dashboard/views.py:185 dashboard/views.py:268 expenses/views.py:310
+#: income/views.py:306 income/views.py:384 income/views.py:386
 msgid "Export format not supported"
 msgstr "Formato de exportación no compatible"
 
-#: dashboard/views.py:282 expenses/views.py:389 income/views.py:385
+#: dashboard/views.py:279 expenses/views.py:400 income/views.py:396
 msgid "No file provided"
 msgstr "No se proporcionó ningún archivo"
 
-#: dashboard/views.py:292 dashboard/views.py:293 expenses/views.py:399
-#: expenses/views.py:400 income/views.py:395 income/views.py:396
+#: dashboard/views.py:289 dashboard/views.py:290 expenses/views.py:410
+#: expenses/views.py:411 income/views.py:406 income/views.py:407
 msgid "Unsupported file format"
 msgstr "Formato de archivo no compatible"
 
-#: dashboard/views.py:298 dashboard/views.py:299 expenses/views.py:405
-#: expenses/views.py:406 income/views.py:401 income/views.py:402
+#: dashboard/views.py:306 dashboard/views.py:307 dashboard/views.py:310
+#: dashboard/views.py:311 expenses/views.py:427 expenses/views.py:428
+#: expenses/views.py:431 expenses/views.py:432 income/views.py:423
+#: income/views.py:424 income/views.py:427 income/views.py:428
 msgid "Wrong amount of columns or names."
 msgstr "Cantidad incorrecta de columnas o nombres."
 
-#: dashboard/views.py:329
+#: dashboard/views.py:361
 msgid "Data imported successfully"
 msgstr "Datos importados exitosamente"
 
-#: dashboard/views.py:333 dashboard/views.py:334 expenses/views.py:430
-#: income/views.py:425 income/views.py:426 income/views.py:430
+#: dashboard/views.py:365 dashboard/views.py:366 expenses/views.py:471
+#: expenses/views.py:472 income/views.py:467 income/views.py:468
+#: income/views.py:472
 msgid "Error processing file: {}"
 msgstr "Error al procesar el archivo: {}"
 
@@ -216,40 +218,40 @@ msgstr "categoría"
 msgid "Categories"
 msgstr "Categorias"
 
-#: expenses/views.py:47 expenses/views.py:104 income/views.py:43
-#: income/views.py:103
+#: expenses/views.py:48 expenses/views.py:105 income/views.py:44
+#: income/views.py:104
 msgid "No description provided."
 msgstr "No se proporciona descripción."
 
-#: expenses/views.py:69
+#: expenses/views.py:70
 msgid "Expense Added to your list!"
 msgstr "Gasto añadido a tu lista!"
 
-#: expenses/views.py:84
+#: expenses/views.py:85
 msgid "Expense deleted successfully!"
 msgstr "¡Gasto eliminado exitosamente!"
 
-#: expenses/views.py:123 expenses/views.py:134
+#: expenses/views.py:124 expenses/views.py:135
 msgid "Expense edited successfully!"
 msgstr "¡Gasto editado exitosamente!"
 
-#: expenses/views.py:126 income/views.py:125
+#: expenses/views.py:127 income/views.py:126
 msgid "Naughty Naughty. You don't have permissions to see that."
 msgstr "Travieso Travieso. No tienes permisos para ver eso."
 
-#: expenses/views.py:166 income/views.py:164
+#: expenses/views.py:167 income/views.py:165
 msgid "Invalid request method"
 msgstr "Método de solicitud no válido"
 
-#: expenses/views.py:202 expenses/views.py:206 expenses/views.py:208
+#: expenses/views.py:203 expenses/views.py:207 expenses/views.py:209
 msgid "No expenses to show."
 msgstr "Sin gastos que mostrar."
 
-#: expenses/views.py:236 expenses/views.py:310
+#: expenses/views.py:241 expenses/views.py:321
 msgid "attachment; filename = Expenses-{}.csv"
 msgstr "attachment; filename = Gastos-{}.csv"
 
-#: expenses/views.py:239 expenses/views.py:258
+#: expenses/views.py:244 expenses/views.py:266
 #: templates/dashboard/pdf-output.html:65
 #: templates/expenses/add_expense.html:40
 #: templates/expenses/edit_expense.html:41
@@ -258,22 +260,17 @@ msgstr "attachment; filename = Gastos-{}.csv"
 msgid "Category"
 msgstr "Categoría"
 
-#: expenses/views.py:248 expenses/views.py:322
+#: expenses/views.py:256 expenses/views.py:333
 msgid "attachment; filename = Expenses-{}.xlsx"
 msgstr "attachment; filename = Gastos-{}.xlsx"
 
-#: expenses/views.py:282 expenses/views.py:353
+#: expenses/views.py:293 expenses/views.py:364
 msgid "attachment; filename = Expenses-{}.pdf"
 msgstr "attachment; filename = Gastos-{}.pdf"
 
-#: expenses/views.py:425
+#: expenses/views.py:467
 msgid "Expenses imported successfully"
 msgstr "Gastos importados exitosamente"
-
-#: expenses/views.py:429
-#, python-brace-format
-msgid "Error processing file: {e}"
-msgstr "Error al procesar el archivo: {e}"
 
 #: expenseswebsite/settings.py:140 preferences/models.py:11
 #: templates/preferences/index.html:61 templates/preferences/index.html:63
@@ -298,41 +295,41 @@ msgstr "fuente"
 msgid "Sources"
 msgstr "Fuentes"
 
-#: income/views.py:68 income/views.py:73
+#: income/views.py:69 income/views.py:74
 msgid "Income Added to your list!"
 msgstr "Ingresos añadidos a tu lista!"
 
-#: income/views.py:83
+#: income/views.py:84
 msgid "Income deleted successfully!"
 msgstr "¡Ingresos eliminados exitosamente!"
 
-#: income/views.py:122 income/views.py:132
+#: income/views.py:123 income/views.py:133
 msgid "Income edited successfully!"
 msgstr "¡Ingresos editados exitosamente!"
 
-#: income/views.py:199 income/views.py:203 income/views.py:205
+#: income/views.py:200 income/views.py:204 income/views.py:206
 msgid "No income to show."
 msgstr "No hay ingresos que mostrar."
 
-#: income/views.py:232 income/views.py:305
+#: income/views.py:237 income/views.py:316
 msgid "attachment; filename = Income-{}.csv"
 msgstr "attachment; filename = Ingresos-{}.csv"
 
-#: income/views.py:235 income/views.py:254 templates/income/add_income.html:40
+#: income/views.py:240 income/views.py:262 templates/income/add_income.html:40
 #: templates/income/edit_income.html:41 templates/income/edit_income.html:73
 #: templates/income/pdf-output.html:65
 msgid "Source"
 msgstr "Fuente"
 
-#: income/views.py:244 income/views.py:317
+#: income/views.py:252 income/views.py:328
 msgid "attachment; filename = Income-{}.xlsx"
 msgstr "attachment; filename = Ingresos-{}.xlsx"
 
-#: income/views.py:278 income/views.py:349
+#: income/views.py:289 income/views.py:360
 msgid "attachment; filename = Income-{}.pdf"
 msgstr "attachment; filename = Ingresos-{}.pdf"
 
-#: income/views.py:421
+#: income/views.py:463
 msgid "Income imported successfully"
 msgstr "Ingresos importados con éxito"
 
@@ -550,47 +547,39 @@ msgstr "Proporcionado por"
 msgid "Dashboard"
 msgstr "Panel Principal"
 
-#: templates/dashboard/dashboard.html:28
-#: templates/dashboard/dashboard.html:124
+#: templates/dashboard/dashboard.html:28 templates/dashboard/dashboard.html:124
 msgid "Total Balance"
 msgstr "Balance total"
 
-#: templates/dashboard/dashboard.html:37
-#: templates/dashboard/dashboard.html:133
+#: templates/dashboard/dashboard.html:37 templates/dashboard/dashboard.html:133
 msgid "Total Expenses"
 msgstr "Gastos totales"
 
-#: templates/dashboard/dashboard.html:46
-#: templates/dashboard/dashboard.html:142
+#: templates/dashboard/dashboard.html:46 templates/dashboard/dashboard.html:142
 msgid "Total Income"
 msgstr "Ingresos totales"
 
-#: templates/dashboard/dashboard.html:60
-#: templates/dashboard/dashboard.html:209
+#: templates/dashboard/dashboard.html:60 templates/dashboard/dashboard.html:209
 msgid "No data to show!"
 msgstr "¡No hay datos para mostrar!"
 
-#: templates/dashboard/dashboard.html:61
-#: templates/dashboard/dashboard.html:210
+#: templates/dashboard/dashboard.html:61 templates/dashboard/dashboard.html:210
 msgid "You have no transactions yet."
 msgstr "Aún no tienes transacciones."
 
-#: templates/dashboard/dashboard.html:63
-#: templates/dashboard/dashboard.html:212
+#: templates/dashboard/dashboard.html:63 templates/dashboard/dashboard.html:212
 #: templates/expenses/expenses_summary.html:29
 #: templates/expenses/expenses_summary.html:88
 msgid "Create some Expenses"
 msgstr "Crear algunos gastos"
 
-#: templates/dashboard/dashboard.html:64
-#: templates/dashboard/dashboard.html:213
+#: templates/dashboard/dashboard.html:64 templates/dashboard/dashboard.html:213
 #: templates/income/income_summary.html:29
 #: templates/income/income_summary.html:88
 msgid "Create some Income"
 msgstr "Crea algunos ingresos"
 
-#: templates/dashboard/dashboard.html:77
-#: templates/dashboard/dashboard.html:156
+#: templates/dashboard/dashboard.html:77 templates/dashboard/dashboard.html:156
 msgid "Recent Activity"
 msgstr "Actividad reciente"
 
@@ -611,9 +600,8 @@ msgid "Import Data"
 msgstr "Importar Datos"
 
 #: templates/dashboard/dashboard.html:175 templates/income/add_income.html:10
-#: templates/income/edit_income.html:12
-#: templates/income/income_summary.html:14 templates/income/index.html:19
-#: templates/partials/_sidebar.html:29
+#: templates/income/edit_income.html:12 templates/income/income_summary.html:14
+#: templates/income/index.html:19 templates/partials/_sidebar.html:29
 msgid "Income"
 msgstr "Ingresos"
 
@@ -698,13 +686,13 @@ msgstr "y"
 msgid "into an existing account to use this feature!"
 msgstr "en una cuenta existente para utilizar esta función!"
 
-#: templates/dashboard/pdf-output.html:19
-#: templates/expenses/pdf-output.html:19 templates/income/pdf-output.html:19
+#: templates/dashboard/pdf-output.html:19 templates/expenses/pdf-output.html:19
+#: templates/income/pdf-output.html:19
 msgid "Page"
 msgstr "Pagina"
 
-#: templates/dashboard/pdf-output.html:19
-#: templates/expenses/pdf-output.html:19 templates/income/pdf-output.html:19
+#: templates/dashboard/pdf-output.html:19 templates/expenses/pdf-output.html:19
+#: templates/income/pdf-output.html:19
 msgid "of"
 msgstr "de"
 
@@ -712,21 +700,20 @@ msgstr "de"
 msgid "Data List"
 msgstr "Lista de datos"
 
-#: templates/dashboard/pdf-output.html:63
-#: templates/expenses/pdf-output.html:63 templates/income/pdf-output.html:63
+#: templates/dashboard/pdf-output.html:63 templates/expenses/pdf-output.html:63
+#: templates/income/pdf-output.html:63
 msgid "No"
 msgstr "No"
 
-#: templates/dashboard/pdf-output.html:91
-#: templates/expenses/pdf-output.html:81 templates/income/pdf-output.html:81
+#: templates/dashboard/pdf-output.html:91 templates/expenses/pdf-output.html:81
+#: templates/income/pdf-output.html:81
 msgid "Total"
 msgstr "Total"
 
 #: templates/expenses/add_expense.html:9
 #: templates/expenses/edit_expense.html:11
-#: templates/expenses/expenses_summary.html:13
-#: templates/expenses/index.html:18 templates/income/add_income.html:9
-#: templates/income/edit_income.html:11
+#: templates/expenses/expenses_summary.html:13 templates/expenses/index.html:18
+#: templates/income/add_income.html:9 templates/income/edit_income.html:11
 #: templates/income/income_summary.html:13 templates/income/index.html:18
 #: templates/partials/_sidebar.html:15
 msgid "Home"
@@ -734,8 +721,8 @@ msgstr "Inicio"
 
 #: templates/expenses/add_expense.html:10
 #: templates/expenses/edit_expense.html:12
-#: templates/expenses/expenses_summary.html:14
-#: templates/expenses/index.html:19 templates/partials/_sidebar.html:35
+#: templates/expenses/expenses_summary.html:14 templates/expenses/index.html:19
+#: templates/partials/_sidebar.html:35
 msgid "Expenses"
 msgstr "Gastos"
 
@@ -794,9 +781,9 @@ msgid "Edit Expense"
 msgstr "Editar Gasto"
 
 #: templates/expenses/edit_expense.html:57
-#: templates/expenses/edit_expense.html:87
-#: templates/income/edit_income.html:57 templates/income/edit_income.html:85
-#: templates/preferences/index.html:73 templates/preferences/index.html:76
+#: templates/expenses/edit_expense.html:87 templates/income/edit_income.html:57
+#: templates/income/edit_income.html:85 templates/preferences/index.html:73
+#: templates/preferences/index.html:76
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
@@ -998,8 +985,7 @@ msgstr "o"
 
 #: templates/partials/_nouser.html:7
 msgid ""
-" to save your information and be able to track your expenses and "
-"investments!"
+" to save your information and be able to track your expenses and investments!"
 msgstr ""
 "para guardar su información y poder realizar un seguimiento de tus gastos e "
 "inversiones!"
@@ -1068,8 +1054,7 @@ msgstr "¿Cambiar la contraseña?"
 #: templates/preferences/index.html:90
 msgid "We will send you an email with a link to change your password"
 msgstr ""
-"Le enviaremos un correo electrónico con un enlace para cambiar su "
-"contraseña."
+"Le enviaremos un correo electrónico con un enlace para cambiar su contraseña."
 
 #: templates/preferences/index.html:92
 msgid "Change password"
@@ -1099,3 +1084,7 @@ msgstr "Entiendo las consecuencias."
 #: templates/preferences/index.html:127
 msgid "Delete Account"
 msgstr "Eliminar cuenta"
+
+#, python-brace-format
+#~ msgid "Error processing file: {e}"
+#~ msgstr "Error al procesar el archivo: {e}"
