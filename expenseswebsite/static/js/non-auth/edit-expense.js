@@ -28,16 +28,44 @@ document.addEventListener('DOMContentLoaded', function() {
         const amount = document.getElementById('expenseAmount').value;
         const category = document.getElementById('expenseCategory').value;
 
-        // Change the expense accordingly to the changes the user made.
-        expenses[expenseIndex].name = expenseName
-        expenses[expenseIndex].date = datePicked
-        expenses[expenseIndex].description = description
-        expenses[expenseIndex].amount = amount
-        expenses[expenseIndex].category = category
-        
-        localStorage.setItem('expenses', JSON.stringify(expenses));
-        
-        //Finally we submit the form.
-        form.submit();
+        fetch(categoriesUrl)
+
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data); // Access your categories here
+                
+                // Function to find the object with the category name in any language.
+                const findItemByName = (list, value) => {
+                    return list.find(item => 
+                        item.name_en === value || 
+                        item.name_es === value || 
+                        item.name_ja === value
+                    );
+                };
+
+                // Get the object with the name category name.
+                const categoryItem = findItemByName(data, category);
+                // console.log(categoryItem)
+
+                // Change the expense accordingly to the changes the user made.
+                expenses[expenseIndex].name = expenseName
+                expenses[expenseIndex].date = datePicked
+                expenses[expenseIndex].description = description
+                expenses[expenseIndex].amount = amount
+                expenses[expenseIndex].category = categoryItem.name_en
+                expenses[expenseIndex].category_en = categoryItem.name_en
+                expenses[expenseIndex].category_es = categoryItem.name_es
+                expenses[expenseIndex].category_ja = categoryItem.name_ja
+
+                // Save the updated expenses list to localStorage
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+
+                // const items = { ...localStorage };
+                // console.log('Data:',items);
+                
+                //Finally we submit the form.
+                form.submit();
+            })
+            .catch(error => console.error('Error fetching categories:', error));
     });
 });

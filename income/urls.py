@@ -10,4 +10,5 @@ urlpatterns = [path('',views.income,name="income"),
                path('income_data', views.income_data, name="income_data"),
                path('export_income', views.export_data, name="export_income"),
                path('import_income', views.import_data, name="import_income"),
+               path('sources/', views.get_sources, name='get_sources'),
                ]

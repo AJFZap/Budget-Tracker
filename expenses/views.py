@@ -178,6 +178,12 @@ def get_category_amount(category, expenses):
 
     return amount
 
+def get_categories(request):
+    if request.method == "GET":
+        categories = Category.objects.all().values('id', 'name', 'name_en', 'name_es', 'name_ja')
+        categories_list = list(categories)  # Convert queryset to list
+        return JsonResponse(categories_list, safe=False)
+
 def expenses_data(request):
     
     if request.method == 'GET':

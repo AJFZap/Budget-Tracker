@@ -176,6 +176,12 @@ def get_source_amount(source, income):
 
     return amount
 
+def get_sources(request):
+    if request.method == "GET":
+        sources = Source.objects.all().values('id', 'name', 'name_en', 'name_es', 'name_ja')
+        sources_list = list(sources)  # Convert queryset to list
+        return JsonResponse(sources_list, safe=False)
+
 def income_data(request):
     
     if request.method == 'GET':

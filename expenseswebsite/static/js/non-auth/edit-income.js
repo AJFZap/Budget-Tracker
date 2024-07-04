@@ -29,16 +29,44 @@ document.addEventListener('DOMContentLoaded', function() {
         const amount = document.getElementById('incomeAmount').value;
         const source = document.getElementById('incomeSource').value;
 
-        // Change the income accordingly to the changes the user made.
-        incomes[incomeIndex].name = incomeName
-        incomes[incomeIndex].date = datePicked
-        incomes[incomeIndex].description = description
-        incomes[incomeIndex].amount = amount
-        incomes[incomeIndex].source = source
-        
-        localStorage.setItem('incomes', JSON.stringify(incomes));
-        
-        //Finally we submit the form.
-        form.submit();
+        fetch(sourcesUrl)
+            
+            .then(response => response.json())
+            .then(data => {
+                // console.log(data); // Access your sources here
+                
+                // Function to find the object with the source name in any language.
+                const findItemByName = (list, value) => {
+                    return list.find(item => 
+                        item.name_en === value || 
+                        item.name_es === value || 
+                        item.name_ja === value
+                    );
+                };
+
+                // Get the object with the name source name.
+                const sourceItem = findItemByName(data, source);
+                // console.log(sourceItem)
+                
+                // Change the income accordingly to the changes the user made.
+                incomes[incomeIndex].name = incomeName
+                incomes[incomeIndex].date = datePicked
+                incomes[incomeIndex].description = description
+                incomes[incomeIndex].amount = amount
+                incomes[incomeIndex].source = sourceItem.name_en
+                incomes[incomeIndex].source_en = sourceItem.name_en
+                incomes[incomeIndex].source_es = sourceItem.name_es
+                incomes[incomeIndex].source_ja = sourceItem.name_ja
+
+                // Save the updated incomes list to localStorage
+                localStorage.setItem('incomes', JSON.stringify(incomes));
+
+                // const items = { ...localStorage };
+                // console.log('Data:',items);
+                
+                //Finally we submit the form.
+                form.submit();
+            })
+            .catch(error => console.error('Error fetching categories:', error));
     });
 });

@@ -35,7 +35,7 @@
         </div>
         <div class="mb-3">
             <label for="incomeAmount" class="form-label">{% trans "Amount" %}</label>
-            <input name="amount" type="number" class="form-control" id="incomeAmount" placeholder="Enter amount" value="{{ income.amount|floatformat:2 }}" required>
+            <input name="amount" type="number" class="form-control" id="incomeAmount" step="0.01" placeholder="Enter amount" value="{{ income.amount|floatformat:2 }}" required>
         </div>
         <div class="mb-3">
             <label for="incomeSource" class="form-label">{% trans "Source" %}</label>
@@ -67,7 +67,7 @@
         </div>
         <div class="mb-3">
             <label for="incomeAmount" class="form-label">{% trans "Amount" %}</label>
-            <input name="amount" type="number" class="form-control" id="incomeAmount" placeholder="Enter amount" value="" required>
+            <input name="amount" type="number" class="form-control" id="incomeAmount" step="0.01" placeholder="Enter amount" value="" required>
         </div>
         <div class="mb-3">
             <label for="incomeSource" class="form-label">{% trans "Source" %}</label>
@@ -88,6 +88,9 @@
 </div>
 
 {% if not user.username %}
+<script>
+    const sourcesUrl = "{% url 'get_sources' %}"; //Just to get the django URL.
+</script>
 <script src="{% static 'js/non-auth/edit-income.js' %}"></script>
 {% endif %}
 {% endblock %}

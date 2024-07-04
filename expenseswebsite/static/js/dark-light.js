@@ -1,4 +1,6 @@
 console.log("2222", 2222);
+const items = { ...localStorage };
+console.log('Data:',items);
 (() => {
     'use strict'
   
