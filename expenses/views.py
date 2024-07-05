@@ -60,7 +60,7 @@ def add_expense(request):
                 date = request.POST['datePicked'],
                 description = descriptionValue,
                 amount = request.POST['amount'],
-                category = request.POST['category'],
+                category = categoriesLang.name_en,
                 category_en = categoriesLang.name_en,
                 category_ja = categoriesLang.name_ja,
                 category_es = categoriesLang.name_es,
@@ -112,12 +112,18 @@ def edit_expense(request, pk):
                 if request.user.is_authenticated:
 
                     editedExpense = Expense.objects.get(id=pk)
+
+                    ## GET ALL THE LANGUAGES FOR THE CATEGORY.
+                    categoriesLang = Category.objects.get(name=request.POST['category'])
                         
                     editedExpense.name = request.POST['expenseName']
                     editedExpense.date = request.POST['datePicked']
                     editedExpense.description = descriptionValue
                     editedExpense.amount = request.POST['amount']
-                    editedExpense.category = request.POST['category']
+                    editedExpense.category = categoriesLang.name_en,
+                    editedExpense.category_en = categoriesLang.name_en
+                    editedExpense.category_ja = categoriesLang.name_ja
+                    editedExpense.category_es = categoriesLang.name_es
 
                     editedExpense.save()
                     

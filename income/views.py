@@ -111,12 +111,18 @@ def edit_income(request, pk):
                 if request.user.is_authenticated:
 
                     editedIncome = Income.objects.get(id=pk)
+
+                    ## GET ALL THE LANGUAGES FOR THE SOURCE.
+                    sourcesLang = Source.objects.get(name=request.POST['source'])
                     
                     editedIncome.name = request.POST['incomeName']
                     editedIncome.date = request.POST['datePicked']
                     editedIncome.description = descriptionValue
                     editedIncome.amount = request.POST['amount']
-                    editedIncome.source = request.POST['source']
+                    editedIncome.source = sourcesLang.name_en
+                    editedIncome.source_en = sourcesLang.name_en
+                    editedIncome.source_ja = sourcesLang.name_ja
+                    editedIncome.source_es = sourcesLang.name_es
 
                     editedIncome.save()
                     
