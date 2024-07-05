@@ -7,6 +7,10 @@ $(document).ready(function(){
   const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
   // console.log(expenses);
 
+  // Get Language.
+  const preferences = JSON.parse(localStorage.getItem('preferences'));
+  const prefLanguage = preferences.language;
+
   // const items = { ...localStorage };
   // console.log('Data:',items);
 
@@ -17,10 +21,26 @@ $(document).ready(function(){
     let totalAmountByCategory = {};
 
     expenses.forEach(expense => {
-      if (!totalAmountByCategory[expense.category]) {
+      // Nationalization.
+      if (!totalAmountByCategory[expense.category] && prefLanguage == 'es') {
+        totalAmountByCategory[expense.category_es] = 0;
+      }
+      else if (!totalAmountByCategory[expense.category] && prefLanguage == 'ja') {
+        totalAmountByCategory[expense.category_ja] = 0;
+      }
+      else {
         totalAmountByCategory[expense.category] = 0;
       }
-      totalAmountByCategory[expense.category] += parseFloat(expense.amount);
+
+      if (prefLanguage == 'es') {
+        totalAmountByCategory[expense.category_es] += parseFloat(expense.amount);
+      }
+      else if (prefLanguage == 'ja') {
+        totalAmountByCategory[expense.category_ja] += parseFloat(expense.amount);
+      }
+      else {
+        totalAmountByCategory[expense.category] += parseFloat(expense.amount);
+      }
     });
 
     // console.log(totalAmountByCategory);

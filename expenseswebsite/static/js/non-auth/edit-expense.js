@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Retrieve expenses from localStorage
     const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
     // const items = { ...localStorage };
+    
+    // Get Language.
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+    const prefLanguage = preferences.language;
 
     // Get the Index of the expense to edit
     const expenseId = parseInt(document.getElementById('ElementId').value);
@@ -16,7 +20,15 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('expenseDate').value = expenses[expenseIndex].date;
     document.getElementById('expenseDescription').value = expenses[expenseIndex].description;
     document.getElementById('expenseAmount').value = expenses[expenseIndex].amount;
-    document.getElementById('expenseCategory').value = expenses[expenseIndex].category;
+    if (prefLanguage == 'es'){
+        document.getElementById('expenseCategory').value = expenses[expenseIndex].category_es;
+    }
+    else if (prefLanguage == 'ja'){
+        document.getElementById('expenseCategory').value = expenses[expenseIndex].category_ja;
+    }
+    else {
+        document.getElementById('expenseCategory').value = expenses[expenseIndex].category;
+    }
 
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form submission

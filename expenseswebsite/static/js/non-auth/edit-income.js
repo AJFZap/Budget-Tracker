@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // const items = { ...localStorage };
     // console.log(items)
 
+    // Get Language.
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+    const prefLanguage = preferences.language;
+
     // Get the Index of the income to edit
     const incomeId = parseInt(document.getElementById('ElementId').value);
     // console.log('id', incomeId)
@@ -17,7 +21,15 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('incomeDate').value = incomes[incomeIndex].date;
     document.getElementById('incomeDescription').value = incomes[incomeIndex].description;
     document.getElementById('incomeAmount').value = incomes[incomeIndex].amount;
-    document.getElementById('incomeSource').value = incomes[incomeIndex].source;
+    if (prefLanguage == 'es'){
+        document.getElementById('incomeSource').value = incomes[incomeIndex].source_es;
+    }
+    else if (prefLanguage == 'ja'){
+        document.getElementById('incomeSource').value = incomes[incomeIndex].source_ja;
+    }
+    else {
+        document.getElementById('incomeSource').value = incomes[incomeIndex].source;
+    }
 
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form submission

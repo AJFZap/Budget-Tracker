@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Retrieve preferences from localStorage
     const preferences = JSON.parse(localStorage.getItem('preferences'));
     const prefCurrency = preferences.currency.substring(0, 4);
+    const prefLanguage = preferences.language;
     
     const SEARCHFIELD = document.getElementById('searchField');
     const INCOMESTABLE = document.getElementById('incomeTable');
@@ -17,7 +18,35 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderIncomes(incomes) {
         TABLEOUTPUT.innerHTML = ""; // Clear previous results
         if (incomes.length === 0) {
-            TABLEOUTPUT.innerHTML = `
+            // Nationalization.
+            if (prefLanguage == 'es'){
+                TABLEOUTPUT.innerHTML = `
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="alert alert-warning text-center" role="alert">
+                                <strong>¡No se han encontrado resultados!</strong> Su búsqueda no coincide con ningún ingreso.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+            else if (prefLanguage == 'ja') {
+                TABLEOUTPUT.innerHTML = `
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="alert alert-warning text-center" role="alert">
+                                <strong>結果が見つかりません！</strong> 検索に一致する収入が見つかりませんでした。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+            else {
+                TABLEOUTPUT.innerHTML = `
                 <div class="container mt-5">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
@@ -27,10 +56,57 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 </div>
-            `;
+                `;
+            }
         } else {
             incomes.forEach(income => {
-                TABLEOUTPUT.innerHTML += `
+                // Nationalization.
+                if (prefLanguage == 'es') {
+                    TABLEOUTPUT.innerHTML += `
+                    <hr class="my-2">
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${income.source_es}</strong><br>
+                            <strong>${income.name}</strong><br>
+                            <span class="text-muted">${prefCurrency} ${income.amount}</span><br>
+                            <small>${income.date}</small><br>
+                            <span>${income.description}</span><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="edit-income/${income.id}" class="btn btn-primary btn-sm me-2">Editar</a>
+                            </div>
+                            <div id="deleteButtonContainer" class="col-auto">
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="${income.id}" data-bs-target="#delete-modal" data-bs-toggle="modal">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }
+                else if (prefLanguage == 'ja') {
+                    TABLEOUTPUT.innerHTML += `
+                    <hr class="my-2">
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${income.source_ja}</strong><br>
+                            <strong>${income.name}</strong><br>
+                            <span class="text-muted">${prefCurrency} ${income.amount}</span><br>
+                            <small>${income.date}</small><br>
+                            <span>${income.description}</span><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="edit-income/${income.id}" class="btn btn-primary btn-sm me-2">編集</a>
+                            </div>
+                            <div id="deleteButtonContainer" class="col-auto">
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="${income.id}" data-bs-target="#delete-modal" data-bs-toggle="modal">削除</button>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                }
+                else {
+                    TABLEOUTPUT.innerHTML += `
                     <hr class="my-2">
                     <div class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
@@ -49,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     </div>
-                `;
+                    `;
+                }
             });
             // Attach event listeners to the new buttons
             document.querySelectorAll('.delete-btn').forEach(button => {
@@ -77,7 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 income.date.toLowerCase().startsWith(SEARCHVALUE) ||
                 income.description.toLowerCase().includes(SEARCHVALUE) ||
                 income.name.toLowerCase().includes(SEARCHVALUE) ||
-                income.source.toLowerCase().startsWith(SEARCHVALUE)
+                income.source.toLowerCase().startsWith(SEARCHVALUE) ||
+                income.source_es.toLowerCase().startsWith(SEARCHVALUE) ||
+                income.source_ja.toLowerCase().startsWith(SEARCHVALUE)
             );
 
             INCOMESTABLE.style.display = "none"; // Hide the original income table

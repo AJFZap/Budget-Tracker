@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Retrieve preferences from localStorage
     const preferences = JSON.parse(localStorage.getItem('preferences'));
     const prefCurrency = preferences.currency.substring(0, 4);
+    const prefLanguage = preferences.language;
 
     // const items = { ...localStorage };
     // console.log('Data:',items);
@@ -73,8 +74,65 @@ document.addEventListener('DOMContentLoaded', () => {
             const start = (currentPage - 1) * itemsPerPage;
             const end = start + itemsPerPage;
             const pageExpenses = expenses.slice(start, end);
+            let content = ``
+            
+            // Nationalization.
+            if (prefLanguage == 'es') {
+                content = `
+                <div class="row">
+                    <div class="col-md-8 d-flex align-items-center">
+                        <h1>Lista de gastos</h1>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <input id="searchField" type="text" class="form-control" placeholder="Buscar gastos">
+                    </div>
+                </div>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center mt-1">
+                            <div class="col-md-5 d-flex justify-content-between mt-1">
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" href="add-expense">Añadir Gasto</a>
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openExportModal" data-bs-target="#data-modal" data-bs-toggle="modal">Exportar Datos</a>
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">Importar Datos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tableOutput" class="container"></div>
+                <div id="expensesTable">
+            `;
 
-            let content = `
+            }
+            else if (prefLanguage == 'ja') {
+                content = `
+                <div class="row">
+                    <div class="col-md-8 d-flex align-items-center">
+                        <h1>経費リスト</h1>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <input id="searchField" type="text" class="form-control" placeholder="経費を検索">
+                    </div>
+                </div>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center mt-1">
+                            <div class="col-md-5 d-flex justify-content-between mt-1">
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" href="add-expense">経費を追加</a>
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openExportModal" data-bs-target="#data-modal" data-bs-toggle="modal">データのエクスポート</a>
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">データのインポート</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tableOutput" class="container"></div>
+                <div id="expensesTable">
+            `;
+
+            }
+            else {
+                content = `
                 <div class="row">
                     <div class="col-md-8 d-flex align-items-center">
                         <h1>Expenses List</h1>
@@ -98,13 +156,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div id="tableOutput" class="container"></div>
                 <div id="expensesTable">
             `;
+            }
             
             // So we can order them from last added first to show.
             const reversedExpenses = [...pageExpenses].reverse();
 
             if (reversedExpenses.length > 0) {
                 reversedExpenses.forEach(expense => {
-                    content += `
+                    // Nationalization.
+                    if (prefLanguage == 'es'){
+                        content += `
+                        <hr class="my-2">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${expense.category_es}</strong><br>
+                                <strong>${expense.name}</strong><br>
+                                <span class="text-muted">${prefCurrency} ${expense.amount}</span><br>
+                                <small>${expense.date}</small><br>
+                                <span>${expense.description}</span><br>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <a href="edit-expense/${expense.id}" class="btn btn-primary btn-sm me-2">Editar</a>
+                                </div>
+                                <div id="deleteButtonContainer" class="col-auto">
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="${expense.id}" data-bs-target="#delete-modal" data-bs-toggle="modal">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    }
+                    else if (prefLanguage == 'ja'){
+                        content += `
+                        <hr class="my-2">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${expense.category_ja}</strong><br>
+                                <strong>${expense.name}</strong><br>
+                                <span class="text-muted">${prefCurrency} ${expense.amount}</span><br>
+                                <small>${expense.date}</small><br>
+                                <span>${expense.description}</span><br>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <a href="edit-expense/${expense.id}" class="btn btn-primary btn-sm me-2">編集</a>
+                                </div>
+                                <div id="deleteButtonContainer" class="col-auto">
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="${expense.id}" data-bs-target="#delete-modal" data-bs-toggle="modal">削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    }
+                    else {
+                        content += `
                         <hr class="my-2">
                         <div class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
@@ -124,6 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     `;
+                    }
                 });
             }
             content += renderPagination();

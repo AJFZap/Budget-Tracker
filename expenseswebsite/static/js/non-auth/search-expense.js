@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Retrieve preferences from localStorage
     const preferences = JSON.parse(localStorage.getItem('preferences'));
     const prefCurrency = preferences.currency.substring(0, 4);
+    const prefLanguage = preferences.language;
     
     const SEARCHFIELD = document.getElementById('searchField');
     const EXPENSESTABLE = document.getElementById('expensesTable');
@@ -17,7 +18,35 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderExpenses(expenses) {
         TABLEOUTPUT.innerHTML = ""; // Clear previous results
         if (expenses.length === 0) {
-            TABLEOUTPUT.innerHTML = `
+            // Nationalization.
+            if (prefLanguage == 'es') {
+                TABLEOUTPUT.innerHTML = `
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="alert alert-warning text-center" role="alert">
+                                <strong>¡No se han encontrado resultados!</strong> Su búsqueda no coincide con ningún gasto.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+            else if (prefLanguage == 'ja') {
+                TABLEOUTPUT.innerHTML = `
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="alert alert-warning text-center" role="alert">
+                                <strong>結果が見つかりません！</strong> 検索に一致する費用が見つかりませんでした。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+            else {
+                TABLEOUTPUT.innerHTML = `
                 <div class="container mt-5">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
@@ -28,9 +57,56 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
+            }
         } else {
             expenses.forEach(expense => {
-                TABLEOUTPUT.innerHTML += `
+                // Nationalization.
+                if (prefLanguage == 'es') {
+                    TABLEOUTPUT.innerHTML += `
+                    <hr class="my-2">
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${expense.category_es}</strong><br>
+                            <strong>${expense.name}</strong><br>
+                            <span class="text-muted">${prefCurrency} ${expense.amount}</span><br>
+                            <small>${expense.date}</small><br>
+                            <span>${expense.description}</span><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="edit-expense/${expense.id}" class="btn btn-primary btn-sm me-2">Editar</a>
+                            </div>
+                            <div id="deleteButtonContainer" class="col-auto">
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="${expense.id}" data-bs-target="#delete-modal" data-bs-toggle="modal">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                }
+                else if (prefLanguage == 'ja'){
+                    TABLEOUTPUT.innerHTML += `
+                    <hr class="my-2">
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${expense.category_ja}</strong><br>
+                            <strong>${expense.name}</strong><br>
+                            <span class="text-muted">${prefCurrency} ${expense.amount}</span><br>
+                            <small>${expense.date}</small><br>
+                            <span>${expense.description}</span><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto">
+                                <a href="edit-expense/${expense.id}" class="btn btn-primary btn-sm me-2">編集</a>
+                            </div>
+                            <div id="deleteButtonContainer" class="col-auto">
+                                <button class="btn btn-danger btn-sm delete-btn" data-id="${expense.id}" data-bs-target="#delete-modal" data-bs-toggle="modal">削除</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                }
+                else {
+                    TABLEOUTPUT.innerHTML += `
                     <hr class="my-2">
                     <div class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
@@ -50,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 `;
+                }
             });
             // Attach event listeners to the new buttons
             document.querySelectorAll('.delete-btn').forEach(button => {
@@ -77,7 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 expense.date.toLowerCase().startsWith(SEARCHVALUE) ||
                 expense.description.toLowerCase().includes(SEARCHVALUE) ||
                 expense.name.toLowerCase().includes(SEARCHVALUE) ||
-                expense.category.toLowerCase().startsWith(SEARCHVALUE)
+                expense.category.toLowerCase().startsWith(SEARCHVALUE) ||
+                expense.category_es.toLowerCase().startsWith(SEARCHVALUE) ||
+                expense.category_ja.toLowerCase().startsWith(SEARCHVALUE)
             );
 
             EXPENSESTABLE.style.display = "none"; // Hide the original expenses table

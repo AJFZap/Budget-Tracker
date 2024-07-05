@@ -14,20 +14,25 @@ $(document).ready(function(){
     let preferences = JSON.parse(localStorage.getItem('preferences')) || {'currency': 'USD - United States Dollar', 'language': 'en'};
     let selectedLang = '';
     // console.log(preferences);
+    
     if (preferences.language == 'es') {
         selectedLang = 'Español';
+        currentCurrency.innerHTML = "Actual: " + preferences.currency;
+        currentLanguage.innerHTML = "Actual: " + selectedLang;
     }
     else if (preferences.language == 'ja') {
         selectedLang = '日本語';
+        currentCurrency.innerHTML = "現在： " + preferences.currency;
+        currentLanguage.innerHTML = "現在： " + selectedLang;
     }
     else {
         selectedLang = 'English';
+        currentCurrency.innerHTML = "Current: " + preferences.currency;
+    currentLanguage.innerHTML = "Current: " + selectedLang;
     }
 
     currency.value = preferences.currency;
     language.value = preferences.language;
-    currentCurrency.innerHTML = "Current: " + preferences.currency;
-    currentLanguage.innerHTML = "Current: " + selectedLang;
     
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form submission

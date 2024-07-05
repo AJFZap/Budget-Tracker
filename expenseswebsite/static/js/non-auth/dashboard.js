@@ -13,6 +13,8 @@ $(document).ready(function(){
     const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
     const incomes = JSON.parse(localStorage.getItem('incomes')) || [];
     const preferences = JSON.parse(localStorage.getItem('preferences'));
+    // Get Language.
+    const prefLanguage = preferences.language;
 
     PREFCURRENCY.forEach(element => {
         element.innerHTML = preferences.currency.substring(0, 4); // Shows the preferred currency.
@@ -50,11 +52,31 @@ $(document).ready(function(){
     EXPENSE.innerHTML = expenseValue.toFixed(2);
     INCOME.innerHTML = incomeValue.toFixed(2);
 
-    // Merge and normalize expenses and incomes
-    const allEntries = [
-        ...expenses.map(item => ({ ...item, db_type: 'Expense', source: item.category })),
-        ...incomes.map(item => ({ ...item, db_type: 'Income', source: item.source }))
-    ];
+    // Merge and normalize expenses and incomes in all languages.
+    let allEntries = [];
+    let langLabels = [];
+
+    if (prefLanguage == 'es'){
+        langLabels = ['Ingresos', 'Gastos']
+        allEntries = [
+            ...expenses.map(item => ({ ...item, db_type: 'Gasto', source: item.category_es })),
+            ...incomes.map(item => ({ ...item, db_type: 'Ingreso', source: item.source_es }))
+        ];
+    }
+    else if (prefLanguage == 'ja'){
+        langLabels = ['収入', '経費']
+        allEntries = [
+            ...expenses.map(item => ({ ...item, db_type: '経費', source: item.category_ja })),
+            ...incomes.map(item => ({ ...item, db_type: '収入', source: item.source_ja }))
+        ];
+    }
+    else {
+        langLabels = ['Earnings', 'Expenses']
+        allEntries = [
+            ...expenses.map(item => ({ ...item, db_type: 'Expense', source: item.category })),
+            ...incomes.map(item => ({ ...item, db_type: 'Income', source: item.source }))
+        ];
+    }
 
     // Sort by date (descending)
     allEntries.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -65,7 +87,7 @@ $(document).ready(function(){
     // Populate the table
     TRANSACTION_TABLE.innerHTML = ''; // Clear previous content
     lastFiveEntries.forEach((entry, index) => {
-        const amountClass = entry.db_type === 'Expense' ? 'text-danger' : 'text-success'; // If it's an expense it shows red if not it shows in green.
+        const amountClass = (entry.db_type === 'Expense' || entry.db_type === 'Gasto' || entry.db_type === '経費') ? 'text-danger' : 'text-success'; // If it's an expense it shows red if not it shows in green.
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${entry.name}</td>
@@ -89,7 +111,7 @@ $(document).ready(function(){
         new Chart(ctx, {
             type: 'doughnut',
             data: {
-              labels: ['Earnings', 'Expenses'],
+              labels: langLabels,
               datasets: [{
                 label: 'Amount',
                 data: [incomeValue, expenseValue],

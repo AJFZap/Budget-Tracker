@@ -6,7 +6,11 @@ $(document).ready(function(){
     // Retrieve incomes from localStorage
     const incomes = JSON.parse(localStorage.getItem('incomes')) || [];
     // console.log(incomes);
-  
+
+    // Get Language.
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+    const prefLanguage = preferences.language;
+
     // const items = { ...localStorage };
     // console.log('Data:',items);
   
@@ -17,10 +21,26 @@ $(document).ready(function(){
       let totalAmountBySource = {};
   
       incomes.forEach(income => {
-        if (!totalAmountBySource[income.source]) {
-            totalAmountBySource[income.source] = 0;
+        // Nationalization.
+        if (!totalAmountBySource[income.source] && prefLanguage == 'es') {
+            totalAmountBySource[income.source_es] = 0;
         }
-        totalAmountBySource[income.source] += parseFloat(income.amount);
+        else if (!totalAmountBySource[income.source] && prefLanguage == 'ja') {
+          totalAmountBySource[income.source_ja] = 0;
+        }
+        else {
+          totalAmountBySource[income.source] = 0;
+        }
+        
+        if (prefLanguage == 'es') {
+          totalAmountBySource[income.source_es] += parseFloat(income.amount);
+        }
+        else if (prefLanguage == 'ja') {
+          totalAmountBySource[income.source_ja] += parseFloat(income.amount);
+        }
+        else {
+          totalAmountBySource[income.source] += parseFloat(income.amount);
+        }
       });
   
       // console.log(totalAmountBySource);

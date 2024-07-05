@@ -72,7 +72,7 @@ def add_expense(request):
         
         # When the user is not authenticated.
         else:
-            messages.success(request, "Expense Added to your list!")
+            messages.success(request, _("Expense Added to your list!"))
             return redirect('expenses')
 
 def delete_expense(request,pk):

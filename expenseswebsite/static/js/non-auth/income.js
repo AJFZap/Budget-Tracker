@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Retrieve preferences from localStorage
     const preferences = JSON.parse(localStorage.getItem('preferences'));
     const prefCurrency = preferences.currency.substring(0, 4);
+    const prefLanguage = preferences.language;
 
     // const items = { ...localStorage };
     // console.log('Data:',items);
@@ -74,8 +75,62 @@ document.addEventListener('DOMContentLoaded', () => {
             const start = (currentPage - 1) * itemsPerPage;
             const end = start + itemsPerPage;
             const pageIncomes = incomes.slice(start, end);
+            let content = ``
 
-            let content = `
+            if (prefLanguage == 'es'){
+                content = `
+                <div class="row">
+                    <div class="col-md-8 d-flex align-items-center">
+                        <h1>Lista de ingresos</h1>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <input id="searchField" type="text" class="form-control" placeholder="Buscar ingresos">
+                    </div>
+                </div>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center mt-1">
+                            <div class="col-md-5 d-flex justify-content-between mt-1">
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" href="add-income">Añadir ingreso</a>
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openExportModal" data-bs-target="#data-modal" data-bs-toggle="modal">Exportar Datos</a>
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">Importar Datos</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tableOutput" class="container"></div>
+                <div id="incomeTable">
+            `;
+            }
+            else if (prefLanguage == 'ja'){
+                content = `
+                <div class="row">
+                    <div class="col-md-8 d-flex align-items-center">
+                        <h1>収入リスト</h1>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <input id="searchField" type="text" class="form-control" placeholder="収入を探す">
+                    </div>
+                </div>
+                <br>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center mt-1">
+                            <div class="col-md-5 d-flex justify-content-between mt-1">
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" href="add-income">収入を追加</a>
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openExportModal" data-bs-target="#data-modal" data-bs-toggle="modal">データのエクスポート</a>
+                                <a class="btn btn-primary btn-lg px-7 py-2 rounded-pill mx-2" id="openImportModal" data-bs-target="#import-modal" data-bs-toggle="modal">データのインポート</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tableOutput" class="container"></div>
+                <div id="incomeTable">
+            `;
+            }
+            else {
+                content = `
                 <div class="row">
                     <div class="col-md-8 d-flex align-items-center">
                         <h1>Income List</h1>
@@ -99,14 +154,61 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div id="tableOutput" class="container"></div>
                 <div id="incomeTable">
             `;
+
+            }
             
             // So we can order them from last added first to show.
             const reversedIncomes = [...pageIncomes].reverse();
 
             if (reversedIncomes.length > 0) {
                 reversedIncomes.forEach(income => {
-                    
-                    content += `
+
+                    if (prefLanguage == 'es') {
+                        content += `
+                        <hr class="my-2">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${income.source_es}</strong><br>
+                                <strong>${income.name}</strong><br>
+                                <span class="text-muted">${prefCurrency} ${income.amount}</span><br>
+                                <small>${income.date}</small><br>
+                                <span>${income.description}</span><br>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <a href="edit-income/${income.id}" class="btn btn-primary btn-sm me-2">Editar</a>
+                                </div>
+                                <div id="deleteButtonContainer" class="col-auto">
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="${income.id}" data-bs-target="#delete-modal" data-bs-toggle="modal">Eliminar</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    }
+                    else if (prefLanguage == 'ja') {
+                        content += `
+                        <hr class="my-2">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>${income.source_ja}</strong><br>
+                                <strong>${income.name}</strong><br>
+                                <span class="text-muted">${prefCurrency} ${income.amount}</span><br>
+                                <small>${income.date}</small><br>
+                                <span>${income.description}</span><br>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto">
+                                    <a href="edit-income/${income.id}" class="btn btn-primary btn-sm me-2">編集</a>
+                                </div>
+                                <div id="deleteButtonContainer" class="col-auto">
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="${income.id}" data-bs-target="#delete-modal" data-bs-toggle="modal">削除</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    }
+                    else {
+                        content += `
                         <hr class="my-2">
                         <div class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
@@ -126,6 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     `;
+                    }
                 });
             }
             content += renderPagination();
