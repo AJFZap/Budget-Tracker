@@ -49,41 +49,118 @@ SEARCHFIELD.addEventListener('keyup', (e)=>{
             TABLEOUTPUT.style.display = "block"; // Show the Output table with the search results.
 
             if (data.length === 0) { // When there are no results.
-                TABLEOUTPUT.innerHTML =`
-                <div class="container mt-5">
-                <div class="row justify-content-center">
-                  <div class="col-md-6">
-                    <div class="alert alert-warning text-center" role="alert">
-                      <strong>No results found!</strong> Your search did not match any income.
+                // Nationalization.
+                if (prefLang == 'es') {
+                    TABLEOUTPUT.innerHTML =`
+                        <div class="container mt-5">
+                        <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="alert alert-warning text-center" role="alert">
+                            <strong>¡No se han encontrado resultados!</strong> Su búsqueda no coincide con ningún gasto.
+                            </div>
+                        </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              `;
+                    `;
+                }
+                else if (prefLang == 'ja') {
+                    TABLEOUTPUT.innerHTML =`
+                        <div class="container mt-5">
+                        <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="alert alert-warning text-center" role="alert">
+                            <strong>結果が見つかりません！</strong> 検索に一致する費用が見つかりませんでした。
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    `;
+                }
+                else {
+                    TABLEOUTPUT.innerHTML =`
+                        <div class="container mt-5">
+                        <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="alert alert-warning text-center" role="alert">
+                            <strong>No results found!</strong> Your search did not match any income.
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    `;
+                }
             }
             else {
                 const prefCurrency = data[0].currency // Get the user prefered currency.
                 data.forEach(element => {
-                    TABLEOUTPUT.innerHTML += `
-                    <hr class="my-2">
-                <div class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>${ element.source }</strong><br>
-                        <strong>${ element.name }</strong><br>
-                        <span class="text-muted">  ${ prefCurrency } ${ element.amount }</span><br>
-                        <small>${ element.date }</small><br>
-                        <span>${ element.description }</span><br>
-                    </div>
-                    <div class="row">
-                        <div class="col-auto">
-                            <a href="${getEditUrl(element.id)}" class="btn btn-primary btn-sm me-2">Edit</a>
-                        </div>
-                        <div id="deleteButtonContainer" class="col-auto">
-                            <button class="btn btn-danger btn-sm" id="openModal" data-bs-target="#delete-modal" data-bs-toggle="modal" value="${ element.id }">Delete</button>
-                        </div>
-                    </div>
-                </div>
-            ` });
+                    // Nationalization.
+                    if (prefLang == 'es') {
+                        TABLEOUTPUT.innerHTML += `
+                            <hr class="my-2">
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${ element.source }</strong><br>
+                                    <strong>${ element.name }</strong><br>
+                                    <span class="text-muted">  ${ prefCurrency } ${ element.amount }</span><br>
+                                    <small>${ element.date }</small><br>
+                                    <span>${ element.description }</span><br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <a href="${getEditUrl(element.id)}" class="btn btn-primary btn-sm me-2">Editar</a>
+                                    </div>
+                                    <div id="deleteButtonContainer" class="col-auto">
+                                        <button class="btn btn-danger btn-sm" id="openModal" data-bs-target="#delete-modal" data-bs-toggle="modal" value="${ element.id }">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }
+                    else if (prefLang == 'ja') {
+                        TABLEOUTPUT.innerHTML += `
+                            <hr class="my-2">
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${ element.source }</strong><br>
+                                    <strong>${ element.name }</strong><br>
+                                    <span class="text-muted">  ${ prefCurrency } ${ element.amount }</span><br>
+                                    <small>${ element.date }</small><br>
+                                    <span>${ element.description }</span><br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <a href="${getEditUrl(element.id)}" class="btn btn-primary btn-sm me-2">編集</a>
+                                    </div>
+                                    <div id="deleteButtonContainer" class="col-auto">
+                                        <button class="btn btn-danger btn-sm" id="openModal" data-bs-target="#delete-modal" data-bs-toggle="modal" value="${ element.id }">削除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }
+                    else {
+                        TABLEOUTPUT.innerHTML += `
+                            <hr class="my-2">
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${ element.source }</strong><br>
+                                    <strong>${ element.name }</strong><br>
+                                    <span class="text-muted">  ${ prefCurrency } ${ element.amount }</span><br>
+                                    <small>${ element.date }</small><br>
+                                    <span>${ element.description }</span><br>
+                                </div>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <a href="${getEditUrl(element.id)}" class="btn btn-primary btn-sm me-2">Edit</a>
+                                    </div>
+                                    <div id="deleteButtonContainer" class="col-auto">
+                                        <button class="btn btn-danger btn-sm" id="openModal" data-bs-target="#delete-modal" data-bs-toggle="modal" value="${ element.id }">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }
+                });
             }
 
         }).catch((error) => {

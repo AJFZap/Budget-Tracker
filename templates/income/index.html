@@ -251,6 +251,9 @@ data-edit-url-base="{% url 'edit-income' 0 %}">
 <script src="{% static 'js/non-auth/search-income.js' %}"></script>
 <script src="{% static 'js/non-auth/export-income.js' %}"></script>
 {% else %}
+<script>
+    let prefLang = "{{language}}"
+</script>
 <script src="{% static 'js/delete-income.js' %}"></script>
 <script src="{% static 'js/search-income.js' %}"></script>
 <script src="{% static 'js/importexport-income.js' %}"></script>

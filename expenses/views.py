@@ -26,8 +26,9 @@ def index(request):
 
         preferences = UserPreferences.objects.filter(user=request.user)[0] # Get the currency from the UserPreferences model.
         preferences = preferences.currency[:3]
+        language = UserPreferences.objects.get(user=request.user).language
 
-        return render(request, 'expenses/index.html', {'page_obj': page_obj, 'preferences': preferences}) # Send the prefered currency from preferences also
+        return render(request, 'expenses/index.html', {'page_obj': page_obj, 'preferences': preferences, 'language': language}) # Send the prefered currency from preferences also
 
     return render(request, 'expenses/index.html')
 

@@ -251,6 +251,9 @@ data-edit-url-base="{% url 'edit-expenses' 0 %}">
 <script src="{% static 'js/non-auth/search-expense.js' %}"></script>
 <script src="{% static 'js/non-auth/export-expense.js' %}"></script>
 {% else %}
+<script>
+    let prefLang = "{{language}}"
+</script>
 <script src="{% static 'js/delete-expense.js' %}"></script>
 <script src="{% static 'js/search-expense.js' %}"></script>
 <script src="{% static 'js/importexport-expense.js' %}"></script>
