@@ -57,6 +57,7 @@ def index(request):
             'Expenses': format(expenseAmount, ".2f"),
             'Income': incomeAmount,
             'latest_entries': latest_entries,
+            'language': UserPreferences.objects.get(user=request.user).language,
         }
 
         return render(request, 'dashboard/dashboard.html', {'balances': context, 'preferences': preferences})

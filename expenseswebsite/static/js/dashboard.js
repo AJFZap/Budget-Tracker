@@ -3,9 +3,21 @@ const EXPENSE = document.getElementById('totalExpenses');
 const INCOME = document.getElementById('totalIncome');
 
 $(document).ready(function(){
-    let balanceValue = parseFloat(BALANCE.innerHTML)
-    let expenseValue = parseFloat(EXPENSE.innerHTML)
-    let incomeValue = parseFloat(INCOME.innerHTML)
+    let balanceValue = parseFloat(BALANCE.innerHTML);
+    let expenseValue = parseFloat(EXPENSE.innerHTML);
+    let incomeValue = parseFloat(INCOME.innerHTML);
+    let langLabels = [];
+
+    console.log(pageLang);
+    if (pageLang == 'es'){
+        langLabels = ['Ingresos', 'Gastos'];
+    }
+    else if (pageLang == 'ja'){
+        langLabels = ['収入', '経費'];
+    }
+    else {
+        langLabels = ['Earnings', 'Expenses'];
+    }
 
     if (balanceValue > 0.00) {
         BALANCE.classList.add('text-success');
@@ -28,7 +40,7 @@ $(document).ready(function(){
         new Chart(ctx, {
             type: 'doughnut',
             data: {
-              labels: ['Earnings', 'Expenses'],
+              labels: langLabels,
               datasets: [{
                 label: 'Amount',
                 data: [incomeValue, expenseValue],

@@ -313,6 +313,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% if user.username %}
+<script>
+    let pageLang = "{{balances.language}}"; // Get language.
+</script>
 <script src="{% static 'js/dashboard.js' %}"></script>
 <script src="{% static 'js/importexport-dashboard.js' %}"></script>
 {% else %}

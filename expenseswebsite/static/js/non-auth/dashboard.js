@@ -57,21 +57,21 @@ $(document).ready(function(){
     let langLabels = [];
 
     if (prefLanguage == 'es'){
-        langLabels = ['Ingresos', 'Gastos']
+        langLabels = ['Ingresos', 'Gastos'];
         allEntries = [
             ...expenses.map(item => ({ ...item, db_type: 'Gasto', source: item.category_es })),
             ...incomes.map(item => ({ ...item, db_type: 'Ingreso', source: item.source_es }))
         ];
     }
     else if (prefLanguage == 'ja'){
-        langLabels = ['収入', '経費']
+        langLabels = ['収入', '経費'];
         allEntries = [
             ...expenses.map(item => ({ ...item, db_type: '経費', source: item.category_ja })),
             ...incomes.map(item => ({ ...item, db_type: '収入', source: item.source_ja }))
         ];
     }
     else {
-        langLabels = ['Earnings', 'Expenses']
+        langLabels = ['Earnings', 'Expenses'];
         allEntries = [
             ...expenses.map(item => ({ ...item, db_type: 'Expense', source: item.category })),
             ...incomes.map(item => ({ ...item, db_type: 'Income', source: item.source }))
