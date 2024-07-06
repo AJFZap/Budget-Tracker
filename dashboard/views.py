@@ -186,11 +186,13 @@ def export_data(request):
 
         return HttpResponse(_("Export format not supported"))
     
+    # Un-Authenticated Export.
     else:
         data = json.loads(request.body)
         entries = data.get('allEntries', [])
         fileType = data.get('format')
-        # print(entries)
+        # Get Language.
+        language = translation.get_language()
 
         match fileType:
             case 'csv':
@@ -198,10 +200,23 @@ def export_data(request):
                 response['Content-Disposition'] = f'attachment; filename = BudgetTracker-{str(datetime.datetime.now().date())}.csv'
 
                 writer = csv.writer(response)
-                writer.writerow(['Name', 'Source/Category', 'Date', 'Description', 'Type', 'Amount'])
+                writer.writerow([_('Name'), _('Source/Category'), _('Date'), _('Description'), _('Type'), _('Amount')])
 
                 for entry in entries:
-                    writer.writerow([entry['name'], entry['source'], entry['date'], entry['description'], entry['db_type'], entry['amount']])
+                    if entry['db_type'] == 'Expense' or entry['db_type'] == 'Gasto' or entry['db_type'] == '経費':
+                        if language == 'es':
+                            writer.writerow([entry['name'], entry['category_es'], entry['date'], entry['description'], entry['db_type'], entry['amount']])
+                        elif language == 'ja':
+                            writer.writerow([entry['name'], entry['category_ja'], entry['date'], entry['description'], entry['db_type'], entry['amount']])
+                        else:
+                            writer.writerow([entry['name'], entry['category_en'], entry['date'], entry['description'], entry['db_type'], entry['amount']])
+                    else:
+                        if language == 'es':
+                            writer.writerow([entry['name'], entry['source_es'], entry['date'], entry['description'], entry['db_type'], entry['amount']])
+                        elif language == 'ja':
+                            writer.writerow([entry['name'], entry['source_ja'], entry['date'], entry['description'], entry['db_type'], entry['amount']])
+                        else:
+                            writer.writerow([entry['name'], entry['source_en'], entry['date'], entry['description'], entry['db_type'], entry['amount']])
 
                 return response
             
@@ -217,7 +232,7 @@ def export_data(request):
                 font_style = xlwt.XFStyle()
                 font_style.font.bold = True
 
-                columns = ['Name', 'Source/Category', 'Date', 'Description', 'Type', 'Amount']
+                columns = [_('Name'), _('Source/Category'), _('Date'), _('Description'), _('Type'), _('Amount')]
 
                 for col_num in range(len(columns)):
                     ws.write(row_num, col_num, columns[col_num], font_style)
@@ -228,7 +243,20 @@ def export_data(request):
                 for entry in entries:
                     row_num += 1
                     ws.write(row_num, 0, entry['name'])
-                    ws.write(row_num, 1, entry['source'])
+                    if entry['db_type'] == 'Expense' or entry['db_type'] == 'Gasto' or entry['db_type'] == '経費':
+                        if language == 'es':
+                            ws.write(row_num, 1, entry['category_es'])
+                        elif language == 'ja':
+                            ws.write(row_num, 1, entry['category_ja'])
+                        else:
+                            ws.write(row_num, 1, entry['category_en'])
+                    else:
+                        if language == 'es':
+                            ws.write(row_num, 1, entry['source_es'])
+                        elif language == 'ja':
+                            ws.write(row_num, 1, entry['source_ja'])
+                        else:
+                            ws.write(row_num, 1, entry['source_en'])
                     ws.write(row_num, 2, entry['date'])
                     ws.write(row_num, 3, entry['description'])
                     ws.write(row_num, 4, entry['db_type'])
@@ -248,10 +276,22 @@ def export_data(request):
                 totalAmount = 0.00
                 
                 for entry in entries:
-                    if entry['db_type'] == 'Expense':
+                    if entry['db_type'] == 'Expense' or entry['db_type'] == 'Gasto' or entry['db_type'] == '経費':
                         totalAmount -= float(entry['amount'])
+                        if language == 'es':
+                            entry['source'] = entry['category_es']
+                        elif language == 'ja':
+                            entry['source'] = entry['category_ja']
+                        else:
+                            entry['source'] = entry['category_en']
                     else:
                         totalAmount += float(entry['amount'])
+                        if language == 'es':
+                            entry['source'] = entry['source_es']
+                        elif language == 'ja':
+                            entry['source'] = entry['source_ja']
+                        else:
+                            entry['source'] = entry['source_en']
 
                 html_string = render_to_string('dashboard/pdf-output.html', {'entries': entries, 'total': totalAmount})
                 html = HTML(string=html_string)

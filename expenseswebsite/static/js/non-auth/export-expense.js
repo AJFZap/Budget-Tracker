@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Retrieve expenses from localStorage
     const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
+    // Get Language.
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+    const prefLanguage = preferences.language;
+
     // Export Modal and Export implementation
     const checkboxes = document.querySelectorAll('input[name="filetype"]');
     const exportButton = document.getElementById('exportExpenseButton');
@@ -46,7 +50,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 let date = new Date().toISOString().split('T')[0]
                 a.style.display = 'none';
                 a.href = url;
-                a.download = `Expenses-${date}.${selectedFormat}`;
+                if (prefLanguage == 'es') {
+                    a.download = `Gastos-${date}.${selectedFormat}`;
+                }
+                else if (prefLanguage == 'ja') {
+                    a.download = `経費-${date}.${selectedFormat}`;
+                }
+                else {
+                    a.download = `Expenses-${date}.${selectedFormat}`;
+                }
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);

@@ -327,6 +327,8 @@ def export_data(request, non_user_data = None):
         data = json.loads(request.body)
         expenses = data.get('expenses', [])
         fileType = data.get('format')
+        # Get Language.
+        language = translation.get_language()
 
         match fileType:
             case 'csv':
@@ -334,10 +336,15 @@ def export_data(request, non_user_data = None):
                 response['Content-Disposition'] = _('attachment; filename = Expenses-{}.csv').format(str(datetime.datetime.now().date()))
 
                 writer = csv.writer(response)
-                writer.writerow(['Name', 'Category', 'Amount', 'Description', 'Date'])
+                writer.writerow([_('Name'), _('Category'), _('Amount'), _('Description'), _('Date')])
 
                 for expense in expenses:
-                    writer.writerow([expense['name'], expense['category'], expense['amount'], expense['description'], expense['date']])
+                    if language == 'es':
+                        writer.writerow([expense['name'], expense['category_es'], expense['amount'], expense['description'], expense['date']])
+                    elif language == 'ja':
+                        writer.writerow([expense['name'], expense['category_ja'], expense['amount'], expense['description'], expense['date']])
+                    else:
+                        writer.writerow([expense['name'], expense['category'], expense['amount'], expense['description'], expense['date']])
 
                 return response
             
@@ -354,7 +361,7 @@ def export_data(request, non_user_data = None):
 
                 # Write headers
                 row_num = 0
-                columns = ['Name', 'Category', 'Amount', 'Description', 'Date']
+                columns = [_('Name'), _('Category'), _('Amount'), _('Description'), _('Date')]
                 
                 for col_num in range(len(columns)):
                     ws.write(row_num, col_num, columns[col_num], font_style)
@@ -363,7 +370,12 @@ def export_data(request, non_user_data = None):
                 for expense in expenses:
                     row_num += 1
                     ws.write(row_num, 0, expense['name'])
-                    ws.write(row_num, 1, expense['category'])
+                    if language == 'es':
+                        ws.write(row_num, 1, expense['category_es'])
+                    elif language == 'ja':
+                        ws.write(row_num, 1, expense['category_ja'])
+                    else:
+                        ws.write(row_num, 1, expense['category'])
                     ws.write(row_num, 2, expense['amount'])
                     ws.write(row_num, 3, expense['description'])
                     ws.write(row_num, 4, expense['date'])
@@ -383,6 +395,12 @@ def export_data(request, non_user_data = None):
                 
                 for expense in expenses:
                     totalAmount += float(expense['amount'])
+                    if language == 'es':
+                        expense['category'] = expense['category_es']
+                    elif language == 'ja':
+                        expense['category'] = expense['category_ja']
+                    else:
+                        expense['category'] = expense['category']
 
                 html_string = render_to_string('expenses/pdf-output.html', {'expenses': expenses, 'total': totalAmount})
                 html = HTML(string=html_string)

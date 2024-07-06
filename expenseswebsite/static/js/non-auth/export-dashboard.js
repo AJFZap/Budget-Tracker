@@ -5,11 +5,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const expenses = JSON.parse(localStorage.getItem('expenses')) || [];
     const incomes = JSON.parse(localStorage.getItem('incomes')) || [];
 
-    // Merge and normalize expenses and incomes
-    const allEntries = [
-        ...expenses.map(item => ({ ...item, db_type: 'Expense', source: item.category })),
-        ...incomes.map(item => ({ ...item, db_type: 'Income', source: item.source }))
-    ];
+    // Get Language.
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+    const prefLanguage = preferences.language;
+
+    // Merge and normalize expenses and incomes by language.
+    let allEntries = [];
+
+    if (prefLanguage == 'es'){
+        allEntries = [
+            ...expenses.map(item => ({ ...item, db_type: 'Gasto', source: item.category_es })),
+            ...incomes.map(item => ({ ...item, db_type: 'Ingreso', source: item.source_es }))
+        ];
+    }
+    else if (prefLanguage == 'ja'){
+        allEntries = [
+            ...expenses.map(item => ({ ...item, db_type: '経費', source: item.category_ja })),
+            ...incomes.map(item => ({ ...item, db_type: '収入', source: item.source_ja }))
+        ];
+    }
+    else {
+        allEntries = [
+            ...expenses.map(item => ({ ...item, db_type: 'Expense', source: item.category })),
+            ...incomes.map(item => ({ ...item, db_type: 'Income', source: item.source }))
+        ];
+    }
 
     // Sort by date (descending)
     allEntries.sort((a, b) => new Date(b.date) - new Date(a.date));

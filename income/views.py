@@ -322,6 +322,8 @@ def export_data(request):
         data = json.loads(request.body)
         incomes = data.get('incomes', [])
         fileType = data.get('format')
+        # Get Language.
+        language = translation.get_language()
 
         match fileType:
             case 'csv':
@@ -329,10 +331,15 @@ def export_data(request):
                 response['Content-Disposition'] = _('attachment; filename = Income-{}.csv').format(str(datetime.datetime.now().date()))
 
                 writer = csv.writer(response)
-                writer.writerow(['Name', 'Source', 'Amount', 'Description', 'Date'])
+                writer.writerow([_('Name'), _('Source'), _('Amount'), _('Description'), _('Date')])
 
                 for income in incomes:
-                    writer.writerow([income['name'], income['source'], income['amount'], income['description'], income['date']])
+                    if language == 'es':
+                        writer.writerow([income['name'], income['source_es'], income['amount'], income['description'], income['date']])
+                    elif language == 'ja':
+                        writer.writerow([income['name'], income['source_ja'], income['amount'], income['description'], income['date']])
+                    else:
+                        writer.writerow([income['name'], income['source'], income['amount'], income['description'], income['date']])
 
                 return response
             
@@ -348,7 +355,7 @@ def export_data(request):
                 font_style = xlwt.XFStyle()
                 font_style.font.bold = True
 
-                columns = ['Name', 'Source', 'Amount', 'Description', 'Date']
+                columns = [_('Name'), _('Source'), _('Amount'), _('Description'), _('Date')]
 
                 for col_num in range(len(columns)):
                     ws.write(row_num, col_num, columns[col_num], font_style)
@@ -359,7 +366,12 @@ def export_data(request):
                 for income in incomes:
                     row_num += 1
                     ws.write(row_num, 0, income['name'])
-                    ws.write(row_num, 1, income['source'])
+                    if language == 'es':
+                        ws.write(row_num, 1, income['source_es'])
+                    elif language == 'ja':
+                        ws.write(row_num, 1, income['source_ja'])
+                    else:
+                        ws.write(row_num, 1, income['source'])
                     ws.write(row_num, 2, income['amount'])
                     ws.write(row_num, 3, income['description'])
                     ws.write(row_num, 4, income['date'])
@@ -379,6 +391,12 @@ def export_data(request):
                 
                 for income in incomes:
                     totalAmount += float(income['amount'])
+                    if language == 'es':
+                        income['source'] = income['source_es']
+                    elif language == 'ja':
+                        income['source'] = income['source_ja']
+                    else:
+                        income['source'] = income['source']
 
                 html_string = render_to_string('income/pdf-output.html', {'incomes': incomes, 'total': totalAmount})
                 html = HTML(string=html_string)

@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Retrieve incomes from localStorage
     const incomes = JSON.parse(localStorage.getItem('incomes')) || [];
 
+    // Get Language.
+    const preferences = JSON.parse(localStorage.getItem('preferences'));
+    const prefLanguage = preferences.language;
+
     // Export Modal and Export implementation
     const checkboxes = document.querySelectorAll('input[name="filetype"]');
     const exportButton = document.getElementById('exportIncomeButton');
@@ -46,7 +50,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 let date = new Date().toISOString().split('T')[0]
                 a.style.display = 'none';
                 a.href = url;
-                a.download = `Income-${date}.${selectedFormat}`;
+                if (prefLanguage == 'es') {
+                    a.download = `Ingresos-${date}.${selectedFormat}`;
+                }
+                else if (prefLanguage == 'ja') {
+                    a.download = `収入-${date}.${selectedFormat}`;
+                }
+                else {
+                    a.download = `Income-${date}.${selectedFormat}`;
+                }
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
