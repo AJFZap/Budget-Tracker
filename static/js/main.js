@@ -10,4 +10,23 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('preferences', JSON.stringify(preferences));
         // console.log(preferences)
     }
+    else {
+        // Set the language of the page to the one the user has saved on localStorage.
+        const preferences = JSON.parse(localStorage.getItem('preferences'));
+        // Get Language.
+        const prefLanguage = preferences.language;
+        console.log(prefLanguage);
+
+        // Get currentUrl and check if it's the same language as the preferred one
+        const currentUrl = window.location.href;
+        console.log(currentUrl);
+        
+        const newUrl = currentUrl.replace('/en/' || '/es/' || '/ja/', '/' + prefLanguage + '/');
+        console.log(newUrl);
+
+        // If the language it's different to the saved one then we change the url.
+        if (currentUrl != newUrl) {
+            window.location.replace(newUrl);
+        }
+    }
 });
