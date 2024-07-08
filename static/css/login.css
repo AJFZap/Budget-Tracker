@@ -1,0 +1,19 @@
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label,
+.form-floating>.form-select~label {
+  opacity: 1;
+  transform: scale(.85) translateY(-2rem) translateX(.15rem);
+  background-color: transparent !important;
+}
+
+.form-floating .form-control:focus {
+  outline: 2px solid var(--bs-primary) !important;
+  box-shadow: 0 0 0 .25rem var(--bs-primary) !important;
+}
+
+.form-floating > label.form-label.text-success.bg-text-primary::after {
+  font-weight: bold;
+  background-color: var(--bs-primary);
+  padding-left: 0.25rem;
+}
+

@@ -408,3 +408,6 @@ def import_data(request):
                 return JsonResponse({'error': _('Error processing file: {}').format(e)}, status=400)
     else:
         form = UploadFileForm()
+
+def error_404_view(request, exception):
+    return render(request, '404.html')
