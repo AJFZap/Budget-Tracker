@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
+# postgresql://postgres:vqtdkFtphCgqBtdBfpUeSROuFrHAwcPR@viaduct.proxy.rlwy.net:29638/railway
 ALLOWED_HOSTS = ['127.0.0.1', '*']
 
 
@@ -109,6 +109,7 @@ DATABASES = {
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
