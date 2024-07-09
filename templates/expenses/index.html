@@ -172,6 +172,9 @@ data-edit-url-base="{% url 'edit-expenses' 0 %}">
                 <div class="modal-body text-muted">
                     {% trans "Select the file format that you prefer:" %}
                 </div>
+                {% if language == 'ja' %}
+                <p class="text-muted">ファイルの準備方法により、PDF エクスポートの読み込みに時間がかかる場合があります。しばらくお待ちください。</p>
+                {% endif %}
                 <form id="exportForm" method="post" action="{% url 'export_expenses' %}">
                     {% csrf_token %}
                     <div class="form-check form-check-inline">
