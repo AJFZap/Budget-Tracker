@@ -1,1 +1,1 @@
-web: gunicorn expenseswebsite.wsgi 
+web: gunicorn expenseswebsite.wsgi --host 0.0.0.0 --port $PORT
