@@ -136,12 +136,18 @@ class LoginView(View):
                 if user.is_active:
                     auth.login(request, user)
                     
-                    #Language change to the one the user prefers.
-                    language = UserPreferences.objects.get(user=request.user).language
+                    # Language change to the one the user prefers. If it's the user first log then we create the preferences.
+                    if UserPreferences.objects.filter(user=user).exists():
+                        pass
+                       
+                    else:
+                        UserPreferences.objects.create(user=user)
+
+                    language = UserPreferences.objects.get(user=user).language
                     request.session[settings.LANGUAGE_COOKIE_NAME] = language
                     translation.activate(language)
 
-                    messages.success(request, _('Welcome Back, {}!').format(request.user.username))
+                    messages.success(request, _('Welcome Back, {}!').format(user.username))
 
                     return redirect('dashboard')
                 elif not user.is_active:
