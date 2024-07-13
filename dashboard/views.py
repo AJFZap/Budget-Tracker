@@ -337,7 +337,7 @@ def import_data(request):
                     lang = 'en'
                 
                 elif df.columns[0] == 'Nombre':
-                    required_columns = ['Nombre', 'Fuente/Categoria', 'Fecha', 'Descripción', 'Tipo','Monto' ]
+                    required_columns = ['Nombre', 'Fuente/Categoria', 'Fecha', 'Descripción', 'Tipo','Monto']
                     lang = 'es'
                 
                 elif df.columns[0] == '名前':
@@ -408,6 +408,7 @@ def import_data(request):
                 return JsonResponse({'error': _('Error processing file: {}').format(e)}, status=400)
     else:
         form = UploadFileForm()
+        return render(request, 'upload_form.html', {'form': form})
 
 def error_404_view(request, exception):
     return render(request, '404.html')

@@ -74,7 +74,7 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{entry.name}}</td>
                 {% if entry.entry_type %}
-                    {% if entry.entry_type == 'Expense' or  entry.entry_type == 'Gasto' or entry.entry_type == '経費' %}<td>{{ entry.category }}</td>{% else %}<td>{{ entry.source }}</td>{% endif %}
+                    {% if entry.entry_type == 'Expense' or entry.entry_type == 'Gasto' or entry.entry_type == '経費' %}<td>{{ entry.category }}</td>{% else %}<td>{{ entry.source }}</td>{% endif %}
                 {% else %}
                     <td>{{ entry.source }}</td>
                 {% endif %}
