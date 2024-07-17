@@ -12,8 +12,10 @@ from .forms import UploadFileForm
 from itertools import chain
 from weasyprint import HTML
 from operator import attrgetter
-import datetime, json, os, csv, xlwt, tempfile
-import pandas as pd
+import datetime, json, os, csv, xlrd, tempfile
+from openpyxl import Workbook, load_workbook
+from openpyxl.styles import Font
+from io import BytesIO
 
 # Create your views here.
 
@@ -126,23 +128,18 @@ def export_data(request):
                 return response
             
             case 'xlsx':
-                response = HttpResponse(content_type='text/ms-excel')
-                response['Content-Disposition'] = f'attachment; filename = BudgetTracker-{str(datetime.datetime.now().date())}.xlsx'
+                response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                response['Content-Disposition'] = f'attachment; filename=BudgetTracker-{str(datetime.datetime.now().date())}.xlsx'
 
-                wb = xlwt.Workbook(encoding='utf-8')
-                ws = wb.add_sheet('BudgetTracker')
-
-                row_num = 0
-
-                font_style = xlwt.XFStyle()
-                font_style.font.bold = True
+                wb = Workbook()
+                ws = wb.active
+                ws.title = 'BudgetTracker'
 
                 columns = [_('Name'), _('Source/Category'), _('Date'), _('Description'), _('Type'), _('Amount')]
 
-                for col_num in range(len(columns)):
-                    ws.write(row_num, col_num, columns[col_num], font_style)
-
-                font_style = xlwt.XFStyle()
+                # Writing the header
+                for col_num, column_title in enumerate(columns, 1):
+                    ws.cell(row=1, column=col_num, value=column_title)
 
                 # Holds all the needed data entries for exportation.
                 data = []
@@ -153,13 +150,11 @@ def export_data(request):
                     else:
                         data.append([entry.name, entry.source, entry.date, entry.description, entry.entry_type, entry.amount])
                 
-                for row in data:
-                    row_num += 1
+                # Writing the data
+                for row_num, row_data in enumerate(data, 2):
+                    for col_num, cell_value in enumerate(row_data, 1):
+                        ws.cell(row=row_num, column=col_num, value=cell_value)
 
-                    for col_num in range(len(row)):
-                        # print(f'Row_num: {row_num}, Col_Num: {col_num}, Content: {row[col_num]}')
-                        ws.write(row_num, col_num, str(row[col_num]), font_style)
-                
                 wb.save(response)
 
                 return response
@@ -221,47 +216,46 @@ def export_data(request):
                 return response
             
             case 'xlsx':
-                response = HttpResponse(content_type='text/ms-excel')
-                response['Content-Disposition'] = f'attachment; filename = BudgetTracker-{str(datetime.datetime.now().date())}.xlsx'
+                response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+                response['Content-Disposition'] = f'attachment; filename=BudgetTracker-{str(datetime.datetime.now().date())}.xlsx'
 
-                wb = xlwt.Workbook(encoding='utf-8')
-                ws = wb.add_sheet('BudgetTracker')
+                wb = Workbook()
+                ws = wb.active
+                ws.title = 'BudgetTracker'
 
-                row_num = 0
-
-                font_style = xlwt.XFStyle()
-                font_style.font.bold = True
-
+                # Define the header
                 columns = [_('Name'), _('Source/Category'), _('Date'), _('Description'), _('Type'), _('Amount')]
 
-                for col_num in range(len(columns)):
-                    ws.write(row_num, col_num, columns[col_num], font_style)
-
-                font_style = xlwt.XFStyle()
+                # Apply the header
+                header_font = Font(bold=True)
+                for col_num, column_title in enumerate(columns, 1):
+                    cell = ws.cell(row=1, column=col_num, value=column_title)
+                    cell.font = header_font
 
                 # Write data rows
-                for entry in entries:
-                    row_num += 1
-                    ws.write(row_num, 0, entry['name'])
-                    if entry['db_type'] == 'Expense' or entry['db_type'] == 'Gasto' or entry['db_type'] == '経費':
+                for row_num, entry in enumerate(entries, 2):
+                    ws.cell(row=row_num, column=1, value=entry['name'])
+                    
+                    if entry['db_type'] in ['Expense', 'Gasto', '経費']:
                         if language == 'es':
-                            ws.write(row_num, 1, entry['category_es'])
+                            ws.cell(row=row_num, column=2, value=entry['category_es'])
                         elif language == 'ja':
-                            ws.write(row_num, 1, entry['category_ja'])
+                            ws.cell(row=row_num, column=2, value=entry['category_ja'])
                         else:
-                            ws.write(row_num, 1, entry['category_en'])
+                            ws.cell(row=row_num, column=2, value=entry['category_en'])
                     else:
                         if language == 'es':
-                            ws.write(row_num, 1, entry['source_es'])
+                            ws.cell(row=row_num, column=2, value=entry['source_es'])
                         elif language == 'ja':
-                            ws.write(row_num, 1, entry['source_ja'])
+                            ws.cell(row=row_num, column=2, value=entry['source_ja'])
                         else:
-                            ws.write(row_num, 1, entry['source_en'])
-                    ws.write(row_num, 2, entry['date'])
-                    ws.write(row_num, 3, entry['description'])
-                    ws.write(row_num, 4, entry['db_type'])
-                    ws.write(row_num, 5, entry['amount'])
-                
+                            ws.cell(row=row_num, column=2, value=entry['source_en'])
+                            
+                    ws.cell(row=row_num, column=3, value=entry['date'])
+                    ws.cell(row=row_num, column=4, value=entry['description'])
+                    ws.cell(row=row_num, column=5, value=entry['db_type'])
+                    ws.cell(row=row_num, column=6, value=entry['amount'])
+
                 wb.save(response)
                 return response
 
@@ -310,12 +304,10 @@ def export_data(request):
     return HttpResponse(_("Export format not supported"))
 
 def import_data(request):
-
     if request.method == 'POST':
         if request.user.is_authenticated:
             file = request.FILES.get('file')
             delete_previous = request.POST.get('delete_previous') == 'true'
-            # print(delete_previous)
 
             if not file:
                 return JsonResponse({'error': _('No file provided')}, status=400)
@@ -324,52 +316,64 @@ def import_data(request):
 
             try:
                 if file_type == 'csv':
-                    df = pd.read_csv(file)
-                elif file_type in ['xls', 'xlsx']:
-                    df = pd.read_excel(file)
+                    reader = csv.DictReader(file.read().decode('utf-8').splitlines())
+                    df = list(reader)
+                elif file_type == 'xls':
+                    file_content = file.read()
+                    book = xlrd.open_workbook(file_contents=file_content)
+                    sheet = book.sheet_by_index(0)
+                    headers = sheet.row_values(0)
+                    df = [
+                        {headers[i]: sheet.cell_value(row, i) for i in range(sheet.ncols)}
+                        for row in range(1, sheet.nrows)
+                    ]
+                elif file_type == 'xlsx':
+                    file_content = file.read()
+                    wb = load_workbook(BytesIO(file_content))
+                    ws = wb.active
+                    headers = [cell.value for cell in ws[1]]
+                    df = [
+                        {headers[i]: cell.value for i, cell in enumerate(row)}
+                        for row in ws.iter_rows(min_row=2, values_only=False)
+                    ]
                 else:
                     messages.error(request, _('Unsupported file format'))
                     return JsonResponse({'error': _('Unsupported file format')})
                 
+                print(df)
+
                 # Check that the file has all the needed columns. From each language.
-                if df.columns[0] == 'Name':
+                if df[0].get('Name') is not None:
                     required_columns = ['Name', 'Source/Category', 'Date', 'Description', 'Type', 'Amount']
                     lang = 'en'
-                
-                elif df.columns[0] == 'Nombre':
-                    required_columns = ['Nombre', 'Fuente/Categoria', 'Fecha', 'Descripción', 'Tipo','Monto']
+                elif df[0].get('Nombre') is not None:
+                    required_columns = ['Nombre', 'Fuente/Categoria', 'Fecha', 'Descripción', 'Tipo', 'Monto']
                     lang = 'es'
-                
-                elif df.columns[0] == '名前':
+                elif df[0].get('名前') is not None:
                     required_columns = ['名前', 'ソース/カテゴリ', '日付', '説明', 'タイプ', '金額']
                     lang = 'ja'
-                
                 else:
                     messages.error(request, _('Wrong amount of columns or names.'))
                     return JsonResponse({'error': _('Wrong amount of columns or names.')}, status=400)
 
-                if not all(column in df.columns for column in required_columns):
+                if not all(column in df[0] for column in required_columns):
                     messages.error(request, _('Wrong amount of columns or names.'))
                     return JsonResponse({'error': _('Wrong amount of columns or names.')}, status=400)
-                
+
                 # Clear existing records if the user requested it.
-                if delete_previous == True:
+                if delete_previous:
                     Expense.objects.filter(user=request.user).delete()
                     Income.objects.filter(user=request.user).delete()
-                
+
                 # We get the language of the page and change it temporarily to the one of the file if needed to be able to import the data.
                 currentLang = translation.get_language()
-                
                 if currentLang != lang:
                     translation.activate(lang)
 
-                # print(df)
-
-                for index, row in df.iterrows():
-                    # print(row)
+                for row in df:
                     if row[_('Type')] == _('Expense'):
                         ## GET ALL THE LANGUAGES FOR THE CATEGORY.
-                        categoryLang = Category.objects.get(name=row.iloc[1])
+                        categoryLang = Category.objects.get(name=row[required_columns[1]])
                         Expense.objects.create(
                             user=request.user,
                             name=row[_('Name')],
@@ -383,19 +387,19 @@ def import_data(request):
                         )
                     else:
                         ## GET ALL THE LANGUAGES FOR THE SOURCE.
-                        sourceLang = Source.objects.get(name=row.iloc[1])
+                        sourceLang = Source.objects.get(name=row[required_columns[1]])
                         Income.objects.create(
                             user=request.user,
                             name=row[_('Name')],
                             source=sourceLang.name_en,
-                            source_en =sourceLang.name_en,
-                            source_es =sourceLang.name_es,
-                            source_ja =sourceLang.name_ja,
+                            source_en=sourceLang.name_en,
+                            source_es=sourceLang.name_es,
+                            source_ja=sourceLang.name_ja,
                             amount=row[_('Amount')],
                             description=row[_('Description')],
                             date=row[_('Date')],
                         )
-                
+
                 # If the page language was changed we set it back to what it was.
                 if currentLang != lang:
                     translation.activate(currentLang)

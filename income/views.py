@@ -11,8 +11,10 @@ from preferences.models import UserPreferences
 from .models import Source, Income
 from .forms import UploadFileForm
 from weasyprint import HTML
-import datetime, json, os, csv, xlwt, tempfile
-import pandas as pd
+import datetime, json, os, csv, xlrd, tempfile
+from openpyxl import Workbook, load_workbook
+from openpyxl.styles import Font
+from io import BytesIO
 
 def income(request):
     if request.user.is_authenticated:
@@ -258,39 +260,34 @@ def export_data(request):
                 return response
             
             case 'xlsx':
-                response = HttpResponse(content_type='text/ms-excel')
+                response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
                 if language == 'ja':
                     response['Content-Disposition'] = f'attachment; filename = Income-{timeDate}.xlsx'
                 else:
                     response['Content-Disposition'] = _('attachment; filename = Income-{}.xlsx').format(timeDate)
 
-                wb = xlwt.Workbook(encoding='utf-8')
-                ws = wb.add_sheet('Income')
+                wb = Workbook()
+                ws = wb.active
+                ws.title = 'Income'
 
-                row_num = 0
-
-                font_style = xlwt.XFStyle()
-                font_style.font.bold = True
-
+                # Define the header
                 columns = [_('Name'), _('Source'), _('Amount'), _('Description'), _('Date')]
 
-                for col_num in range(len(columns)):
-                    ws.write(row_num, col_num, columns[col_num], font_style)
+                # Apply the header
+                header_font = Font(bold=True)
+                for col_num, column_title in enumerate(columns, 1):
+                    cell = ws.cell(row=1, column=col_num, value=column_title)
+                    cell.font = header_font
 
-                font_style = xlwt.XFStyle()
-
+                # Write data rows
                 rows = incomes.values_list('name', 'source', 'amount', 'description', 'date')
                 # print(rows)
 
-                for row in rows:
-                    row_num += 1
-
-                    for col_num in range(len(row)):
-                        # print(f'Row_num: {row_num}, Col_Num: {col_num}, Content: {row[col_num]}')
-                        ws.write(row_num, col_num, str(row[col_num]), font_style)
+                for row_num, row in enumerate(rows, 2):
+                    for col_num, cell_value in enumerate(row, 1):
+                        ws.cell(row=row_num, column=col_num, value=str(cell_value))
                 
                 wb.save(response)
-
                 return response
 
             
@@ -319,6 +316,7 @@ def export_data(request):
         return HttpResponse(_("Export format not supported"))
 
     else:
+        ## DO SOMETHING IF THE USER IS NOT AUTHENTICATED
         data = json.loads(request.body)
         incomes = data.get('incomes', [])
         fileType = data.get('format')
@@ -344,42 +342,38 @@ def export_data(request):
                 return response
             
             case 'xlsx':
-                response = HttpResponse(content_type='text/ms-excel')
+                response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
                 response['Content-Disposition'] = _('attachment; filename = Income-{}.xlsx').format(str(datetime.datetime.now().date()))
 
-                wb = xlwt.Workbook(encoding='utf-8')
-                ws = wb.add_sheet('Income')
+                wb = Workbook()
+                ws = wb.active
+                ws.title = 'Income'
 
-                row_num = 0
-
-                font_style = xlwt.XFStyle()
-                font_style.font.bold = True
-
+                # Define the header
                 columns = [_('Name'), _('Source'), _('Amount'), _('Description'), _('Date')]
 
-                for col_num in range(len(columns)):
-                    ws.write(row_num, col_num, columns[col_num], font_style)
-
-                font_style = xlwt.XFStyle()
+                # Apply the header
+                header_font = Font(bold=True)
+                for col_num, column_title in enumerate(columns, 1):
+                    cell = ws.cell(row=1, column=col_num, value=column_title)
+                    cell.font = header_font
 
                 # Write data rows
-                for income in incomes:
-                    row_num += 1
-                    ws.write(row_num, 0, income['name'])
+                for row_num, income in enumerate(incomes, 2):
+                    ws.cell(row=row_num, column=1, value=income['name'])
                     if language == 'es':
-                        ws.write(row_num, 1, income['source_es'])
+                        ws.cell(row=row_num, column=2, value=income['source_es'])
                     elif language == 'ja':
-                        ws.write(row_num, 1, income['source_ja'])
+                        ws.cell(row=row_num, column=2, value=income['source_ja'])
                     else:
-                        ws.write(row_num, 1, income['source'])
-                    ws.write(row_num, 2, income['amount'])
-                    ws.write(row_num, 3, income['description'])
-                    ws.write(row_num, 4, income['date'])
+                        ws.cell(row=row_num, column=2, value=income['source'])
+                    ws.cell(row=row_num, column=3, value=income['amount'])
+                    ws.cell(row=row_num, column=4, value=income['description'])
+                    ws.cell(row=row_num, column=5, value=income['date'])
                 
                 wb.save(response)
                 return response
-
-            
+ 
             case 'pdf':
                 response = HttpResponse(content_type='text/pdf')
                 response['Content-Disposition'] = _('attachment; filename = Income-{}.pdf').format(str(datetime.datetime.now().date()))
@@ -430,23 +424,40 @@ def import_data(request):
 
             try:
                 if file_type == 'csv':
-                    df = pd.read_csv(file)
-                elif file_type in ['xls', 'xlsx']:
-                    df = pd.read_excel(file)
+                    reader = csv.DictReader(file.read().decode('utf-8').splitlines())
+                    df = list(reader)
+                elif file_type == 'xls':
+                    file_content = file.read()
+                    book = xlrd.open_workbook(file_contents=file_content)
+                    sheet = book.sheet_by_index(0)
+                    headers = sheet.row_values(0)
+                    df = [
+                        {headers[i]: sheet.cell_value(row, i) for i in range(sheet.ncols)}
+                        for row in range(1, sheet.nrows)
+                    ]
+                elif file_type == 'xlsx':
+                    file_content = file.read()
+                    wb = load_workbook(BytesIO(file_content))
+                    ws = wb.active
+                    headers = [cell.value for cell in ws[1]]
+                    df = [
+                        {headers[i]: cell.value for i, cell in enumerate(row)}
+                        for row in ws.iter_rows(min_row=2, values_only=False)
+                    ]
                 else:
                     messages.error(request, _('Unsupported file format'))
                     return JsonResponse({'error': _('Unsupported file format')})
                 
                 # Check that the file has all the needed columns. From each language.
-                if df.columns[0] == 'Name':
+                if df[0].get('Name') is not None:
                     required_columns = ['Name', 'Source', 'Amount', 'Description', 'Date']
                     lang = 'en'
                 
-                elif df.columns[0] == 'Nombre':
+                elif df[0].get('Nombre') is not None:
                     required_columns = ['Nombre', 'Fuente', 'Monto', 'Descripción', 'Fecha']
                     lang = 'es'
                 
-                elif df.columns[0] == '名前':
+                elif df[0].get('名前') is not None:
                     required_columns = ['名前', 'ソース', '金額', '説明', '日付']
                     lang = 'ja'
                 
@@ -454,12 +465,12 @@ def import_data(request):
                     messages.error(request, _('Wrong amount of columns or names.'))
                     return JsonResponse({'error': _('Wrong amount of columns or names.')}, status=400)
 
-                if not all(column in df.columns for column in required_columns):
+                if not all(column in df[0] for column in required_columns):
                     messages.error(request, _('Wrong amount of columns or names.'))
                     return JsonResponse({'error': _('Wrong amount of columns or names.')}, status=400)
                 
                 # Clear existing records if the user requested it.
-                if delete_previous == True:
+                if delete_previous:
                     Income.objects.filter(user=request.user).delete()
                 
                 # We get the language of the page and change it temporarily to the one of the file if needed to be able to import the data.
@@ -470,21 +481,20 @@ def import_data(request):
 
                 # print(df)
 
-                for index, row in df.iterrows():
+                # Process each row in the dataframe.
+                for row in df:
                     ## GET ALL THE LANGUAGES FOR THE SOURCE.
-                    sourceLang = Source.objects.get(name=row.iloc[1])
-                    # print(f'name={row[0]}, source={row[1]}, source_en={sourceLang.name_en}, source_es={sourceLang.name_es}, source_ja={sourceLang.name_ja}, amount={row[2]}, description={row[3]}, date={row[4]}')
-                    # print(row)
+                    sourceLang = Source.objects.get(name=row[required_columns[1]])
                     Income.objects.create(
                         user=request.user,
-                        name=row[0],
+                        name=row[required_columns[0]],
                         source=sourceLang.name_en,
                         source_en =sourceLang.name_en,
                         source_es =sourceLang.name_es,
                         source_ja =sourceLang.name_ja,
-                        amount=row[2],
-                        description=row[3],
-                        date=row[4],
+                        amount=row[required_columns[2]],
+                        description=row[required_columns[3]],
+                        date=row[required_columns[4]],
                     )
                 
                 # If the page language was changed we set it back to what it was.
