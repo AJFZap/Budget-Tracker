@@ -32,7 +32,8 @@ def index(request):
 
         return render(request, 'expenses/index.html', {'page_obj': page_obj, 'preferences': preferences, 'language': language}) # Send the prefered currency from preferences also
 
-    return render(request, 'expenses/index.html')
+    language = translation.get_language()
+    return render(request, 'expenses/index.html', {'language': language})
 
 def add_expense(request):
     

@@ -30,7 +30,8 @@ def income(request):
 
         return render(request, 'income/index.html', {'page_obj': page_obj, 'preferences': preferences, 'language': language}) # Send the prefered currency from preferences also
 
-    return render(request, 'income/index.html')
+    language = translation.get_language()
+    return render(request, 'income/index.html', {'language': language})
 
 def add_income(request):
     

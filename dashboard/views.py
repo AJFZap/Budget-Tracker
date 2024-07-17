@@ -64,7 +64,8 @@ def index(request):
 
         return render(request, 'dashboard/dashboard.html', {'balances': context, 'preferences': preferences})
 
-    return render(request, 'dashboard/dashboard.html')
+    context = {'language': translation.get_language()}
+    return render(request, 'dashboard/dashboard.html', {'balances': context})
 
 def get_expenses_amount(expense):
     amount = 0
