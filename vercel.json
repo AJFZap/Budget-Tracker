@@ -2,12 +2,6 @@
     "builds": [{
         "src": "expenseswebsite/wsgi.py",
         "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.11", "buildCommand": "apt-get update && apt-get install -y libpq-dev && pip install -r requirements.txt" }
-    }],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "expenseswebsite/wsgi.py"
-        }
-    ]
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.11"}
+    }]
 }
