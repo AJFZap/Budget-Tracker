@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 # postgresql://postgres:vqtdkFtphCgqBtdBfpUeSROuFrHAwcPR@viaduct.proxy.rlwy.net:29638/railway
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '*']
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'railway.app']
 
 # Application definition
 
