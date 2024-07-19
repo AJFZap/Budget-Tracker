@@ -1,9 +1,11 @@
 {
-    "builds": [{
-        "src": "expenseswebsite/wsgi.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.11"}
-    }],
+    "version": 2,
+    "builds": [
+        {
+        "src": "Dockerfile",
+        "use": "@vercel/docker"
+        }
+    ],
     "routes": [
         {
             "src": "/(.*)",
