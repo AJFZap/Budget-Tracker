@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'bg-tracker.up.railway.app/', '*']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://bg-tracker.up.railway.app/',
+    'https://*.railway.app'
 ]
 
 CSRF_COOKIE_HTTPONLY = False
