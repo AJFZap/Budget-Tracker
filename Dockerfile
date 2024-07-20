@@ -21,7 +21,7 @@ COPY . /budgetapp
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python3  manage.py collectstatic --noinput
+RUN python3 manage.py collectstatic --noinput
 RUN python3 manage.py compilemessages
 
 # Make port 8000 available to the world outside this container
