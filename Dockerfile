@@ -4,7 +4,7 @@ FROM python:3.11-slim
 # Set the working directory in the container
 WORKDIR /budgetapp
 
-# Install system dependencies. These are needed for weasyprint in Vercel.
+# Install system dependencies. These are needed for weasyprint
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     build-essential \
@@ -21,8 +21,8 @@ COPY . /budgetapp
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python manage.py collectstatic --noinput
-RUN python manage.py compilemessages
+RUN python3  manage.py collectstatic --noinput
+RUN python3 manage.py compilemessages
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
