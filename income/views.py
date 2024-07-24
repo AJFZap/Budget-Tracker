@@ -17,6 +17,10 @@ from openpyxl.styles import Font
 from io import BytesIO
 
 def income(request):
+    """
+    Returns the income page with the needed data from the database and the preferences if the user is authenticated.
+    With a paginator.
+    """
     if request.user.is_authenticated:
         income = Income.objects.filter(user=request.user)
         paginator = Paginator(income, 5)
@@ -34,8 +38,16 @@ def income(request):
     return render(request, 'income/index.html', {'language': language})
 
 def add_income(request):
+    """
+    GET:
+    Returns an Add income html page with the sources from the database.
+
+    POST:
+    Adds the newly created income to the database and returns the user to the income index.
+    For Non-Authenticated users it just displays a message, but the saving is made locally with JS.
+    """
     
-    # Grabs each on of the categories in the Category model.
+    # Grabs each on of the sources in the Source model.
     sources = Source.objects.all()
 
     if request.method == 'GET':
@@ -91,6 +103,15 @@ def delete_income(request,pk):
     return JsonResponse({'success': False})
 
 def edit_income(request, pk):
+    """
+    GET:
+    Returns a page similar to the Add income but with the form filled we the data from that income id from the database if the user is the owner of that data.
+    For Non-Auths it's handled in JS with local data.
+
+    POST:
+    Saves the changes to the income item in the database and returns the Auth user to the income index.
+    For Non-Auths we just display a success message.
+    """
     # Grabs each on of the sources in the Source model.
     sources = Source.objects.all()
     
@@ -144,6 +165,11 @@ def edit_income(request, pk):
             return redirect('income')
     
 def search_income(request):
+    """
+    Searches on the database for the requested income.
+    With startswith for 'Amount' and 'Date' and with icontains for the 'Description', 'Name' and 'Sou rce'.
+    Then returns a JSON file with the matching data (If any) and the user currency preferences.
+    """
 
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -175,9 +201,15 @@ def search_income(request):
     return JsonResponse({'error': _('Invalid request method')}, status=400)
 
 def get_source(income):
+    """
+    Returns the source of a given income item.
+    """
     return income.source
 
 def get_source_amount(source, income):
+    """
+    Returns the total amount of incomes by source.
+    """
     amount = 0
     bySource = income.filter(source=source)
 
@@ -187,12 +219,18 @@ def get_source_amount(source, income):
     return amount
 
 def get_sources(request):
+    """
+    Returns a JSON with the languages for each source.
+    """
     if request.method == "GET":
         sources = Source.objects.all().values('id', 'name', 'name_en', 'name_es', 'name_ja')
         sources_list = list(sources)  # Convert queryset to list
         return JsonResponse(sources_list, safe=False)
 
 def income_data(request):
+    """
+    Returns a JSON file with the data needed to plot graphs for the Income Summary by Source.
+    """
     
     if request.method == 'GET':
         # today = datetime.date.today()
@@ -222,6 +260,10 @@ def income_data(request):
         return JsonResponse({'error': _('No income to show.')}, status=404)
 
 def income_summary(request):
+    """
+    Returns the incomes summary page with a context of 'income': True. If the user is authenticated and has created incomes.
+    Otherwise it just returns the page.
+    """
     if request.method == 'GET':
         if request.user.is_authenticated:
             income = Income.objects.filter(user=request.user)
@@ -238,6 +280,10 @@ def income_summary(request):
     return render(request, 'income/income_summary.html')
 
 def export_data(request):
+    """
+    Export the data from the income database in a csv, excel or pdf file.
+    For both Authenticated and Non-Authenticated users.
+    """
     if request.user.is_authenticated:
         incomes = Income.objects.filter(user=request.user)
         fileType = request.POST.get('filetype')
@@ -412,6 +458,10 @@ def export_data(request):
     return HttpResponse(_("Export format not supported"))
 
 def import_data(request):
+    """
+    Imports the data from csv and excel files into the income database.
+    Only for Authenticated users.
+    """
     if request.method == 'POST':
         if request.user.is_authenticated:
             file = request.FILES.get('file')

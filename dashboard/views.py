@@ -20,6 +20,9 @@ from io import BytesIO
 # Create your views here.
 
 def index(request):
+    """
+    Returns the dashboard page with the needed data from the database and the preferences if the user is authenticated.
+    """
     if request.user.is_authenticated:
         # Get the prefered currency from the user and if it's new and doesn't have any we create the database with the defaults.
         if UserPreferences.objects.filter(user=request.user).exists():
@@ -68,6 +71,9 @@ def index(request):
     return render(request, 'dashboard/dashboard.html', {'balances': context})
 
 def get_expenses_amount(expense):
+    """
+    Returns the total amount of the expenses
+    """
     amount = 0
     
     for item in expense:
@@ -76,6 +82,9 @@ def get_expenses_amount(expense):
     return amount
 
 def get_income_amount(income):
+    """
+    Returns the total amount of the income.
+    """
     amount = 0
     
     for item in income:
@@ -84,6 +93,10 @@ def get_income_amount(income):
     return amount
 
 def export_data(request):
+    """
+    Export the data from both databases together in a csv, excel or pdf file.
+    For both Authenticated and Non-Authenticated users.
+    """
     if request.user.is_authenticated:
         expenses = Expense.objects.filter(user=request.user).exists()
         income = Income.objects.filter(user=request.user).exists()
@@ -305,6 +318,10 @@ def export_data(request):
     return HttpResponse(_("Export format not supported"))
 
 def import_data(request):
+    """
+    Imports the data from csv and excel files into both databases.
+    Only for Authenticated users.
+    """
     if request.method == 'POST':
         if request.user.is_authenticated:
             file = request.FILES.get('file')
@@ -416,4 +433,7 @@ def import_data(request):
         return render(request, 'upload_form.html', {'form': form})
 
 def error_404_view(request, exception):
+    """
+    Returns our custom 404 page.
+    """
     return render(request, '404.html')

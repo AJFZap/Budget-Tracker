@@ -14,8 +14,15 @@ import os, json
 
 def Preferences(request):
     """
+    GET:
     Returns the preferences/index with a dictionary called currencies that holds
     a good amount of currencies from all over the world.
+
+    POST:
+        -Auth:
+            We save the preferences data on teh database UserPreferences and change the currency and language if requested.
+        -Non-Auth:
+            We change the language if requested, and then render the preferences page with a message.
     """ 
     currencies = []
     file_path = os.path.join(settings.BASE_DIR, 'currencies.json') # Get the Json file with all the currencies.

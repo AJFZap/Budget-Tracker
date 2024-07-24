@@ -2,6 +2,10 @@ from django.utils import translation
 from preferences.models import UserPreferences
 from django.shortcuts import redirect
 
+"""
+Ensures the language of the page changes to the one the user prefers.
+"""
+
 class SetUserLanguageMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response

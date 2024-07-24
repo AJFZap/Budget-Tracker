@@ -21,6 +21,9 @@ from django.contrib.sites.shortcuts import get_current_site
 # Create your views here.
 
 class RegistrationView(View):
+    """
+    Deal with user registration.
+    """
     def get(self, request):
         # If the user is authenticated we send him to the home page.
         if request.user.is_authenticated:
@@ -90,6 +93,9 @@ class RegistrationView(View):
         )
 
 class VerificationView(View):
+    """
+    When the user clicks on the verification link we sended them via email we activate the account.
+    """
     def get(self, request, uid64, token):
 
         # IMAGINE NOT CHECKING IF THE TOKEN IS THE SAME LOL.
@@ -113,6 +119,9 @@ class VerificationView(View):
         return redirect('login')
 
 class LoginView(View):
+    """
+    Logs the user if it exists and set the language to his/her preferences.
+    """
     def get(self, request):
         # If the user is authenticated we send him to the home page.
         if request.user.is_authenticated:

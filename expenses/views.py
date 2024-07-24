@@ -19,6 +19,10 @@ from io import BytesIO
 # Create your views here.
 
 def index(request):
+    """
+    Returns the expenses page with the needed data from the database and the preferences if the user is authenticated.
+    With a paginator.
+    """
     if request.user.is_authenticated:
         expenses = Expense.objects.filter(user=request.user)
         paginator = Paginator(expenses, 5)
@@ -36,6 +40,14 @@ def index(request):
     return render(request, 'expenses/index.html', {'language': language})
 
 def add_expense(request):
+    """
+    GET:
+    Returns an Add expense html page with the categories from the database.
+
+    POST:
+    Adds the newly created expense to the database and returns the user to the expenses index.
+    For Non-Authenticated users it just displays a message, but the saving is made locally with JS.
+    """
     
     # Grabs each on of the categories in the Category model.
     categories = Category.objects.all()
@@ -92,6 +104,15 @@ def delete_expense(request,pk):
     return JsonResponse({'success': False})
 
 def edit_expense(request, pk):
+    """
+    GET:
+    Returns a page similar to the Add expense but with the form filled we the data from that expense id from the database if the user is the owner of that data.
+    For Non-Auths it's handled in JS with local data.
+
+    POST:
+    Saves the changes to the expense item in the database and returns the Auth user to the expenses index.
+    For Non-Auths we just display a success message.
+    """
     # Grabs each on of the categories in the Category model.
     categories = Category.objects.all()
     
@@ -146,6 +167,11 @@ def edit_expense(request, pk):
             return redirect('expenses')
  
 def search_expense(request):
+    """
+    Searches on the database for the requested expense.
+    With startswith for 'Amount' and 'Date' and with icontains for the 'Description', 'Name' and 'Category'.
+    Then returns a JSON file with the matching data (If any) and the user currency preferences.
+    """
 
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -177,9 +203,15 @@ def search_expense(request):
     return JsonResponse({'error': _('Invalid request method')}, status=400)
 
 def get_category(expense):
+    """
+    Returns the category of a given expense item.
+    """
     return expense.category
 
 def get_category_amount(category, expenses):
+    """
+    Returns the total amount of expenses by category.
+    """
     amount = 0
     byCategory = expenses.filter(category=category)
 
@@ -189,13 +221,18 @@ def get_category_amount(category, expenses):
     return amount
 
 def get_categories(request):
+    """
+    Returns a JSON with the languages for each category.
+    """
     if request.method == "GET":
         categories = Category.objects.all().values('id', 'name', 'name_en', 'name_es', 'name_ja')
         categories_list = list(categories)  # Convert queryset to list
         return JsonResponse(categories_list, safe=False)
 
 def expenses_data(request):
-    
+    """
+    Returns a JSON file with the data needed to plot graphs for the Expenses Summary by category.
+    """
     if request.method == 'GET':
         today = datetime.date.today()
         # lastMonth = today.datetime.timedelta(days = 30)
@@ -225,6 +262,10 @@ def expenses_data(request):
         return JsonResponse({'error': _('No expenses to show.')}, status=404)
 
 def expenses_summary(request):
+    """
+    Returns the expenses summary page with a context of 'expenses': True. If the user is authenticated and has created expenses
+    Otherwise it just returns the page.
+    """
     if request.method == 'GET':
         if request.user.is_authenticated:
             expenses = Expense.objects.filter(user=request.user)
@@ -242,6 +283,10 @@ def expenses_summary(request):
     return render(request, 'expenses/expenses_summary.html')
 
 def export_data(request, non_user_data = None):
+    """
+    Export the data from the expenses database in a csv, excel or pdf file.
+    For both Authenticated and Non-Authenticated users.
+    """
     if request.user.is_authenticated:
         expenses = Expense.objects.filter(user=request.user)
         fileType = request.POST.get('filetype')
@@ -415,6 +460,10 @@ def export_data(request, non_user_data = None):
     return HttpResponse("Export format not supported")
 
 def import_data(request):
+    """
+    Imports the data from csv and excel files into the expenses database.
+    Only for Authenticated users.
+    """
     if request.method == 'POST':
         if request.user.is_authenticated:
             file = request.FILES.get('file')
