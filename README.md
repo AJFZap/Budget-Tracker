@@ -30,7 +30,7 @@ In 3 languages (English, Spanish and Japanese) with 170 currencies!
 * **Database:** Postgresql
 * **Backend:** Django
 * **Frontend:** Bootsrap5, HTML, CSS, JQuery, JS
-* **Deployment:** Railway
+* **Deployment:** Railway (Also possible to deploy on Vercel)
 
 ## Webpage to check it out!
 [BG-Tracker](https://bg-tracker.up.railway.app/)
