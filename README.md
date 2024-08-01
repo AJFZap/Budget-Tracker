@@ -26,6 +26,7 @@ In 3 languages (English, Spanish and Japanese) with 170 currencies!
 
 ## Technologies Used
 
+* **Containerization:** Docker
 * **Database:** Postgresql
 * **Backend:** Django
 * **Frontend:** Bootsrap5, HTML, CSS, JQuery, JS
